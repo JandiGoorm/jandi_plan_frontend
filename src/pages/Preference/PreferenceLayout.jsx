@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import styles from "./PreferenceLayout.module.css";
 import Continent from "./Continent/Continent";
-import Destination from "./Destination/Destination";
+import PrefDestination from "./Destination/PrefDestination";
 
 const PreferenceLayout = () => {
     const location = useLocation();
@@ -20,7 +20,7 @@ const PreferenceLayout = () => {
                 >
                         <Routes location={location}>
                             <Route path="continent"  element={<Continent />} />
-                            <Route path="destination"  element={<Destination />} />
+                            <Route path="destination"  element={<PrefDestination />} />
                         </Routes>
                 </motion.div>
             </AnimatePresence>

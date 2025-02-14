@@ -22,7 +22,7 @@ const Continent = () => {
 
     const handleNextClick = ()=>{
         console.log(selectedContinents);
-        {selectedContinents.length === 0 ? null:navigate(PageEndPoints.DESTINATION, {state:{selectedContinents}})}
+        {selectedContinents.length === 0 ? null:navigate(PageEndPoints.PREF_DEST, {state:{selectedContinents}})}
         
     }
 

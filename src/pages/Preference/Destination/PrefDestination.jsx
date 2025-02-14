@@ -1,4 +1,4 @@
-import styles from "./Destination.module.css";
+import styles from "./PrefDestination.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components";
@@ -7,7 +7,7 @@ import { PageEndPoints } from "@/constants";
 import { FaCheck } from "react-icons/fa";
 import { BiSolidPlaneAlt } from "react-icons/bi";
 
-const Destination = () => {
+const PrefDestination = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
@@ -112,4 +112,4 @@ const Destination = () => {
     );
 };
 
-export default Destination;
+export default PrefDestination;

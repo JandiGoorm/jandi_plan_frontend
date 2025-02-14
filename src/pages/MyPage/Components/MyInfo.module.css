@@ -1,0 +1,88 @@
+.container{
+    width: 100%;
+}
+
+
+.basic_info_container{
+    border-bottom: 1px solid var(--color-text-dynamic);
+    padding-bottom: 1rem;
+}
+
+.title_box{
+    margin: 1rem 0;
+}
+
+.title{
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+
+.info_box{
+    display: flex;
+}
+
+.user_photo_box{
+    width:30%;
+    box-sizing: border-box;
+    justify-content: right;
+    padding: 0 1rem;
+}
+
+.basic_info{
+    padding-left: 2rem;
+}
+
+.user_photo{
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-full);
+}
+
+
+.basic_info_box{
+    display: flex;
+    flex: 1;
+    flex-direction: column; /* 세로 정렬 */
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.basic_info{
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.info_name{
+    width: 40%;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-right: 2rem;
+    text-align: right;
+}
+.info_value{
+    width: 60%;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.plan_columns{
+    display: flex;
+    align-items: center; 
+    margin: 2rem 0;
+}
+
+.input_name{
+width: 20%;
+text-align: right;
+padding: 0 1rem;
+font-size: var( --text-xl);
+font-weight: var(--font-weight-semibold);
+}
+
+.button_container{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+  }

@@ -1,0 +1,151 @@
+.container {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  box-shadow: var(--shadow-md);
+  min-height: 20rem;
+}
+
+.img_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.img_container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.7) 30%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.plan_img {
+  height: 300px;
+  aspect-ratio: 1/1;
+}
+
+.content_container {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-white);
+}
+
+.header_title {
+  display: flex;
+  gap: 1rem;
+
+  align-items: center;
+}
+
+.user_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.user_img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+}
+
+.user_name {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.create_at {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.header_stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.header_like {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.header_comment {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.plan_container {
+  flex: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plan_title {
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  width: 10rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.destination {
+  font-weight: var(--font-weight-extrabold);
+  font-size: var(--text-2xl);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -22,7 +22,7 @@ const Header = () => {
   const tooltips = [
     {
       text: "마이페이지",
-      icon: <LuUserRound size={20} />,
+      icon: <LuUserRound size={20} onClick={() => navigate(PageEndPoints.MYPAGE)}/>,
     },
     {
       text: "로그인",
@@ -46,6 +46,7 @@ const Header = () => {
   const menus = [
     {
       text: "여행 계획",
+      onClick: () => navigate(PageEndPoints.PLAN_LIST),
     },
     {
       text: "게시판",
