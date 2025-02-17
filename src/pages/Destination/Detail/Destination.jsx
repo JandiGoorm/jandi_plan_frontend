@@ -1,11 +1,11 @@
 import { BaseLayout } from "@/layouts";
 import styles from "./Destination.module.css";
-import { destinationItems,dummy } from "./constants";
+import { planItems,dummy } from "./constants";
 import Weather from "./components/Weather";
 import { useState } from "react";
-import DetailItem from "./components/DetailItem";
-import { Map, AdvancedMarker, } from "@vis.gl/react-google-maps";
 import DestinationMap from "./components/DestinationMap";
+import {Slider} from "@/components";
+import { IoIosStar } from "react-icons/io";
 
 const Destination = () => {
     const [selectedPlace, setSelectedPlace] = useState("Osaka");
@@ -36,28 +36,47 @@ const Destination = () => {
                     <div className={styles.title_box}>
                             <p className={styles.title}>Famous Restraunt</p>
                     </div>
-                    <div className={styles.restraunt_box}>
-                        {dummy.map((item) => (
-                        <DetailItem key={item.id} item={item} />
-                        ))}
-                    </div>
+                    <Slider items={dummy} size="sm">
+                        {(item) => (
+                            <>
+                                <div
+                                className={styles.img_container}
+                                style={{
+                                    backgroundImage: `url(${item.profile_url})`,
+                                }}
+                                />
+                                <div className={styles.plan_box}>
+                                <div className={styles.plan_title}>
+                                    <p className={styles.plan_name}>{item.title}</p>
+                                    <p className={styles.plan_destination}><IoIosStar size={16} color={"yellow"}/>{item.rate} ({item.likeCount})</p>
+                                </div>
+                                </div>
+                            </>
+                        )}
+                    </Slider>
                 </div>
                 <div className={styles.plan_container}>
                     <div className={styles.title_box}>
                             <p className={styles.title}>Like / Favorite Trip</p>
                     </div>
-                    <div className={styles.plan_box}>
-                        {destinationItems.map((item) => (
-                            <div className={styles.place_box} key={item.name}>
-                                <img
-                                    src={item.imgSrc}
-                                    alt="destination"
-                                    className={styles.des_img}
-                                />
-                                <p className={styles.des_img_title}>{item.name}</p>
+                    <Slider items={planItems} size="sm">
+                        {(item) => (
+                        <>
+                            <div
+                            className={styles.img_container}
+                            style={{
+                                backgroundImage: `url(${item.plan.profile_url})`,
+                            }}
+                            />
+                            <div className={styles.plan_box}>
+                            <div className={styles.plan_title}>
+                                <p className={styles.plan_name}>{item.plan.title}</p>
+                                <p className={styles.plan_destination}>{item.plan.destination}</p>
                             </div>
-                        ))}
-                    </div>
+                            </div>
+                        </>
+                        )}
+                    </Slider>
                 </div>
             </div>
         </BaseLayout>

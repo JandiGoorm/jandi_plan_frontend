@@ -4,7 +4,7 @@ import styles from "./DestinationMap.module.css";
 
 const DestinationMap = () => {
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const position = { lat: 37.5665, lng: 126.9780 };
+    const position = { lat: 34.665, lng: 135.495 };
 
     return (
     <div className={styles.map_container}>

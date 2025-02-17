@@ -11,6 +11,11 @@ export const destinationItems = [
           name: "후쿠오카",
           imgSrc: "/fukuoka.jpg",
         },
+        {
+          name: "후쿠오카",
+          imgSrc: "/fukuoka.jpg",
+        },
+        
   ];
   
   export const dummy = [

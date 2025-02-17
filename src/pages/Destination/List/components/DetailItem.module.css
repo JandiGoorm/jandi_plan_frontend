@@ -6,7 +6,7 @@
   overflow: hidden;
 
   box-shadow: var(--shadow-md);
-  min-height: 10rem;
+  aspect-ratio: 1;
 }
 
 .img_container {
@@ -39,7 +39,7 @@
 
 .plan_img {
   height: 300px;
-  aspect-ratio: 1;
+  aspect-ratio: 1/1;
 }
 
 .content_container {
@@ -50,63 +50,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.content_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--color-black);
-  font-weight: var(--font-weight-bold);
-}
-
-.header_title {
-  display: flex;
-  gap: 1rem;
-
-  align-items: center;
-}
-
-.user_info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.user_img {
-  width: 4rem;
-  height: 4rem;
-  border-radius: var(--radius-full);
-}
-
-.user_name {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.create_at {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.header_stats {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.header_like {
-  display: flex;
-  gap: 0.3rem;
-  align-items: center;
-}
-
-.header_comment {
-  display: flex;
-  gap: 0.3rem;
-  align-items: center;
 }
 
 .plan_container {
