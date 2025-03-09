@@ -1,5 +1,5 @@
 import { sidebarMenu } from "./constants";
-import styles from "./sidebar.module.css";
+import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
   return (
