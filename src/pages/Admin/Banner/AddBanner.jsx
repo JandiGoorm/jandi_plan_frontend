@@ -1,48 +1,43 @@
-import { Button, Field, Input } from "@/components";
-import styles from "./ModifyBanner.module.css";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { bannerModifyScheme } from "./constants";
+import { useForm } from "react-hook-form";
+import { bannerWriteScheme } from "./constants";
+import styles from "./AddBanner.module.css";
+import { Button, Field, Input } from "@/components";
 import { useCallback, useState } from "react";
-import { useModal } from "@/components/Modal/ModalContext";
 
-const ModifyBanner = ({ item, callback }) => {
-  const [bannerImg, setBannerImg] = useState(item.imageUrl);
-  const { closeModal } = useModal();
-
+const AddBanner = ({ callback }) => {
+  const [bannerImg, setBannerImg] = useState(null);
   const {
     register,
+    formState: { errors },
     handleSubmit,
     setValue,
-    formState: { errors },
   } = useForm({
-    resolver: zodResolver(bannerModifyScheme),
-    defaultValues: item,
+    resolver: zodResolver(bannerWriteScheme),
   });
 
   const onSubmit = useCallback(
-    async (data) => {
+    (data) => {
       const formData = new FormData();
-      formData.append(
-        "file",
-        data.file ?? new File([""], "empty.txt", { type: "text/plain" })
-      );
+      formData.append("file", data.file);
       formData.append("title", data.title);
       formData.append("linkUrl", data.linkUrl);
 
-      await callback(item.bannerId, formData).then(() => closeModal());
+      callback(formData);
     },
-    [callback, closeModal, item.bannerId]
+    [callback]
   );
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>배너 수정</p>
+      <p className={styles.title}>배너 추가</p>
 
-      <img src={bannerImg} alt="banner" className={styles.banner_img} />
+      {bannerImg && (
+        <img src={bannerImg} alt="banner" className={styles.banner_img} />
+      )}
 
       <form className={styles.form_container} onSubmit={handleSubmit(onSubmit)}>
-        <Field label="배너 이미지">
+        <Field label="배너 이미지" isRequire error={errors.file}>
           <Input
             type="file"
             style={{ width: "100%" }}
@@ -54,20 +49,20 @@ const ModifyBanner = ({ item, callback }) => {
           />
         </Field>
 
-        <Field label="제목" isRequire error={errors.title}>
+        <Field label="제목" error={errors.title} isRequire>
           <Input
-            placeholder="제목을 입력해주세요"
             register={register}
             name="title"
+            placeholder={"제목을 입력하세요"}
             style={{ width: "100%" }}
           />
         </Field>
 
-        <Field label="링크" isRequire error={errors.linkUrl}>
+        <Field label="링크" error={errors.linkUrl} isRequire>
           <Input
-            placeholder="링크를 입력해주세요"
             register={register}
             name="linkUrl"
+            placeholder={"링크를 입력하세요"}
             style={{ width: "100%" }}
           />
         </Field>
@@ -79,11 +74,11 @@ const ModifyBanner = ({ item, callback }) => {
           }}
           type="submit"
         >
-          수정완료
+          작성완료
         </Button>
       </form>
     </div>
   );
 };
 
-export default ModifyBanner;
+export default AddBanner;

@@ -16,7 +16,7 @@ const protectedEndpoints = new Set([
   `GET:${APIEndPoints.USER_ALL}`,
   `POST:${APIEndPoints.PROFILE_UPLOAD}`,
   `GET:${APIEndPoints.MANAGE_UTIL}`,
-  
+
   `POST:${APIEndPoints.COUNTRY_ADD}`,
   `POST:${APIEndPoints.CITY_ADD}`,
   `DELETE:${APIEndPoints.CITY_MANAGE}`,
@@ -87,6 +87,7 @@ const protectedEndpoints = new Set([
 
   `PATCH:${APIEndPoints.BANNER_DETAIL}`,
   `DELETE:${APIEndPoints.BANNER_DETAIL}`,
+  `POST:${APIEndPoints.BANNER}`,
 ]);
 
 axiosInstance.interceptors.request.use((config) => {

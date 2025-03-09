@@ -3,6 +3,8 @@ import { useBanner } from "@/hooks";
 import { formatDate } from "date-fns";
 import styles from "./BannerManagement.module.css";
 import ModifyBanner from "./ModifyBanner";
+import AddBanner from "./AddBanner";
+import DeleteModal from "@/components/Modal/ModalContents/DeleteModal";
 
 const BannerManagement = () => {
   const { allBanner, addBanner, updateBanner, deleteBanner } = useBanner();
@@ -10,7 +12,19 @@ const BannerManagement = () => {
   if (!allBanner) return null;
   return (
     <div className={styles.container} id="banner">
-      <p className={styles.title}>배너 관리</p>
+      <div className={styles.header}>
+        <p className={styles.title}>배너 관리</p>
+        <Modal>
+          <ModalTrigger>
+            <Button size="sm" variant="ghost">
+              배너 추가
+            </Button>
+          </ModalTrigger>
+          <ModalContent>
+            <AddBanner callback={addBanner} />
+          </ModalContent>
+        </Modal>
+      </div>
 
       <table className={styles.table}>
         <thead>
@@ -49,9 +63,18 @@ const BannerManagement = () => {
                     </ModalContent>
                   </Modal>
 
-                  <Button size="sm" variant="ghost">
-                    Delete
-                  </Button>
+                  <Modal>
+                    <ModalTrigger>
+                      <Button size="sm" variant="ghost">
+                        Delete
+                      </Button>
+                    </ModalTrigger>
+                    <ModalContent>
+                      <DeleteModal
+                        callback={() => deleteBanner(banner.bannerId)}
+                      />
+                    </ModalContent>
+                  </Modal>
                 </td>
               </tr>
             );
