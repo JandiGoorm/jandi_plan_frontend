@@ -83,13 +83,17 @@ export const APIEndPoints = {
 
   IMAGE_UPLOAD_COMMUNITY: "/images/upload/community",
   IMAGE_UPLOAD_NOTICE: "/images/upload/notice",
-  IMAGE_UPLOAD: "/images/profiles/upload",
+  IMAGE_UPLOAD: "/images/upload",
 
   TEMP: "/temp",
 
+  MANAGE: "/manage",
   USER_ALL: "/manage/user/all",
+  REPORTED_USER: "/manage/user/reported",
+  PERMIT_USER: "/manage/user/permit/:id",
   MANAGE_UTIL: "/manage/util/all",
-  
+  DELETE_USER: "/manage/user/delete/:id",
+  REPORTED_BOARD: "/manage/community/reported/posts",
   COUNTRY_ADD: "/manage/trip/countries",
   COUNTRY_MANAGE: "/manage/trip/countries/:id",
   CITY_ADD: "/manage/trip/cities",
