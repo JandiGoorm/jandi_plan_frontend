@@ -58,3 +58,10 @@ export const modifyPlanScheme = z.object({
   title: z.string().nonempty("플랜 제목을 입력해주세요"),
   privatePlan: z.string().nonempty("공개 여부를 선택해주세요"),
 });
+
+export const searchPlansScheme = z.object({
+  keyword: z
+    .string()
+    .min(2, { message: "검색어는 2글자 이상이어야 합니다." })
+    .nonempty({ message: "검색어를 입력하세요." }),
+});

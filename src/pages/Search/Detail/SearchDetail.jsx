@@ -1,38 +1,53 @@
-import { Button, PlanCard } from "@/components";
+import { Button, PlanCard, Loading } from "@/components";
 import styles from "./SearhDetail.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { usePlans, usePagination } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { APIEndPoints, PageEndPoints } from "@/constants";
+
 
 const SearchDetail = ({ keyword }) => {
+  const {plans, fetchPlans, getLoading} = usePlans();
+  const [count, setCount] = useState();
+  const navigate = useNavigate();
+
+  const { setTotalPage } = usePagination();
+
   useEffect(() => {
-    //keyword가 변경될 때마다 데이터페칭 로직
-    //페이지네이션이라면 페이지가 변경될때 데이터페칭 로직
+    fetchPlans(
+      { page: 0, keyword, category: "BOTH"},
+      setCount,
+      setTotalPage
+    ),
+
     console.log("검색어", keyword);
   }, [keyword]);
 
+  if(getLoading) {return <Loading />}
   return (
     <div className={styles.container}>
-      <div className={styles.sort_btns}>
-        <Button size="sm" variant="ghost">
-          인기순
-        </Button>
-        <Button size="sm" variant="ghost">
-          최신순
-        </Button>
-      </div>
-
-      {/* <div className={styles.data_container}>
-        {dummy.map((item) => (
-          <PlanCard key={item.plan.id} item={item} />
-        ))}
-      </div> */}
-
-      {/** UI확인 용 임시 페이지네이션 */}
-      <div className={styles.footer}>
-        <Button variant="ghost">이전</Button>
-        <Button variant="ghost">1</Button>
-        <Button variant="ghost">2</Button>
-        <Button variant="ghost">3</Button>
-        <Button variant="ghost">다음</Button>
+      <div>
+        <div className={styles.header_title}>
+          <p className={styles.title}>여행 플랜 검색 결과 {count}건</p>
+        </div>
+        {plans ? (
+          <div className={styles.plan_container}>
+            {plans.items.map((item) => (
+              <PlanCard key={item.tripId} item={item} />
+            ))}
+          </div>
+        ):(
+          <p>검색 결과가 없습니다</p>
+        )}
+          <div className={styles.botton_box}>
+            <Button
+              variant={"ghost"}
+              size = "lg"
+              onClick={() => navigate(`${PageEndPoints.PLAN_LIST}?page=1&keyword=${encodeURIComponent(keyword)}`)}
+            >
+              더보기
+            </Button>
+          </div>
       </div>
     </div>
   );

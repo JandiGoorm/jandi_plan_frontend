@@ -2,7 +2,7 @@ import styles from "./SearchTooltip.module.css";
 
 const SearchTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
-    const { pc, sc } = payload[0].payload;
+    const { searchCount, likeCount } = payload[0].payload;
 
     return (
       <div
@@ -18,12 +18,12 @@ const SearchTooltip = ({ active, payload, label }) => {
       >
         <p className={styles.tooltip_title}>{label}</p>
         <div className={styles.label_box}>
-          <p className={styles.label_title}>포스팅</p>
-          <p className={styles.label_value}>{pc}회</p>
+          <p className={styles.label_title}>검색수</p>
+          <p className={styles.label_value}>{searchCount}회</p>
         </div>
         <div className={styles.label_box}>
-          <p className={styles.label_title}>검색</p>
-          <p className={styles.label_value}>{sc}회</p>
+          <p className={styles.label_title}>좋아요</p>
+          <p className={styles.label_value}>{likeCount}회</p>
         </div>
       </div>
     );

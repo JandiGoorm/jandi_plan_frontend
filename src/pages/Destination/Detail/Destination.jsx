@@ -2,9 +2,9 @@ import { BaseLayout } from "@/layouts";
 import styles from "./Destination.module.css";
 import { planItems,dummy } from "./constants";
 import Weather from "./components/Weather";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import DestinationMap from "./components/DestinationMap";
-import {Slider, Loading} from "@/components";
+import {Slider, Loading, PlanCard} from "@/components";
 import { IoIosStar } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 import { useAxios } from "@/hooks";
@@ -14,11 +14,13 @@ const Destination = () => {
     const location = useLocation();
     const cityName = location.state?.cityName;
     const { loading, fetchData, response } = useAxios();
+    const { fetchData: fetchApi } = useAxios();
     const [item,setItem]= useState();
+    const [plans, setPlans] = useState();
     const [selectedPlace, setSelectedPlace] = useState("오사카");
 
-    useEffect(()=>{
-        fetchData({
+    const fetchDestination = useCallback(async () => {
+        await fetchData({
             method:"GET",
             url: `${APIEndPoints.DESTINATION}`,
             params: {
@@ -26,13 +28,33 @@ const Destination = () => {
                 filter: cityName,
             }
         }).then((res) => {
-            console.log(res);
             const items = res.data[0];
             setItem(items);
         }).catch((err) => {
             console.log(err);
         })
-    },[fetchData])
+    }, [fetchData,cityName,setItem])
+
+    const fetchPlans = useCallback(()=>{
+        fetchApi({
+            method:"GET",
+            url: APIEndPoints.TRIP_SEARCH,
+            params: {
+                category: "CITY",
+                keyword: cityName,
+            }
+        }).then((res)=>{
+            console.log(res.data.items);
+            setPlans(res.data.items);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    })
+
+    useEffect(()=>{
+        fetchPlans();
+        fetchDestination();
+    },[fetchDestination,cityName])
 
     return(
         <BaseLayout>
@@ -87,21 +109,21 @@ const Destination = () => {
                     <div className={styles.title_box}>
                             <p className={styles.title}>Like / Favorite Trip</p>
                     </div>
-                    <Slider items={planItems} size="sm">
+                    <Slider items={plans || []} size="md">
                         {(item) => (
                         <>
-                            <div
+                            <PlanCard key={item.tripId} item={item} />
+                            {/* <div
                             className={styles.img_container}
                             style={{
-                                backgroundImage: `url(${item.plan.profile_url})`,
+                                backgroundImage: `url(${item.cityImageUrl})`,
                             }}
                             />
                             <div className={styles.plan_box}>
                             <div className={styles.plan_title}>
-                                <p className={styles.plan_name}>{item.plan.title}</p>
-                                <p className={styles.plan_destination}>{item.plan.destination}</p>
+                                <p className={styles.plan_name}>{item.title}</p>
                             </div>
-                            </div>
+                            </div> */}
                         </>
                         )}
                     </Slider>

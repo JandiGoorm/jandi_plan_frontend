@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Weather.module.css";
-const Weather = ({city}) => {
+const Weather = ({latitude, longitude}) => {
     const [fivedayForecast, setFivedayForecast] = useState([]);
     const [visibleForecast, setVisibleForecast] = useState(fivedayForecast);
 
-    const fetchWeather = async ({latitude, longitude}) => {
+    const fetchWeather = async () => {
     const key= import.meta.env.VITE_WEATHER_API_KEY;
     const baseUrl = `https://pro.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&lang=kr`;
     console.log(baseUrl);
@@ -29,7 +29,7 @@ const Weather = ({city}) => {
     };
       
     useEffect (()=> {
-      fetchWeather(city);
+      fetchWeather();
     },[]);
 
     useEffect(() => {
