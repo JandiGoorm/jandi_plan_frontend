@@ -17,7 +17,7 @@ const usePlans = () => {
   } = useAxios();
 
   const fetchPlans = useCallback(
-    async (params, setTotalPage) => {
+    async (params, setCount, setTotalPage) => {
       const isSearch = params.keyword ? true : false;
       const url = isSearch
         ? buildPath(APIEndPoints.TRIP_SEARCH)
@@ -27,6 +27,8 @@ const usePlans = () => {
         url,
         params,
       }).then((res) => {
+        console.log(res.data);
+        setCount(res.data.pageInfo.totalSize || 0);
         setTotalPage(res.data.pageInfo.totalPages || 0);
       });
     },

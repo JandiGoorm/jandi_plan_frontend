@@ -1,5 +1,5 @@
 import styles from "./PlanList.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BaseLayout } from "@/layouts";
 import { Button, Loading, Pagination, PlanCard, Input } from "@/components";
 import { useAxios, usePagination, usePlans } from "@/hooks";
@@ -14,7 +14,7 @@ const PlanList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const category = searchParams.get("category") || "BOTH";
-  const { response, fetchData, loading } = useAxios();
+  const [count, setCount] = useState();
   const { currentPage, totalPage, setTotalPage, handlePageChange } = usePagination();
   const navigate = useNavigate();
   const {
@@ -34,8 +34,9 @@ const PlanList = () => {
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
 
-    fetchCommunities(
+    fetchPlans(
       { page: currentPage - 1, keyword, category },
+      setCount,
       setTotalPage
     );
   };
@@ -44,13 +45,14 @@ const PlanList = () => {
     clearErrors();
     fetchPlans(
       { page: currentPage - 1, keyword, category},
+      setCount,
       setTotalPage
     );
-  }, [clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
+  }, [clearErrors, currentPage, keyword, setTotalPage]);
 
   return (
     <BaseLayout>
-      {loading ? (
+      {getLoading ? (
         <Loading />
       ) : (
         <div className={styles.container}>
