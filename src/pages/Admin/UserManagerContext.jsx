@@ -3,10 +3,10 @@ import { createContext, useContext } from "react";
 export const UserManagerContext = createContext({
   users: [],
   reportedUsers: [],
-  fetchUsers: () => {},
-  fetchReportedUsers: () => {},
-  permitUser: () => {},
-  deleteUser: () => {},
+  fetchUsers: async () => {},
+  fetchReportedUsers: async () => {},
+  permitUser: async () => {},
+  deleteUser: async () => {},
 });
 
 export const useUserManger = () => {

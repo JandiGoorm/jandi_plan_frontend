@@ -105,8 +105,10 @@ const useCommunity = () => {
   );
 
   const deleteCommunity = useCallback(
-    async (id) => {
-      const url = buildPath(APIEndPoints.BOARD_DETAIL, { id });
+    async (id, isAdmin = false) => {
+      const url = isAdmin
+        ? buildPath(APIEndPoints.DELETE_BOARD, { id })
+        : buildPath(APIEndPoints.BOARD_DETAIL, { id });
 
       await handleApiCall(
         () => deleteApi({ method: "DELETE", url }),

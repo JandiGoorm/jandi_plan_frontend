@@ -1,25 +1,18 @@
 import { Button, Pagination } from "@/components";
 import styles from "./UserAll.module.css";
-import { useAxios, usePagination } from "@/hooks";
+import { usePagination } from "@/hooks";
 import { useEffect } from "react";
-import { APIEndPoints } from "@/constants";
 import { formatDate } from "date-fns";
+import { useUserManger } from "../UserManagerContext";
+
 const UserAll = () => {
-  const { fetchData, response } = useAxios();
+  const { users, fetchUsers } = useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination("user");
 
   useEffect(() => {
-    fetchData({
-      url: APIEndPoints.USER_ALL,
-      method: "GET",
-      params: {
-        page: currentPage - 1,
-      },
-    }).then((res) => {
-      setTotalPage(res.data.pageInfo.totalPages);
-    });
-  }, [currentPage, fetchData, setTotalPage]);
+    fetchUsers({ page: currentPage - 1 }, setTotalPage);
+  }, [currentPage, fetchUsers, setTotalPage]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +37,7 @@ const UserAll = () => {
           </thead>
 
           <tbody>
-            {response?.items.map((user) => {
+            {users?.items.map((user) => {
               const date = formatDate(user.createdAt, "yyyy. MM. dd");
               return (
                 <tr key={user.userId}>
