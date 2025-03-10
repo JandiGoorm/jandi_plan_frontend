@@ -34,11 +34,11 @@ const PlanList = () => {
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
 
-    fetchPlans(
-      { page: currentPage - 1, keyword, category },
-      setCount,
-      setTotalPage
-    );
+    // fetchPlans(
+    //   { page: currentPage - 1, keyword, category },
+    //   setCount,
+    //   setTotalPage
+    // );
   };
 
   useEffect(() => {
