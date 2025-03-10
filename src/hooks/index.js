@@ -10,3 +10,4 @@ export { default as useCommunity } from "./useCommunity";
 export { default as useNotice } from "./useNotice";
 export { default as useQuillSetup } from "./useQuillSetup";
 export { default as useBanner } from "./useBanner";
+export { default as useSearch } from "./useSearch";
