@@ -2,12 +2,13 @@ import { Button } from "@/components";
 import { useModal } from "@/components/Modal/ModalContext";
 import styles from "./DeleteModal.module.css";
 
-const DeleteModal = ({ callback }) => {
+const ConfirmModal = ({ confirmMessage, buttnMessage, callback }) => {
+  console.log("callback", callback);
   const { closeModal } = useModal();
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>정말 삭제하시겠습니까?</p>
+      <p className={styles.title}>{confirmMessage}</p>
       <div className={styles.flex_box}>
         <Button
           variant="solid"
@@ -19,7 +20,7 @@ const DeleteModal = ({ callback }) => {
             closeModal();
           }}
         >
-          삭제하기
+          {buttnMessage}
         </Button>
         <Button
           variant="solid"
@@ -35,4 +36,4 @@ const DeleteModal = ({ callback }) => {
   );
 };
 
-export default DeleteModal;
+export default ConfirmModal;
