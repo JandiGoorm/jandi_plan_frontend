@@ -7,6 +7,7 @@ import NoticeManagement from "./Notice/NoticeManagement";
 import BannerManagement from "./Banner/BannerManagement";
 import CommunityManagement from "./Community/CommunityManagement";
 import UserManagerProvider from "./UserManagerProvider";
+import CommentManagement from "./Comment/CommentManagement";
 
 const AdminPage = () => {
   return (
@@ -19,6 +20,7 @@ const AdminPage = () => {
           <UserManagement />
           <TripManagement />
           <CommunityManagement />
+          <CommentManagement />
           <NoticeManagement />
           <BannerManagement />
         </div>
