@@ -14,8 +14,8 @@ const DeleteModal = ({ callback }) => {
           style={{
             flex: 1,
           }}
-          onClick={() => {
-            callback();
+          onClick={async () => {
+            await callback();
             closeModal();
           }}
         >

@@ -3,7 +3,6 @@ import { useModal } from "@/components/Modal/ModalContext";
 import styles from "./DeleteModal.module.css";
 
 const ConfirmModal = ({ confirmMessage, buttnMessage, callback }) => {
-  console.log("callback", callback);
   const { closeModal } = useModal();
 
   return (
@@ -15,13 +14,14 @@ const ConfirmModal = ({ confirmMessage, buttnMessage, callback }) => {
           style={{
             flex: 1,
           }}
-          onClick={() => {
-            callback();
+          onClick={async () => {
+            await callback();
             closeModal();
           }}
         >
           {buttnMessage}
         </Button>
+
         <Button
           variant="solid"
           style={{

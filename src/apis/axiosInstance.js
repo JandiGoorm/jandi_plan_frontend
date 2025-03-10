@@ -93,6 +93,8 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.PERMIT_USER}`,
   `DELETE:${APIEndPoints.DELETE_USER}`,
   `GET:${APIEndPoints.REPORTED_BOARD}`,
+  `GET:${APIEndPoints.REPORTED_COMMNET}`,
+  `DELETE:${APIEndPoints.DELETE_COMMENT}`,
 ]);
 
 axiosInstance.interceptors.request.use((config) => {
