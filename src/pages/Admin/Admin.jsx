@@ -6,21 +6,26 @@ import Sidebar from "./Sidebar";
 import NoticeManagement from "./Notice/NoticeManagement";
 import BannerManagement from "./Banner/BannerManagement";
 import CommunityManagement from "./Community/CommunityManagement";
+import UserManagerProvider from "./UserManagerProvider";
+import CommentManagement from "./Comment/CommentManagement";
 
 const AdminPage = () => {
   return (
-    <div className={styles.container}>
-      <Sidebar />
+    <UserManagerProvider>
+      <div className={styles.container}>
+        <Sidebar />
 
-      <div className={styles.main_content}>
-        <Dashboard />
-        <UserManagement />
-        <TripManagement />
-        <CommunityManagement />
-        <NoticeManagement />
-        <BannerManagement />
+        <div className={styles.main_content}>
+          <Dashboard />
+          <UserManagement />
+          <TripManagement />
+          <CommunityManagement />
+          <CommentManagement />
+          <NoticeManagement />
+          <BannerManagement />
+        </div>
       </div>
-    </div>
+    </UserManagerProvider>
   );
 };
 

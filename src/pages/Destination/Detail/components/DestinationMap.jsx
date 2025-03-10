@@ -3,7 +3,6 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import styles from "./DestinationMap.module.css";
 
 const DestinationMap = ({latitude, longitude}) => {
-    console.log(latitude);
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
     const position = { lat: latitude, lng: longitude};
 

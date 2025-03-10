@@ -12,9 +12,11 @@ const useCommunity = () => {
 
   const {
     response: communities,
-    fetchData: getApi,
+    fetchData: getCommunityApi,
     loading: getLoading,
   } = useAxios();
+  const { response: reportedCommunities, fetchData: getReportedCommunityApi } =
+    useAxios();
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
@@ -25,7 +27,7 @@ const useCommunity = () => {
       const url = isSearch
         ? buildPath(APIEndPoints.BOARD_SEARCH)
         : buildPath(APIEndPoints.BOARD);
-      await getApi({
+      await getCommunityApi({
         method: "GET",
         url,
         params,
@@ -33,7 +35,21 @@ const useCommunity = () => {
         setTotalPage(res.data.pageInfo.totalPages || 0);
       });
     },
-    [getApi]
+    [getCommunityApi]
+  );
+
+  const fetchReportedCommunities = useCallback(
+    async (params, setTotalPage) => {
+      const url = buildPath(APIEndPoints.REPORTED_BOARD);
+      await getReportedCommunityApi({
+        method: "GET",
+        url,
+        params,
+      }).then((res) => {
+        setTotalPage(res.data.pageInfo.totalPages || 0);
+      });
+    },
+    [getReportedCommunityApi]
   );
 
   const addCommunity = useCallback(
@@ -89,22 +105,25 @@ const useCommunity = () => {
   );
 
   const deleteCommunity = useCallback(
-    async (id) => {
-      const url = buildPath(APIEndPoints.BOARD_DETAIL, { id });
+    async (id, isAdmin = false) => {
+      const url = isAdmin
+        ? buildPath(APIEndPoints.DELETE_BOARD, { id })
+        : buildPath(APIEndPoints.BOARD_DETAIL, { id });
 
       await handleApiCall(
         () => deleteApi({ method: "DELETE", url }),
         "게시글이 삭제되었습니다.",
         "게시글 삭제에 실패했습니다.",
-        createToast,
-        () => navigate(PageEndPoints.BOARD)
+        createToast
       );
     },
-    [createToast, deleteApi, navigate]
+    [createToast, deleteApi]
   );
 
   return {
     communities,
+    reportedCommunities,
+    fetchReportedCommunities,
     fetchCommunities,
     getLoading,
     addCommunity,

@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .sort_btns {
@@ -22,4 +23,35 @@
 .footer {
   padding-top: 1rem;
   align-self: center;
+}
+
+.plan_container {
+  box-sizing: border-box;
+  padding: 1rem 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.header_title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.title {
+  position: relative;
+  top: 4px;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 1rem;
+}
+
+.botton_box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -7,7 +7,6 @@ import {
   ModalTrigger,
   Slider,
 } from "@/components";
-import { destinationItems, dummy } from "./constants";
 import { useAuth } from "@/contexts";
 import MyPlan from "./MyPlan/MyPlan";
 import MyInfo from "./MyInfo/MyInfo";
