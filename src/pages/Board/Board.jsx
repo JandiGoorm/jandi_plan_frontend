@@ -101,7 +101,7 @@ const BoardPage = () => {
               />
 
               <button type="submit" className={styles.search_btn}>
-                <FiSearch size={24} />
+                <FiSearch size={22} />
               </button>
             </form>
 

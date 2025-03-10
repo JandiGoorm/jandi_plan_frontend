@@ -118,7 +118,13 @@ const BoardDetail = () => {
                     </Button>
                   </ModalTrigger>
                   <ModalContent>
-                    <DeleteModal callback={() => deleteCommunity(id)} />
+                    <DeleteModal
+                      callback={() =>
+                        deleteCommunity(id).then(() =>
+                          navigate(PageEndPoints.BOARD)
+                        )
+                      }
+                    />
                   </ModalContent>
                 </Modal>
               </div>

@@ -70,9 +70,11 @@
 
 .select {
   padding: 0.5rem;
+  padding-left: 1rem;
   border: none;
   background-color: var(--color-bg-primary);
   color: var(--text-primary);
+  font-family: "42dot Sans", serif;
 }
 
 .select:focus {
@@ -91,7 +93,7 @@
 }
 
 .search_btn {
-  width: 5rem;
+  width: 6rem;
   height: 3rem;
   border: none;
   background-color: var(--color-search-button-bg);
