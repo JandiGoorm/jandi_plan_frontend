@@ -134,7 +134,7 @@ const BoardDetail = () => {
                   <div className={styles.dropdown_menu}>신고</div>
                 </ModalTrigger>
                 <ModalContent>
-                  <ReportModal id={item.postId} />
+                  <ReportModal id={item.postId} getUrl={"boardReport"} />
                 </ModalContent>
               </Modal>
             )}
