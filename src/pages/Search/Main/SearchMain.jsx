@@ -10,6 +10,10 @@ import {
 import styles from "./SearchMain.module.css";
 import SearchTooltip from "./SearchTooltip";
 import { FaCrown } from "react-icons/fa";
+import { useSearch } from "@/hooks";
+import { useEffect, useState } from "react";
+import { Button, Input, Loading } from "@/components";
+
 
 // pc는 포스팅 수 postCount를 의미하고 , sc는 검색 수 searchCount를 의미합니다.
 const dummy = [
@@ -26,8 +30,17 @@ const dummy = [
 ];
 
 const SearchMain = () => {
+  const {searchCount, getSearchCount, getLoading} = useSearch();
+
+  useEffect(() => {
+      getSearchCount();
+    }, [getSearchCount]);
+  
+    console.log(searchCount);
+
   return (
     <div className={styles.container}>
+      {getLoading && <Loading />}
       <div className={styles.title}>
         <FaCrown className={styles.icon_crown} />
         <p> BEST TOP 10</p>
@@ -37,7 +50,7 @@ const SearchMain = () => {
           margin={{
             right: 30,
           }}
-          data={dummy}
+          data={searchCount}
           className={styles.chart}
         >
           <XAxis
@@ -50,8 +63,8 @@ const SearchMain = () => {
           <Legend />
           <Tooltip content={<SearchTooltip />} />
           <Bar
-            dataKey="pc"
-            name="포스팅 수"
+            dataKey="searchCount"
+            name="검색 수"
             fill="var(--color-chart-bar)"
             barSize={40}
             radius={[100, 100, 0, 0]}

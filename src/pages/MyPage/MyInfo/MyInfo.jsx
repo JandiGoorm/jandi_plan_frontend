@@ -2,7 +2,7 @@ import { Button } from "@/components";
 import { formatDate } from "date-fns";
 import styles from "./MyInfo.module.css";
 import PasswordForm from "./PasswordForm";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
@@ -12,6 +12,7 @@ const MyInfo = ({ user }) => {
   const { loading, fetchData, response } = useAxios();
   const { createToast } = useToast();
   const formatted = formatDate(user.updatedAt, "yyyy-MM-dd");
+  const [profile, setProfile] = useState(user.profileImageUrl);
   const handleChangeProfileImage = useCallback(() => {
     const input = document.createElement("input");
     input.type = "file";
@@ -33,6 +34,7 @@ const MyInfo = ({ user }) => {
           type: "success",
           text: "프로필 이미지가 변경되었습니다.",
         });
+        setProfile(res.data.imageUrl);
       }).catch((err)=>{
         console.log(err)
         createToast({
@@ -50,7 +52,7 @@ const MyInfo = ({ user }) => {
         <div className={styles.info_box}>
           <div className={styles.user_photo_box}>
             <img
-              src={user.profileImageUrl ?? "/user1.png"}
+              src={profile ?? "/user1.png"}
               alt="profile_img"
               className={styles.user_photo}
             />

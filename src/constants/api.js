@@ -73,6 +73,9 @@ export const APIEndPoints = {
   TRIP_MY_DETAIL: "/trip/my/:id",
   TRIP_ITINERARY: "/trip/itinerary/:id",
   TRIP_RESERVATION: "/trip/reservation/:id",
+  TRIP_SEARCH: "trip/search",
+
+  TRIP_SORT: "/trip/rank",
 
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
