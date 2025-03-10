@@ -5,6 +5,7 @@ import { Button, Slider } from "@/components";
 import { useAxios } from "@/hooks";
 import { PageEndPoints, APIEndPoints } from "@/constants";
 import { useState, useEffect } from "react";
+import MainContent from "./MainContent";
 
 const HomePage = () => {
   const { loading, fetchData, response } = useAxios();
@@ -43,51 +44,9 @@ const HomePage = () => {
       <div className={styles.container}>
         <Banner />
 
-        <div className={styles.interest_container}>
-          <div className={styles.title_box}>
-            <p className={styles.title}>WHERE TO GO?</p>
-          </div>
-          <Slider items={destinations} size="sm">
-            {(item) => (
-              <>
-                <div
-                  className={styles.img_container}
-                  style={{
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                />
-                <div className={styles.dest_container}>
-                  <div className={styles.dest_title}>
-                    <p className={styles.dest_name}>{item.name}</p>
-                  </div>
-                </div>
-              </>
-            )}
-        </Slider>
-        </div>
-
-        <div className={styles.interest_container}>
-          <div className={styles.title_box}>
-            <p className={styles.title}>POPULAR PLANS</p>
-          </div>
-          <Slider items={plans} size="sm">
-            {(item) => (
-              <>
-                <div
-                  className={styles.img_container}
-                  style={{
-                    backgroundImage: `url(${item.cityImageUrl})`,
-                  }}
-                />
-                <div className={styles.plan_container}>
-                  <div className={styles.plan_title}>
-                    <p className={styles.plan_name}>{item.title}</p>
-                  </div>
-                </div>
-              </>
-            )}
-        </Slider>
-        </div>
+        <MainContent title="WHERE TO GO?" items={destinations} />
+        <MainContent title="POPULAR PLANS?" items={plans} />
+        
       </div>
     </BaseLayout>
   );

@@ -1,8 +1,14 @@
 import styles from "./CityCard.module.css";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "@/utils";
+import { PageEndPoints } from "@/constants";
 
 const CityCard = ({ item }) => {
+  const navigate = useNavigate();
+  const path = buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId });
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => navigate(path, { state: { cityName: item.name } })}>
       <div
         className={styles.img_container}
         style={{
