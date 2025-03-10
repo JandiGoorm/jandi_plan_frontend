@@ -33,10 +33,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: var(--font-weight-semibold);
 }
 
-.table th {
-  font-weight: var(--font-weight-semibold);
+.action_title {
+  position: relative;
+  left: 0.5rem;
 }
 
 .pagination {

@@ -3,15 +3,18 @@ import {
   Modal,
   ModalTrigger,
   ModalContent,
-  ConfirmModal,
   Button,
   DeleteModal,
 } from "@/components";
-import { useUserManger } from "../UserManagerContext";
 import styles from "./ReportedItem.module.css";
+import DeleteUserModal from "../Modals/DeleteUserModal";
 
-const ReportedItem = ({ community, handleViewClick, deleteCommunity }) => {
-  const { permitUser, deleteUser } = useUserManger();
+const ReportedItem = ({
+  community,
+  handleViewClick,
+  deleteCommunity,
+  refetch,
+}) => {
   const date = formatDate(new Date(community.createdAt), "yyyy. MM. dd");
 
   return (
@@ -21,43 +24,14 @@ const ReportedItem = ({ community, handleViewClick, deleteCommunity }) => {
       <td>
         <div className={styles.community_user}>
           <p>{community.user.userId}</p>
-          <div className={styles.flex_row}>
-            <Modal>
-              <ModalTrigger>
-                <Button size="sm" variant="ghost">
-                  제한
-                </Button>
-              </ModalTrigger>
-              <ModalContent>
-                <ConfirmModal
-                  confirmMessage={"정말 제한 하시겠습니까?"}
-                  buttnMessage={"제한하기"}
-                  callback={() => permitUser(community.user.userId)}
-                />
-              </ModalContent>
-            </Modal>
-
-            <Modal>
-              <ModalTrigger>
-                <Button size="sm" variant="ghost">
-                  추방
-                </Button>
-              </ModalTrigger>
-              <ModalContent>
-                <ConfirmModal
-                  confirmMessage={"정말 추방 하시겠습니까?"}
-                  buttnMessage={"추방하기"}
-                  callback={() => deleteUser(community.user.userId)}
-                />
-              </ModalContent>
-            </Modal>
-          </div>
+          <DeleteUserModal
+            id={community.user.userId}
+            onSuccess={async () => await refetch()}
+          />
         </div>
       </td>
       <td>{date}</td>
-      <td>{community.viewCount}</td>
-      <td>{community.likeCount}</td>
-      <td>{community.commentCount}</td>
+      <td>{community.reportCount}</td>
       <td>
         <div className={styles.actions}>
           <Button
@@ -74,7 +48,12 @@ const ReportedItem = ({ community, handleViewClick, deleteCommunity }) => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <DeleteModal callback={() => deleteCommunity(community.postId)} />
+              <DeleteModal
+                callback={async () => {
+                  await deleteCommunity(community.postId, true);
+                  await refetch();
+                }}
+              />
             </ModalContent>
           </Modal>
         </div>

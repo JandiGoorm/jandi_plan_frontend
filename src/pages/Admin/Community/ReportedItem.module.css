@@ -15,11 +15,6 @@
   align-items: center;
 }
 
-.flex_row {
-  display: flex;
-  gap: 0.5rem;
-}
-
 .action_title {
   position: relative;
   left: 0.5rem;

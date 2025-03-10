@@ -23,9 +23,13 @@ const ReportedCommunities = ({ set }) => {
     [navigate]
   );
 
-  useEffect(() => {
-    fetchReportedCommunities({ page: currentPage - 1 }, setTotalPage);
+  const refetch = useCallback(async () => {
+    await fetchReportedCommunities({ page: currentPage - 1 }, setTotalPage);
   }, [currentPage, fetchReportedCommunities, setTotalPage]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <div className={styles.container}>
@@ -45,10 +49,10 @@ const ReportedCommunities = ({ set }) => {
               <th>제목</th>
               <th>작성자ID</th>
               <th>작성일</th>
-              <th>조회수</th>
-              <th>좋아요 수</th>
-              <th>댓글 수</th>
-              <th>Actions</th>
+              <th>신고 수</th>
+              <th>
+                <p className={styles.action_title}>Actions</p>
+              </th>
             </tr>
           </thead>
 
@@ -60,6 +64,7 @@ const ReportedCommunities = ({ set }) => {
                   handleViewClick={handleViewClick}
                   deleteCommunity={deleteCommunity}
                   key={community.postId}
+                  refetch={refetch}
                 />
               );
             })}
