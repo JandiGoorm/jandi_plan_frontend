@@ -10,6 +10,9 @@ export { default as Pagination } from "./Pagination/Pagination.jsx";
 export { default as Editor } from "./Editor/Editor.jsx";
 export { default as ViewEditorContent } from "./Editor/ViewEditorContent.jsx";
 
+export { default as ConfirmModal } from "./Modal/ModalContents/ConfirmModal.jsx";
+export { default as DeleteModal } from "./Modal/ModalContents/DeleteModal.jsx";
+
 export { default as CityCard } from "./Cards/CityCard/CityCard.jsx";
 export { default as PlanCard } from "./Cards/PlanCard/PlanCard.jsx";
 

@@ -1,0 +1,37 @@
+.container {
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.content_item {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.value {
+  word-wrap: break-all;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}

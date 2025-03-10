@@ -13,10 +13,8 @@ const axiosInstance = axios.create({
 const protectedEndpoints = new Set([
   `GET:${APIEndPoints.PROFILE}`,
   `PUT:${APIEndPoints.USER_CHANGE_PASSWORD}`,
-  `GET:${APIEndPoints.USER_ALL}`,
   `POST:${APIEndPoints.PROFILE_UPLOAD}`,
-  `GET:${APIEndPoints.MANAGE_UTIL}`,
-  
+
   `POST:${APIEndPoints.COUNTRY_ADD}`,
   `POST:${APIEndPoints.CITY_ADD}`,
   `DELETE:${APIEndPoints.CITY_MANAGE}`,
@@ -87,6 +85,16 @@ const protectedEndpoints = new Set([
 
   `PATCH:${APIEndPoints.BANNER_DETAIL}`,
   `DELETE:${APIEndPoints.BANNER_DETAIL}`,
+  `POST:${APIEndPoints.BANNER}`,
+
+  `GET:${APIEndPoints.USER_ALL}`,
+  `GET:${APIEndPoints.MANAGE_UTIL}`,
+  `GET:${APIEndPoints.REPORTED_USER}`,
+  `POST:${APIEndPoints.PERMIT_USER}`,
+  `DELETE:${APIEndPoints.DELETE_USER}`,
+  `GET:${APIEndPoints.REPORTED_BOARD}`,
+  `GET:${APIEndPoints.REPORTED_COMMNET}`,
+  `DELETE:${APIEndPoints.DELETE_COMMENT}`,
 ]);
 
 axiosInstance.interceptors.request.use((config) => {
