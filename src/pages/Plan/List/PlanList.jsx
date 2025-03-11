@@ -1,22 +1,27 @@
-import styles from "./PlanList.module.css";
-import { useEffect, useState } from "react";
+import { Button, Input, Loading, Pagination, PlanCard } from "@/components";
+import { PageEndPoints } from "@/constants";
+import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
-import { Button, Loading, Pagination, PlanCard, Input } from "@/components";
-import { useAxios, usePagination, usePlans } from "@/hooks";
-import { APIEndPoints, PageEndPoints } from "@/constants";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
-import { searchPlansScheme } from "../constants";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { FiSearch } from "react-icons/fi";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { searchPlansScheme } from "../constants";
+import styles from "./PlanList.module.css";
 
 const PlanList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const category = searchParams.get("category") || "BOTH";
-  const [count, setCount] = useState();
-  const { currentPage, totalPage, setTotalPage, handlePageChange } = usePagination();
+
+  const { currentPage, totalPage, setTotalPage, handlePageChange } =
+    usePagination();
+
+  const { plans, fetchPlans, getLoading } = usePlans();
+
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -25,7 +30,6 @@ const PlanList = () => {
   } = useForm({
     resolver: zodResolver(searchPlansScheme),
   });
-  const {plans, fetchPlans, getLoading} = usePlans();
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
@@ -33,22 +37,12 @@ const PlanList = () => {
     newSearchParams.set("page", "1");
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
-
-    // fetchPlans(
-    //   { page: currentPage - 1, keyword, category },
-    //   setCount,
-    //   setTotalPage
-    // );
   };
 
   useEffect(() => {
     clearErrors();
-    fetchPlans(
-      { page: currentPage - 1, keyword, category},
-      setCount,
-      setTotalPage
-    );
-  }, [clearErrors, currentPage, keyword, setTotalPage]);
+    fetchPlans({ page: currentPage - 1, keyword, category }, setTotalPage);
+  }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
 
   return (
     <BaseLayout>
@@ -61,7 +55,7 @@ const PlanList = () => {
               <p className={styles.title}>이런 여행 일정은 어때요?</p>
               <Button
                 variant={"solid"}
-                size = "sm"
+                size="sm"
                 onClick={() => navigate(PageEndPoints.PLAN_CREATE)}
               >
                 계획 만들기
@@ -109,13 +103,11 @@ const PlanList = () => {
             </div>
           </div>
 
-          {plans && (
-            <div className={styles.plan_container}>
-              {plans.items.map((item) => (
-                <PlanCard key={item.tripId} item={item} />
-              ))}
-            </div>
-          )}
+          <div className={styles.plan_container}>
+            {plans?.items.map((item) => (
+              <PlanCard key={item.tripId} item={item} />
+            ))}
+          </div>
 
           <div className={styles.footer}>
             <Pagination
