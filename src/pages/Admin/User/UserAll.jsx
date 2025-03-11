@@ -1,24 +1,28 @@
 import { Button, Pagination } from "@/components";
 import styles from "./UserAll.module.css";
 import { usePagination } from "@/hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { formatDate } from "date-fns";
 import { useUserManger } from "../UserManagerContext";
 
-const UserAll = () => {
-  const { users, fetchUsers } = useUserManger();
+const UserAll = ({ set }) => {
+  const { users, fetchUsers, permitUser } = useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination("user");
 
-  useEffect(() => {
-    fetchUsers({ page: currentPage - 1 }, setTotalPage);
+  const refetch = useCallback(async () => {
+    await fetchUsers({ page: currentPage - 1 }, setTotalPage);
   }, [currentPage, fetchUsers, setTotalPage]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p className={styles.title}>전체회원 관리</p>
-        <Button variant="ghost" size="sm">
+        <p className={styles.title}>전체 회원 관리</p>
+        <Button variant="ghost" size="sm" onClick={set}>
           신고된 회원 관리
         </Button>
       </div>
@@ -39,6 +43,7 @@ const UserAll = () => {
           <tbody>
             {users?.items.map((user) => {
               const date = formatDate(user.createdAt, "yyyy. MM. dd");
+
               return (
                 <tr key={user.userId}>
                   <td>{user.userId}</td>
@@ -47,11 +52,14 @@ const UserAll = () => {
                   <td>{date}</td>
                   <td>{user.reported ? "true" : "false"}</td>
                   <td className={styles.actions}>
-                    <Button size="sm" variant="ghost">
-                      View
-                    </Button>
-                    <Button size="sm" variant="ghost">
-                      Delete
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() =>
+                        permitUser(user.userId).then(() => refetch())
+                      }
+                    >
+                      {user.reported ? "제한해제" : "제한"}
                     </Button>
                   </td>
                 </tr>
