@@ -13,6 +13,7 @@ import MyInfo from "./MyInfo/MyInfo";
 import { useCallback, useEffect, useState } from "react";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
+import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
@@ -83,6 +84,7 @@ const MyPage = () => {
                   style={{
                     backgroundImage: `url(${item.imageUrl})`,
                   }}
+                  onClick={() => navigate(buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId }), { state: { cityName: item.name } })}
                 />
                 <div className={styles.dest_container}>
                   <div className={styles.dest_title}>
