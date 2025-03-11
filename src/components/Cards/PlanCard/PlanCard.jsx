@@ -22,7 +22,7 @@ const PlanCard = ({ item }) => {
         <div className={styles.content_header}>
           <div className={styles.header_title}>
             <img
-              src={item.user.profile_url ?? "/user2.jpg"}
+              src={item.user.profileImageUrl ?? "/user2.jpg"}
               className={styles.user_img}
             />
             <div className={styles.user_info}>
