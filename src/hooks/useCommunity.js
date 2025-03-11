@@ -32,6 +32,7 @@ const useCommunity = () => {
         url,
         params,
       }).then((res) => {
+        console.log(res);
         setCount(res.data.pageInfo.totalSize || 0)
         setTotalPage(res.data.pageInfo.totalPages || 0);
       });
