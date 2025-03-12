@@ -112,9 +112,9 @@ const CommentItem = ({ comment,deleteComment, user, fetchComments,handleLike }) 
       {comment.repliesCount > 0 && (
         <div
           className={styles.recomment_container}
-          onClick={() => setIsOpen(!isOpen)}
+          
         >
-          <div className={styles.recomment_info}>
+          <div className={styles.recomment_info} onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <RiArrowUpWideLine /> : <RiArrowDownWideLine />}
             <p>답글 {comment.repliesCount}개</p>
           </div>
