@@ -1,20 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.title {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-semibold);
-  display: flex;
-  align-items: center;
-  height: 5rem;
-  box-sizing: border-box;
-  padding-left: 2rem;
-  box-shadow: var(--shadow-md);
-}
-
 .table_wrapper {
   flex: 1;
   box-sizing: border-box;
@@ -45,14 +28,4 @@
 .action_title {
   position: relative;
   left: 0.5rem;
-}
-
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
 }

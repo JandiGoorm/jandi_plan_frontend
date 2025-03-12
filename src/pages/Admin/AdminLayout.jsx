@@ -11,9 +11,9 @@ import Sidebar from "./Sidebar/Sidebar";
 import AllUser from "./User/AllUser";
 import ReportedUser from "./User/ReportedUser";
 import UserManagerProvider from "./UserManagerProvider";
-import City from "./Trip/City";
-import Country from "./Trip/Country";
-import Plan from "./Trip/Plan";
+import City from "./Trip/City/City";
+import Country from "./Trip/Country/Country";
+import Plan from "./Trip/Plan/Plan";
 
 const AdminPage = () => {
   const location = useLocation();

@@ -1,16 +1,20 @@
-import { Pagination } from "@/components";
+import { Loading, Pagination } from "@/components";
 import { PageEndPoints } from "@/constants";
 import { useCommunity, usePagination } from "@/hooks";
 import { buildPath } from "@/utils";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ReportedCommunities.module.css";
-import ReportedItem from "./ReportedItem";
+import ReportedCommunityTable from "./ReportedCommunityTable";
 
 const ReportedCommunities = () => {
   const navigate = useNavigate();
-  const { reportedCommunities, fetchReportedCommunities, deleteCommunity } =
-    useCommunity();
+  const {
+    reportedCommunities,
+    fetchReportedCommunities,
+    deleteCommunity,
+    reportedCommunitiesLoading,
+  } = useCommunity();
 
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
@@ -31,40 +35,17 @@ const ReportedCommunities = () => {
     refetch();
   }, [refetch]);
 
+  if (reportedCommunitiesLoading) return <Loading />;
   return (
     <div className={styles.container}>
       <p className={styles.title}>신고된 커뮤니티 글 관리</p>
 
-      <div className={styles.table_wrapper}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>제목</th>
-              <th>작성자ID</th>
-              <th>작성일</th>
-              <th>신고 수</th>
-              <th>
-                <p className={styles.action_title}>Actions</p>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {reportedCommunities?.items.map((community) => {
-              return (
-                <ReportedItem
-                  community={community}
-                  handleViewClick={handleViewClick}
-                  deleteCommunity={deleteCommunity}
-                  key={community.postId}
-                  refetch={refetch}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <ReportedCommunityTable
+        reportedCommunities={reportedCommunities?.items ?? []}
+        refetch={refetch}
+        handleViewClick={handleViewClick}
+        deleteCommunity={deleteCommunity}
+      />
 
       <div className={styles.pagination}>
         <Pagination

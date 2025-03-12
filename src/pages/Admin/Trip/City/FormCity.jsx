@@ -2,7 +2,7 @@ import styles from "./FormCity.module.css";
 import { Button, Input, Field } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { createCitySchema } from "./constants";
+import { createCitySchema } from "../constants";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";

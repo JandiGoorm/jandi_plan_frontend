@@ -13,10 +13,13 @@ const useCommunity = () => {
   const {
     response: communities,
     fetchData: getCommunityApi,
-    loading: getLoading,
+    loading: communitiesLoading,
   } = useAxios();
-  const { response: reportedCommunities, fetchData: getReportedCommunityApi } =
-    useAxios();
+  const {
+    response: reportedCommunities,
+    fetchData: getReportedCommunityApi,
+    loading: reportedCommunitiesLoading,
+  } = useAxios();
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
@@ -125,7 +128,8 @@ const useCommunity = () => {
     reportedCommunities,
     fetchReportedCommunities,
     fetchCommunities,
-    getLoading,
+    communitiesLoading,
+    reportedCommunitiesLoading,
     addCommunity,
     updateCommunity,
     deleteCommunity,

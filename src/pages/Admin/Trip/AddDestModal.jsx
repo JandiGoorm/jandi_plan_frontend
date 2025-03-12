@@ -1,6 +1,6 @@
 import styles from "./AddDestModal.module.css";
-import FormCity from "./FormCity";
-import FormCountry from "./FormCountry";
+import FormCity from "./City/FormCity";
+import FormCountry from "./Country/FormCountry";
 
 const AddDestModal = ({ content, onSuccess }) => {
   const isCountry = content === "나라";

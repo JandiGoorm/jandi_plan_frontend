@@ -21,7 +21,7 @@ const BoardPage = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
-  const { communities, fetchCommunities, getLoading } = useCommunity();
+  const { communities, fetchCommunities, communitiesLoading } = useCommunity();
 
   const {
     register,
@@ -56,7 +56,7 @@ const BoardPage = () => {
 
   return (
     <BaseLayout>
-      {getLoading && <Loading />}
+      {communitiesLoading && <Loading />}
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.header_title}>

@@ -9,6 +9,8 @@ const UserManagerProvider = ({ children }) => {
     fetchReportedUsers,
     permitUser,
     deleteUser,
+    userLoading,
+    reportedUserLoading,
   } = useUser();
 
   return (
@@ -20,6 +22,8 @@ const UserManagerProvider = ({ children }) => {
         fetchReportedUsers,
         permitUser,
         deleteUser,
+        userLoading,
+        reportedUserLoading,
       }}
     >
       {children}
