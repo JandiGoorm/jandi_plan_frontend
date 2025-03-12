@@ -94,6 +94,7 @@
   overflow: hidden;
 }
 
-.dropdown_menu{
+.dropdown_menu,
+.thumbs{
   cursor: pointer;
 }
