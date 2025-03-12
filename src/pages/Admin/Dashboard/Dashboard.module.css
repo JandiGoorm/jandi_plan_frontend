@@ -37,3 +37,15 @@
 .grid_item_title {
   font-weight: var(--font-weight-semibold);
 }
+
+.charts_container {
+  display: flex;
+  gap: 1rem;
+  padding: 0 2rem;
+}
+
+@media screen and (max-width: 1280px) {
+  .charts_container {
+    flex-direction: column;
+  }
+}

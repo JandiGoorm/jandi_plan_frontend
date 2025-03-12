@@ -2,6 +2,7 @@ import { useAxios } from "@/hooks";
 import styles from "./Dashboard.module.css";
 import { useEffect } from "react";
 import { APIEndPoints } from "@/constants";
+import PlanChart from "./PlanChart";
 
 const map = {
   "전체 회원": "allUserCount",
@@ -20,6 +21,7 @@ const DashboardCard = () => {
   return (
     <div className={styles.container} id="dashboard">
       <p className={styles.title}>대시보드</p>
+
       <div className={styles.grid_container}>
         {Object.keys(map).map((key) => (
           <div className={styles.grid_item} key={key}>
@@ -29,7 +31,11 @@ const DashboardCard = () => {
             </p>
           </div>
         ))}
-        <p>유저 차트/ 여행 계획차트</p>
+      </div>
+
+      <div className={styles.charts_container}>
+        <PlanChart />
+        <PlanChart />
       </div>
     </div>
   );

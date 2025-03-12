@@ -1,6 +1,6 @@
-import styles from "./SearchTooltip.module.css";
+import styles from "./PlanTooltip.module.css";
 
-const SearchTooltip = ({ active, payload, label }) => {
+const Tooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     const { searchCount, likeCount } = payload[0].payload;
 
@@ -30,4 +30,4 @@ const SearchTooltip = ({ active, payload, label }) => {
   }
 };
 
-export default SearchTooltip;
+export default Tooltip;

@@ -1,0 +1,27 @@
+.responsive_container {
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 2/1;
+}
+
+.chart {
+  color: var(--color-chart-bar);
+}
+
+.bar {
+  fill: var(--color-chart-bar);
+}
+
+/* breakpoint-md */
+@media screen and (max-width: 720px) {
+  .responsive_container {
+    aspect-ratio: 1.5/1;
+  }
+}
+
+/* breakpoint-sm */
+@media screen and (max-width: 390px) {
+  .responsive_container {
+    aspect-ratio: 1/1;
+  }
+}
