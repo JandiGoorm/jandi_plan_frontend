@@ -79,3 +79,11 @@
   cursor: pointer;
   color: var(--color-blue-600);
 }
+
+.recomment{
+  cursor: pointer;
+}
+
+.thumbs{
+  cursor: pointer;
+}

@@ -81,7 +81,7 @@ const CommentItem = ({ comment,deleteComment, user, fetchComments,handleLike }) 
                     <ReportModal id={comment.commentId} getUrl="commentReport"/>
                   </ModalContent>
                 </Modal>
-                <FaThumbsUp size={12} color={comment.liked? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike(comment.commentId,comment.liked)}} />
+                <FaThumbsUp size={12} className={styles.thumbs} color={comment.liked? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike(comment.commentId,comment.liked)}} />
                 <p className={styles.likeCount}> {likes}</p>
               </>}
 
