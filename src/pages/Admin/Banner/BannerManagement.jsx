@@ -51,30 +51,32 @@ const BannerManagement = () => {
                   </a>
                 </td>
                 <td>{date}</td>
-                <td className={styles.actions}>
-                  <Modal>
-                    <ModalTrigger>
-                      <Button size="sm" variant="ghost">
-                        Edit
-                      </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <ModifyBanner item={banner} callback={updateBanner} />
-                    </ModalContent>
-                  </Modal>
+                <td>
+                  <div className={styles.actions}>
+                    <Modal>
+                      <ModalTrigger>
+                        <Button size="sm" variant="ghost">
+                          Edit
+                        </Button>
+                      </ModalTrigger>
+                      <ModalContent>
+                        <ModifyBanner item={banner} callback={updateBanner} />
+                      </ModalContent>
+                    </Modal>
 
-                  <Modal>
-                    <ModalTrigger>
-                      <Button size="sm" variant="ghost">
-                        Delete
-                      </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <DeleteModal
-                        callback={() => deleteBanner(banner.bannerId)}
-                      />
-                    </ModalContent>
-                  </Modal>
+                    <Modal>
+                      <ModalTrigger>
+                        <Button size="sm" variant="ghost">
+                          Delete
+                        </Button>
+                      </ModalTrigger>
+                      <ModalContent>
+                        <DeleteModal
+                          callback={() => deleteBanner(banner.bannerId)}
+                        />
+                      </ModalContent>
+                    </Modal>
+                  </div>
                 </td>
               </tr>
             );

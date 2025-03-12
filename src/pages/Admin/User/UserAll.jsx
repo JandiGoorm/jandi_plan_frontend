@@ -51,16 +51,18 @@ const UserAll = ({ set }) => {
                   <td className={styles.user_email}>{user.email}</td>
                   <td>{date}</td>
                   <td>{user.reported ? "true" : "false"}</td>
-                  <td className={styles.actions}>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() =>
-                        permitUser(user.userId).then(() => refetch())
-                      }
-                    >
-                      {user.reported ? "제한해제" : "제한"}
-                    </Button>
+                  <td>
+                    <div className={styles.actions}>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() =>
+                          permitUser(user.userId).then(() => refetch())
+                        }
+                      >
+                        {user.reported ? "제한해제" : "제한"}
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               );

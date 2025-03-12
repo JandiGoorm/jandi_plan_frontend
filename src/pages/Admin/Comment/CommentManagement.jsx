@@ -20,7 +20,7 @@ const CommentManagement = () => {
   const { fetchData, response } = useAxios();
   const { fetchData: deleteApi } = useAxios();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination();
+    usePagination("reportedComment");
 
   const handleDelete = useCallback(
     async (id) => {

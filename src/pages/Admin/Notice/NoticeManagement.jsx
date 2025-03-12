@@ -44,30 +44,32 @@ const NoticeManagement = () => {
                 <td>{notice.noticeId}</td>
                 <td>{notice.title}</td>
                 <td>{date}</td>
-                <td className={styles.actions}>
-                  <Modal>
-                    <ModalTrigger>
-                      <Button size="sm" variant="ghost">
-                        Edit
-                      </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <ModifyNotice callback={updateNotice} notice={notice} />
-                    </ModalContent>
-                  </Modal>
+                <td>
+                  <div className={styles.actions}>
+                    <Modal>
+                      <ModalTrigger>
+                        <Button size="sm" variant="ghost">
+                          Edit
+                        </Button>
+                      </ModalTrigger>
+                      <ModalContent>
+                        <ModifyNotice callback={updateNotice} notice={notice} />
+                      </ModalContent>
+                    </Modal>
 
-                  <Modal>
-                    <ModalTrigger>
-                      <Button size="sm" variant="ghost">
-                        Delete
-                      </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <DeleteModal
-                        callback={() => deleteNotice(notice.noticeId)}
-                      />
-                    </ModalContent>
-                  </Modal>
+                    <Modal>
+                      <ModalTrigger>
+                        <Button size="sm" variant="ghost">
+                          Delete
+                        </Button>
+                      </ModalTrigger>
+                      <ModalContent>
+                        <DeleteModal
+                          callback={() => deleteNotice(notice.noticeId)}
+                        />
+                      </ModalContent>
+                    </Modal>
+                  </div>
                 </td>
               </tr>
             );

@@ -72,26 +72,28 @@ const Communities = ({ set }) => {
                   <td>{community.viewCount}</td>
                   <td>{community.likeCount}</td>
                   <td>{community.commentCount}</td>
-                  <td className={styles.actions}>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => handleViewClick(community.postId)}
-                    >
-                      View
-                    </Button>
-                    <Modal>
-                      <ModalTrigger>
-                        <Button size="sm" variant="ghost">
-                          Delete
-                        </Button>
-                      </ModalTrigger>
-                      <ModalContent>
-                        <DeleteModal
-                          callback={() => deleteCommunity(community.postId)}
-                        />
-                      </ModalContent>
-                    </Modal>
+                  <td>
+                    <div className={styles.actions}>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleViewClick(community.postId)}
+                      >
+                        View
+                      </Button>
+                      <Modal>
+                        <ModalTrigger>
+                          <Button size="sm" variant="ghost">
+                            Delete
+                          </Button>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <DeleteModal
+                            callback={() => deleteCommunity(community.postId)}
+                          />
+                        </ModalContent>
+                      </Modal>
+                    </div>
                   </td>
                 </tr>
               );
