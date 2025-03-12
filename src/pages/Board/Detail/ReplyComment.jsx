@@ -90,7 +90,7 @@ const ReplyComment = ({ commentId, user }) => {
                       <p className={styles.report}>신고</p>
                     </ModalTrigger>
                     <ModalContent>
-                      <ReportModal id={comment.commentId} setUrl="replyReport"/>
+                      <ReportModal id={comment.commentId} getUrl="commentReport"/>
                     </ModalContent>
                   </Modal>
                     <FaThumbsUp size={12} color={comment.isRecommended? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike()}} />
