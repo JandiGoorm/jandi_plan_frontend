@@ -3,9 +3,10 @@ import styles from "./Plan.module.css";
 import { useEffect } from "react";
 import { APIEndPoints } from "@/constants";
 import { Button, Pagination } from "@/components";
-const Plan = ({ setView }) => {
+
+const Plan = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination("trip");
+    usePagination();
 
   const { fetchData, response } = useAxios();
 
@@ -21,17 +22,8 @@ const Plan = ({ setView }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>여행계획 관리</p>
-        <div>
-          <Button variant="ghost" size="sm" onClick={() => setView("country")}>
-            나라 관리
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => setView("city")}>
-            여행지 관리
-          </Button>
-        </div>
-      </div>
+      <p className={styles.title}>여행계획 관리</p>
+
       <div className={styles.table_wrapper}>
         <table className={styles.table}>
           <thead>
@@ -54,13 +46,15 @@ const Plan = ({ setView }) => {
                     {trip.startDate} ~ {trip.endDate}
                   </td>
                   <td>{trip.createdAt}</td>
-                  <td className={styles.actions}>
-                    <Button size="sm" variant="ghost">
-                      View
-                    </Button>
-                    <Button size="sm" variant="ghost">
-                      Delete
-                    </Button>
+                  <td>
+                    <div className={styles.actions}>
+                      <Button size="sm" variant="ghost">
+                        View
+                      </Button>
+                      <Button size="sm" variant="ghost">
+                        Delete
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               );

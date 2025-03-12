@@ -63,9 +63,7 @@ const CommentManagement = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>신고된 댓글 관리</p>
-      </div>
+      <p className={styles.title}>신고된 댓글 관리</p>
 
       <div className={styles.table_wrapper}>
         <table className={styles.table}>

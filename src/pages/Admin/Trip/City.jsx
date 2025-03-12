@@ -1,20 +1,17 @@
 import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
 import styles from "./City.module.css";
 import { useAxios } from "@/hooks";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { APIEndPoints } from "@/constants";
 import AddDestModal from "./components/AddDestModal";
 import { useToast } from "@/contexts";
-import { buildPath } from "@/utils";
+import { buildPath, handleApiCall } from "@/utils";
 import DestMoreInfo from "./components/DestMoreInfo";
 import DeleteModal from "@/components/Modal/ModalContents/DeleteModal";
 
-
 const City = ({ setView }) => {
-  const [items, setItems] = useState();
-  const { loading, fetchData, response } = useAxios();
+  const { fetchData, response } = useAxios();
   const { fetchData: deleteApi } = useAxios();
-  const { fetchData: fetchApi } = useAxios();
   const { createToast } = useToast();
 
   const fetchCities = useCallback(async () => {
@@ -24,33 +21,26 @@ const City = ({ setView }) => {
       params: {
         category: "ALL",
       },
-    }).then((res) => {
-      console.log(res.data)
-      setItems(res.data)
-    }).catch((err) =>{
-      setItems();
-    })
-  }, [fetchData, setView]);
+    });
+  }, [fetchData]);
 
-  const deleteCities = useCallback((id) => {
-    deleteApi({
+  const deleteCities = useCallback(
+    async (id) => {
+      await handleApiCall(() =>
+        deleteApi(
+          {
             method: "DELETE",
             url: buildPath(APIEndPoints.CITY_MANAGE, { id }),
-          })
-            .then(() => {
-              fetchCities();
-              createToast({
-                type: "success",
-                text: "도시가 삭제되었습니다",
-              });
-            })
-            .catch((err) =>
-              createToast({
-                type: "error",
-                text: err.data.message,
-              })
-            );
-  },[createToast, deleteApi, fetchCities])
+          },
+          "도시가 삭제되었습니다",
+          "도시 삭제에 실패했습니다",
+          createToast,
+          fetchCities
+        )
+      );
+    },
+    [createToast, deleteApi, fetchCities]
+  );
 
   useEffect(() => {
     fetchCities();
@@ -60,25 +50,17 @@ const City = ({ setView }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.title}>여행지 관리</p>
-        <div>
-          <Modal>
-            <ModalTrigger>
+
+        <Modal>
+          <ModalTrigger>
             <Button variant="ghost" size="sm">
               도시 추가
             </Button>
-            </ModalTrigger>
-            <ModalContent>
-              <AddDestModal content="도시" onSuccess={fetchCities}/>
-            </ModalContent>
-          </Modal>
-          <Button variant="ghost" size="sm" onClick={() => setView("country")}>
-            나라 관리
-          </Button>
-          <Button variant="ghost" size="sm" onClick={() => setView("plan")}>
-            여행계획 관리
-          </Button>
-
-        </div>
+          </ModalTrigger>
+          <ModalContent>
+            <AddDestModal content="도시" onSuccess={fetchCities} />
+          </ModalContent>
+        </Modal>
       </div>
 
       <div className={styles.table_wrapper}>
@@ -94,34 +76,42 @@ const City = ({ setView }) => {
           </thead>
 
           <tbody>
-            {items?.map((city) => {
+            {response?.map((city) => {
               return (
                 <tr key={city.cityId}>
                   <td>{city.cityId}</td>
                   <td>{city.country.continent.name}</td>
                   <td>{city.country.name}</td>
                   <td>{city.name}</td>
-                  <td className={styles.actions}>
-                  <Modal>
-                    <ModalTrigger>
-                    <Button size="sm" variant="ghost">
-                      View
-                    </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <DestMoreInfo content="도시" data={city} onSuccess={fetchCities}/>
-                    </ModalContent>
-                  </Modal>
-                  <Modal>
-                    <ModalTrigger>
-                      <Button size="sm" variant="ghost" >
-                        Delete
-                      </Button>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <DeleteModal callback={() => deleteCities(city.cityId)} />
-                    </ModalContent>
-                  </Modal>
+                  <td>
+                    <div className={styles.actions}>
+                      <Modal>
+                        <ModalTrigger>
+                          <Button size="sm" variant="ghost">
+                            View
+                          </Button>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <DestMoreInfo
+                            content="도시"
+                            data={city}
+                            onSuccess={fetchCities}
+                          />
+                        </ModalContent>
+                      </Modal>
+                      <Modal>
+                        <ModalTrigger>
+                          <Button size="sm" variant="ghost">
+                            Delete
+                          </Button>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <DeleteModal
+                            callback={() => deleteCities(city.cityId)}
+                          />
+                        </ModalContent>
+                      </Modal>
+                    </div>
                   </td>
                 </tr>
               );

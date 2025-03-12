@@ -23,7 +23,7 @@ export const PageEndPoints = {
   BOARD_MODIFY: "/board/modify/:id",
 
   MYPAGE: "/mypage",
-  ADMIN: "/admin",
+  ADMIN: "/admin/*",
 
   DESTINATION_DETAIL: "/destination/:id",
   DESTINATION_LIST: "/destination/list",

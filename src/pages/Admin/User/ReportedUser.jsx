@@ -6,10 +6,10 @@ import { useCallback, useEffect } from "react";
 import { formatDate } from "date-fns";
 import DeleteUserModal from "../Modals/DeleteUserModal";
 
-const ReportedUser = ({ set }) => {
+const ReportedUser = () => {
   const { reportedUsers, fetchReportedUsers, permitUser } = useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination("user");
+    usePagination();
 
   const refetch = useCallback(async () => {
     await fetchReportedUsers({ page: currentPage - 1 }, setTotalPage);
@@ -21,12 +21,7 @@ const ReportedUser = ({ set }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>신고된 회원 관리</p>
-        <Button variant="ghost" size="sm" onClick={set}>
-          전체 회원 관리
-        </Button>
-      </div>
+      <p className={styles.title}>신고된 회원 관리</p>
 
       <div className={styles.table_wrapper}>
         <table className={styles.table}>

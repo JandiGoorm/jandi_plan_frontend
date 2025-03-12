@@ -14,7 +14,7 @@ import { buildPath } from "@/utils";
 import { PageEndPoints } from "@/constants";
 import { useNavigate } from "react-router-dom";
 
-const Communities = ({ set }) => {
+const Communities = () => {
   const navigate = useNavigate();
   const { fetchCommunities, communities, deleteCommunity } = useCommunity();
 
@@ -35,12 +35,7 @@ const Communities = ({ set }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>커뮤니티 글 관리</p>
-        <Button size="sm" variant="ghost" onClick={set}>
-          신고된 게시글
-        </Button>
-      </div>
+      <p className={styles.title}>커뮤니티 글 관리</p>
 
       <div className={styles.table_wrapper}>
         <table className={styles.table}>
@@ -101,7 +96,6 @@ const Communities = ({ set }) => {
           </tbody>
         </table>
       </div>
-
       <div className={styles.pagination}>
         <Pagination
           callback={handlePageChange}

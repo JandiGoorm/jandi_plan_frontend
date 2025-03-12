@@ -1,4 +1,4 @@
-import { Button, Pagination } from "@/components";
+import { Pagination } from "@/components";
 import { PageEndPoints } from "@/constants";
 import { useCommunity, usePagination } from "@/hooks";
 import { buildPath } from "@/utils";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./ReportedCommunities.module.css";
 import ReportedItem from "./ReportedItem";
 
-const ReportedCommunities = ({ set }) => {
+const ReportedCommunities = () => {
   const navigate = useNavigate();
   const { reportedCommunities, fetchReportedCommunities, deleteCommunity } =
     useCommunity();
@@ -33,13 +33,7 @@ const ReportedCommunities = ({ set }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>신고된 커뮤니티 글 관리</p>
-
-        <Button size="sm" variant="ghost" onClick={set}>
-          전체 게시글
-        </Button>
-      </div>
+      <p className={styles.title}>신고된 커뮤니티 글 관리</p>
 
       <div className={styles.table_wrapper}>
         <table className={styles.table}>

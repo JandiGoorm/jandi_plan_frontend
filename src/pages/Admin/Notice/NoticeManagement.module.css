@@ -1,22 +1,28 @@
 .container {
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  padding: 1.5rem;
-  box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  box-sizing: border-box;
+  padding: 0 2rem;
+  box-shadow: var(--shadow-md);
 }
 
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-semibold);
+}
+
+.table_wrapper {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
 }
 
 .table {
@@ -26,10 +32,14 @@
 
 .table th,
 .table td {
-  box-sizing: border-box;
   padding: 0.8rem;
   text-align: left;
   border-bottom: 1px solid var(--color-gray-300);
+
+  max-width: 10rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table th {
@@ -44,4 +54,9 @@
 .actions {
   display: flex;
   gap: 0.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
 }

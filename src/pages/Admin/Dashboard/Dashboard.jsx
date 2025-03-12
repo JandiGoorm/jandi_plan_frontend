@@ -29,6 +29,7 @@ const DashboardCard = () => {
             </p>
           </div>
         ))}
+        <p>유저 차트/ 여행 계획차트</p>
       </div>
     </div>
   );

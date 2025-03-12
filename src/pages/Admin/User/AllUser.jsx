@@ -1,14 +1,14 @@
+import styles from "./AllUser.module.css";
 import { Button, Pagination } from "@/components";
-import styles from "./UserAll.module.css";
 import { usePagination } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { formatDate } from "date-fns";
 import { useUserManger } from "../UserManagerContext";
 
-const UserAll = ({ set }) => {
+const AllUser = () => {
   const { users, fetchUsers, permitUser } = useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination("user");
+    usePagination();
 
   const refetch = useCallback(async () => {
     await fetchUsers({ page: currentPage - 1 }, setTotalPage);
@@ -20,12 +20,7 @@ const UserAll = ({ set }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <p className={styles.title}>전체 회원 관리</p>
-        <Button variant="ghost" size="sm" onClick={set}>
-          신고된 회원 관리
-        </Button>
-      </div>
+      <p className={styles.title}>전체 회원 관리</p>
 
       <div className={styles.table_wrapper}>
         <table className={styles.table}>
@@ -40,7 +35,7 @@ const UserAll = ({ set }) => {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody style={{ overflow: "hidden" }}>
             {users?.items.map((user) => {
               const date = formatDate(user.createdAt, "yyyy. MM. dd");
 
@@ -82,4 +77,4 @@ const UserAll = ({ set }) => {
   );
 };
 
-export default UserAll;
+export default AllUser;
