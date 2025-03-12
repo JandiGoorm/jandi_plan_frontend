@@ -1,4 +1,4 @@
-import { Pagination } from "@/components";
+import { Loading, Pagination } from "@/components";
 import { usePagination } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { useUserManger } from "../UserManagerContext";
@@ -6,7 +6,8 @@ import styles from "./ReportedUser.module.css";
 import ReportedUserTable from "./ReportedUserTable";
 
 const ReportedUser = () => {
-  const { reportedUsers, fetchReportedUsers, permitUser } = useUserManger();
+  const { reportedUsers, fetchReportedUsers, permitUser, reportedUserLoading } =
+    useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
@@ -18,6 +19,7 @@ const ReportedUser = () => {
     refetch();
   }, [refetch]);
 
+  if (reportedUserLoading) return <Loading />;
   return (
     <div className={styles.container}>
       <p className={styles.title}>신고된 회원 관리</p>
