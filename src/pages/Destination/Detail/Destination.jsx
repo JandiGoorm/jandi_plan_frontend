@@ -1,6 +1,6 @@
 import { BaseLayout } from "@/layouts";
 import styles from "./Destination.module.css";
-import { planItems,dummy } from "./constants";
+import {dummy } from "./constants";
 import Weather from "./components/Weather";
 import { useEffect, useState, useCallback } from "react";
 import DestinationMap from "./components/DestinationMap";
