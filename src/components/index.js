@@ -16,6 +16,8 @@ export { default as DeleteModal } from "./Modal/ModalContents/DeleteModal.jsx";
 export { default as CityCard } from "./Cards/CityCard/CityCard.jsx";
 export { default as PlanCard } from "./Cards/PlanCard/PlanCard.jsx";
 
+export { default as PlanChart } from "./Chart/PlanChart/PlanChart.jsx";
+
 export * from "./Drawer/Drawer.jsx";
 export * from "./Modal/Modal.jsx";
 export * from "./DropDown/DropDown.jsx";

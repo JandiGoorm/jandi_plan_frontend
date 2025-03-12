@@ -26,17 +26,16 @@ const City = ({ setView }) => {
 
   const deleteCities = useCallback(
     async (id) => {
-      await handleApiCall(() =>
-        deleteApi(
-          {
+      await handleApiCall(
+        () =>
+          deleteApi({
             method: "DELETE",
             url: buildPath(APIEndPoints.CITY_MANAGE, { id }),
-          },
-          "도시가 삭제되었습니다",
-          "도시 삭제에 실패했습니다",
-          createToast,
-          fetchCities
-        )
+          }),
+        "도시가 삭제되었습니다",
+        "도시 삭제에 실패했습니다",
+        createToast,
+        fetchCities
       );
     },
     [createToast, deleteApi, fetchCities]
@@ -49,7 +48,7 @@ const City = ({ setView }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p className={styles.title}>여행지 관리</p>
+        <p className={styles.title}>도시 관리</p>
 
         <Modal>
           <ModalTrigger>
@@ -88,7 +87,7 @@ const City = ({ setView }) => {
                       <Modal>
                         <ModalTrigger>
                           <Button size="sm" variant="ghost">
-                            View
+                            Edit
                           </Button>
                         </ModalTrigger>
                         <ModalContent>

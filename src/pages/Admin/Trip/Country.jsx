@@ -80,33 +80,35 @@ const Country = ({ setView }) => {
                   <td>{country.countryId}</td>
                   <td>{country.continent.name}</td>
                   <td>{country.name}</td>
-                  <td className={styles.actions}>
-                    <Modal>
-                      <ModalTrigger>
-                        <Button size="sm" variant="ghost">
-                          View
-                        </Button>
-                      </ModalTrigger>
-                      <ModalContent>
-                        <DestMoreInfo
-                          content="나라"
-                          data={country}
-                          onSuccess={fetchCountries}
-                        />
-                      </ModalContent>
-                    </Modal>
-                    <Modal>
-                      <ModalTrigger>
-                        <Button size="sm" variant="ghost">
-                          Delete
-                        </Button>
-                      </ModalTrigger>
-                      <ModalContent>
-                        <DeleteModal
-                          callback={() => deleteCountries(country.countryId)}
-                        />
-                      </ModalContent>
-                    </Modal>
+                  <td>
+                    <div className={styles.actions}>
+                      <Modal>
+                        <ModalTrigger>
+                          <Button size="sm" variant="ghost">
+                            Edit
+                          </Button>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <DestMoreInfo
+                            content="나라"
+                            data={country}
+                            onSuccess={fetchCountries}
+                          />
+                        </ModalContent>
+                      </Modal>
+                      <Modal>
+                        <ModalTrigger>
+                          <Button size="sm" variant="ghost">
+                            Delete
+                          </Button>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <DeleteModal
+                            callback={() => deleteCountries(country.countryId)}
+                          />
+                        </ModalContent>
+                      </Modal>
+                    </div>
                   </td>
                 </tr>
               );

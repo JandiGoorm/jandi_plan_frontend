@@ -13,7 +13,7 @@ const ReportedCommunities = () => {
     useCommunity();
 
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination("reportedCommunity");
+    usePagination();
 
   const handleViewClick = useCallback(
     (id) => {

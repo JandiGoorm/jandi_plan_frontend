@@ -19,7 +19,7 @@ const Communities = () => {
   const { fetchCommunities, communities, deleteCommunity } = useCommunity();
 
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination("community");
+    usePagination();
 
   const handleViewClick = useCallback(
     (id) => {
