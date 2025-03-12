@@ -56,6 +56,17 @@ const Destination = () => {
         fetchDestination();
     },[fetchDestination,cityName])
 
+    const handleClick = (value) => {
+        let Url= "";
+        if(value==="plane"){
+            Url = `https://www.skyscanner.co.kr/`;
+        }else{
+            Url = `https://www.agoda.com/`;
+        }
+
+        window.open(Url, "_blank"); // 새 탭에서 열기
+      };
+
     return(
         <BaseLayout>
         {loading ? (
@@ -74,10 +85,10 @@ const Destination = () => {
                         <div className={styles.weather_box}>
                             <Weather latitude={item.latitude} longitude={item.longitude}/>
                         </div>
-                        <div className={styles.plane_box}>
+                        <div className={styles.plane_box} onClick={()=>handleClick("plane")}>
                             <p className={styles.item_title}>비행기 값 알아보기</p>
                         </div>
-                        <div className={styles.hotel_box}>
+                        <div className={styles.hotel_box} onClick={()=>handleClick("hotel")}>
                             <p className={styles.item_title}>숙소 알아보기</p>
                         </div>
                     </div>
@@ -113,17 +124,6 @@ const Destination = () => {
                         {(item) => (
                         <>
                             <PlanCard key={item.tripId} item={item} />
-                            {/* <div
-                            className={styles.img_container}
-                            style={{
-                                backgroundImage: `url(${item.cityImageUrl})`,
-                            }}
-                            />
-                            <div className={styles.plan_box}>
-                            <div className={styles.plan_title}>
-                                <p className={styles.plan_name}>{item.title}</p>
-                            </div>
-                            </div> */}
                         </>
                         )}
                     </Slider>
