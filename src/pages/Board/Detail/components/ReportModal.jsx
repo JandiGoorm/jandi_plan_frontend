@@ -5,11 +5,14 @@ import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
 import { buildPath } from "@/utils";
+import { useModal } from "@/components/Modal/ModalContext";
 
 const ReportModal = ({id,getUrl}) => {
     const [reportText, setReportText] = useState("");
-      const { createToast } = useToast();
-      const { fetchData } = useAxios();
+    const { createToast } = useToast();
+    const { fetchData } = useAxios();
+
+    const { closeModal } = useModal();
 
     const handleReport = () => {
         if (reportText.trim() === "") {
@@ -31,6 +34,8 @@ const ReportModal = ({id,getUrl}) => {
         }).then((res) => {
             console.log("성공")
             setReportText("");
+            createToast({ type: "success", text: "신고가 완료되었습니다" });
+            closeModal();
         }).catch((err) => {
             createToast({ type: "error", text: err.data.message });
         });
