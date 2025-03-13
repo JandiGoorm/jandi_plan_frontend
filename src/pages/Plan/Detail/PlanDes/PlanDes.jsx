@@ -8,10 +8,14 @@ import Reserved from "./Reserved";
 import DayDetail from "./DayDetail";
 import { useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useAuth } from "@/contexts";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
   const { focusDay, reservations, tripDetail, setFocusDay } = usePlanDetail();
+  const { user } = useAuth();
+
+  const isMine = user?.userId === tripDetail?.user.userId;
 
   const renderItem = useMemo(() => {
     if (focusDay === null && reservations) {
@@ -45,25 +49,27 @@ const PlanDes = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>PLAN DETAILS</div>
-        <div className={styles.buttons}>
-          <Modal>
-            <ModalTrigger>
-              <Button variant="ghost">예약추가</Button>
-            </ModalTrigger>
-            <ModalContent>
-              <CreateReservation />
-            </ModalContent>
-          </Modal>
+        {isMine && (
+          <div className={styles.buttons}>
+            <Modal>
+              <ModalTrigger>
+                <Button variant="ghost">예약추가</Button>
+              </ModalTrigger>
+              <ModalContent>
+                <CreateReservation />
+              </ModalContent>
+            </Modal>
 
-          <Modal>
-            <ModalTrigger>
-              <Button variant="ghost">일정추가</Button>
-            </ModalTrigger>
-            <ModalContent>
-              <CreateSchedule />
-            </ModalContent>
-          </Modal>
-        </div>
+            <Modal>
+              <ModalTrigger>
+                <Button variant="ghost">일정추가</Button>
+              </ModalTrigger>
+              <ModalContent>
+                <CreateSchedule />
+              </ModalContent>
+            </Modal>
+          </div>
+        )}
       </div>
       <div className={styles.des_container}>
         <div className={styles.des_nav}>
