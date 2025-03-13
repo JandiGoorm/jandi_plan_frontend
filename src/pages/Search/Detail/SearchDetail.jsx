@@ -1,37 +1,30 @@
-import { Button, PlanCard, Loading } from "@/components";
-import styles from "./SearhDetail.module.css";
-import { useEffect, useState } from "react";
-import { usePlans, usePagination, useCommunity } from "@/hooks";
-import { useNavigate } from "react-router-dom";
+import { Button, Loading, PlanCard } from "@/components";
 import { PageEndPoints } from "@/constants";
+import { useCommunity, usePlans } from "@/hooks";
 import BoardItem from "@/pages/Board/BoardItem";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./SearhDetail.module.css";
 
 const SearchDetail = ({ keyword }) => {
-  const { plans, fetchPlans, getLoadings } = usePlans();
-  const { communities, fetchCommunities, getLoading } = useCommunity();
   const [count, setCount] = useState();
   const [communityCount, setCommunityCount] = useState();
   const navigate = useNavigate();
 
-  const { setTotalPage: setTotalPlanPage } = usePagination();
-  const { setTotalPage: setTotalCommunityPage } = usePagination();
+  const { plans, fetchPlans, getLoadings } = usePlans();
+  const { communities, fetchCommunities, getLoading } = useCommunity();
 
   useEffect(() => {
-    fetchPlans(
-      { page: 0, keyword, category: "BOTH" },
-      setCount,
-      setTotalPlanPage
-    ),
-      fetchCommunities(
-        {
-          page: 0,
-          keyword,
-          category: "BOTH",
-        },
-        setCommunityCount,
-        setTotalCommunityPage
-      );
-  }, [keyword]);
+    fetchPlans({ page: 0, keyword, category: "BOTH" }).then((res) =>
+      setCount(res.data.pageInfo.totalSize || 0)
+    );
+
+    fetchCommunities({
+      page: 0,
+      keyword,
+      category: "BOTH",
+    }).then((res) => setCommunityCount(res.data.pageInfo.totalSize || 0));
+  }, [fetchCommunities, fetchPlans, keyword]);
 
   if (getLoading || getLoadings) {
     return <Loading />;
@@ -42,7 +35,6 @@ const SearchDetail = ({ keyword }) => {
         <div className={styles.header_title}>
           <p className={styles.title}>여행 플랜 검색 결과 {count}건</p>
         </div>
-
         {plans ? (
           <div className={styles.plan_container}>
             {plans.items.map((item) => (

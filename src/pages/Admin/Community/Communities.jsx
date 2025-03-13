@@ -24,7 +24,9 @@ const Communities = () => {
   );
 
   useEffect(() => {
-    fetchCommunities({ page: currentPage - 1 }, setTotalPage);
+    fetchCommunities({ page: currentPage - 1 }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
+    );
   }, [currentPage, fetchCommunities, setTotalPage]);
 
   if (communitiesLoading) return <Loading />;

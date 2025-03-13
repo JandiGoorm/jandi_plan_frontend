@@ -3,7 +3,7 @@ import { PageEndPoints } from "@/constants";
 import { useCommunity } from "@/hooks";
 import { usePagination } from "@/hooks";
 import { BaseLayout } from "@/layouts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Board.module.css";
 import BoardItem from "./BoardItem";
@@ -16,7 +16,6 @@ const BoardPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const category = searchParams.get("category") || "BOTH";
-  const [count, setCount] = useState();
 
   const navigate = useNavigate();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
@@ -40,20 +39,17 @@ const BoardPage = () => {
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
 
-    fetchCommunities(
-      { page: currentPage - 1, keyword, category },
-      setCount,
-      setTotalPage
+    fetchCommunities({ page: currentPage - 1, keyword, category }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
     );
   };
 
   useEffect(() => {
     clearErrors();
-    fetchCommunities(
-      { page: currentPage - 1, keyword, category },
-      setCount,
-      setTotalPage
+    fetchCommunities({ page: currentPage - 1, keyword, category }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
     );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 

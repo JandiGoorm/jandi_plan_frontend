@@ -41,7 +41,9 @@ const PlanList = () => {
 
   useEffect(() => {
     clearErrors();
-    fetchPlans({ page: currentPage - 1, keyword, category }, setTotalPage);
+    fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
+    );
   }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
 
   if (getLoading) return <Loading />;

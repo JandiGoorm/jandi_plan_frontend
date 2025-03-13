@@ -28,7 +28,9 @@ const ReportedCommunities = () => {
   );
 
   const refetch = useCallback(async () => {
-    await fetchReportedCommunities({ page: currentPage - 1 }, setTotalPage);
+    await fetchReportedCommunities({ page: currentPage - 1 }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
+    );
   }, [currentPage, fetchReportedCommunities, setTotalPage]);
 
   useEffect(() => {

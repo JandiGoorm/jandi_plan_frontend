@@ -12,19 +12,23 @@ const usePlans = () => {
   } = useAxios();
 
   const fetchPlans = useCallback(
-    async (params, setTotalPage) => {
+    async (params) => {
       const isSearch = params.keyword ? true : false;
       const url = isSearch
         ? buildPath(APIEndPoints.TRIP_SEARCH)
         : buildPath(APIEndPoints.TRIP_ALL);
 
-      await getApi({
+      return await getApi({
         method: "GET",
         url,
         params,
-      }).then((res) => {
-        setTotalPage(res.data.pageInfo.totalPages || 0);
-      });
+      })
+        .then((res) => {
+          return res;
+        })
+        .catch((err) => {
+          throw err;
+        });
     },
     [getApi]
   );
