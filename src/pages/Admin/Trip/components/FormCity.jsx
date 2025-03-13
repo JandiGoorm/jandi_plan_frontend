@@ -94,6 +94,7 @@ const FormCity = ({forUse,data,onSuccess}) =>{
 
     return(
         <div>
+            <img src={data.imageUrl} alt="banner" className={styles.banner_img} />
              <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.columns}>
                     <Field label="나라 이름" helperText="ex) 대한민국, 일본..." isRequire error={errors.country}>

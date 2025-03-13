@@ -25,7 +25,7 @@ const PlanList = () => {
   } = useForm({
     resolver: zodResolver(searchPlansScheme),
   });
-  const {plans, fetchPlans, getLoading} = usePlans();
+  const {plans, fetchPlans, getLoadings} = usePlans();
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
@@ -52,7 +52,7 @@ const PlanList = () => {
 
   return (
     <BaseLayout>
-      {getLoading ? (
+      {getLoadings ? (
         <Loading />
       ) : (
         <div className={styles.container}>

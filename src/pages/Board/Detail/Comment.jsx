@@ -117,7 +117,7 @@ const Comment = ({ id }) => {
           })
         );
     },
-    [createToast, deleteApi, fetchComments]
+    [createToast, fetchApi, fetchComments]
   );
 
   useEffect(() => {

@@ -22,7 +22,7 @@ const useCommunity = () => {
   const { fetchData: deleteApi } = useAxios();
 
   const fetchCommunities = useCallback(
-    async (params, setTotalPage) => {
+    async (params, setCount= null, setTotalPage) => {
       const isSearch = params.keyword ? true : false;
       const url = isSearch
         ? buildPath(APIEndPoints.BOARD_SEARCH)
@@ -32,6 +32,8 @@ const useCommunity = () => {
         url,
         params,
       }).then((res) => {
+        console.log(res);
+        setCount(res.data.pageInfo.totalSize || 0)
         setTotalPage(res.data.pageInfo.totalPages || 0);
       });
     },

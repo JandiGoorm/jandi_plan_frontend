@@ -53,9 +53,11 @@
 
 .select {
   padding: 0.5rem;
+  padding-left: 1rem;
   border: none;
   background-color: var(--color-bg-primary);
   color: var(--text-primary);
+  font-family: "42dot Sans", serif;
 }
 
 .select:focus {

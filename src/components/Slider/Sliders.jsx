@@ -4,13 +4,17 @@ import { MdNavigateBefore,MdNavigateNext  } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useRef } from "react";
 
 const Sliders = ({ items, children, size="sm" }) => {
+  const sliderRef = useRef(null);
+
     const settings = {
         dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 3,
+        slidesToScroll: 1,
         arrows: false,
         responsive: [
           {
@@ -28,13 +32,25 @@ const Sliders = ({ items, children, size="sm" }) => {
         ],
       };
 
+      const handlePrev = () => {
+        sliderRef.current?.slickPrev();
+      };
+    
+      const handleNext = () => {
+        sliderRef.current?.slickNext();
+      };
+
       return(
-        <div
-            className={`${styles.slider_container} ${
-            size === "sm" ? styles.sm_container : styles.md_container
-            }`}
-        >
-            <Slider {...settings}>
+        <div className={styles.container}>
+          <Button className={styles.prev_btn} variant="none" onClick={handlePrev}>
+            <MdNavigateBefore size={48} />
+          </Button>
+          <div
+              className={`${styles.slider_container} ${
+              size === "sm" ? styles.sm_container : styles.md_container
+              }`}
+          >
+            <Slider ref={sliderRef} {...settings}>
                 {items.map((item, index) => (
                 <div
                     key={index}
@@ -46,6 +62,10 @@ const Sliders = ({ items, children, size="sm" }) => {
                 </div>
                 ))}
             </Slider>
+          </div>
+          <Button className={styles.next_btn} onClick={handleNext}>
+            <MdNavigateNext size={48} />
+          </Button>
         </div>
       );
 

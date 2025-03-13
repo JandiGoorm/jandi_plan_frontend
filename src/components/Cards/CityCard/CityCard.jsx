@@ -8,7 +8,7 @@ const CityCard = ({ item }) => {
   const path = buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId });
 
   return (
-    <div className={styles.container} onClick={() => navigate(path, { state: { cityName: item.name } })}>
+    <div className={styles.container}>
       <div
         className={styles.img_container}
         style={{

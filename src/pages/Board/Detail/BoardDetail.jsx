@@ -148,6 +148,7 @@ const BoardDetail = () => {
         <div className={styles.recommend_box}>
           <FaThumbsUp
             size={32}
+            className={styles.thumbs}
             color={
               isLiked ? "var(--color-amber-400)" : "var( --color-gray-300)"
             }
