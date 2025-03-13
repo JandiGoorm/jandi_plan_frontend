@@ -8,7 +8,7 @@ const usePlans = () => {
   const {
     response: plans,
     fetchData: getApi,
-    loading: getLoading,
+    loading: getLoadings,
   } = useAxios();
 
   const fetchPlans = useCallback(
@@ -32,7 +32,7 @@ const usePlans = () => {
   return {
     plans,
     fetchPlans,
-    getLoading,
+    getLoadings,
   };
 };
 

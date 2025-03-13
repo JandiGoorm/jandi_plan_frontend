@@ -64,7 +64,7 @@
     align-items: center;
     box-sizing: border-box;
     padding-left: 1rem;
-    background-image: url('/public/airplane.jpg');
+    background-image: url('/airplane.jpg');
     background-position: center;
     background-size: cover;
     background-color: rgba(255, 255, 255, 0.5);
@@ -82,7 +82,7 @@
     align-items: center;
     box-sizing: border-box;
     padding-left: 1rem;
-    background-image: url('/public/hotel.jpg');
+    background-image: url('/hotel.jpg');
     background-position: center;
     background-size: cover;
     background-color: rgba(255, 255, 255, 0.5); 

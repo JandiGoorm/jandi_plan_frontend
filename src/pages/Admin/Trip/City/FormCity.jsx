@@ -106,6 +106,7 @@ const FormCity = ({ forUse, data, onSuccess }) => {
 
   return (
     <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
+      <img src={data.imageUrl} alt="banner" className={styles.banner_img} />
       <Field
         label="나라 이름"
         helperText="ex) 대한민국, 일본..."
