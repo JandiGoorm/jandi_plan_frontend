@@ -5,6 +5,7 @@ import { MdDateRange } from "react-icons/md";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
+import { RiLock2Fill } from "react-icons/ri";
 
 const PlanCard = ({ item }) => {
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ const PlanCard = ({ item }) => {
           </div>
 
           <div className={styles.header_stats}>
+            {item.privatePlan && (
+              <RiLock2Fill size={18} color="var(--color-indigo-500)" />
+            )}
+
             <div className={styles.header_like}>
               <TiHeartFullOutline size={20} color="var(--color-red-500)" />
               <p>{item.likeCount}</p>

@@ -44,80 +44,77 @@ const PlanList = () => {
     fetchPlans({ page: currentPage - 1, keyword, category }, setTotalPage);
   }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
 
+  if (getLoading) return <Loading />;
   return (
     <BaseLayout>
-      {getLoading ? (
-        <Loading />
-      ) : (
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div className={styles.header_title}>
-              <p className={styles.title}>이런 여행 일정은 어때요?</p>
-              <Button
-                variant={"solid"}
-                size="sm"
-                onClick={() => navigate(PageEndPoints.PLAN_CREATE)}
-              >
-                계획 만들기
-              </Button>
-            </div>
-
-            <div className={styles.flex_column}>
-              <form
-                className={styles.search_input}
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <select
-                  className={styles.select}
-                  onChange={(e) => {
-                    const newSearchParams = new URLSearchParams(searchParams);
-                    newSearchParams.set("category", e.target.value);
-                    setSearchParams(newSearchParams);
-                  }}
-                >
-                  <option value="BOTH">전체</option>
-                  <option value="TITLE">제목</option>
-                  <option value="CITY">도시</option>
-                </select>
-                <Input
-                  size="md"
-                  style={{
-                    border: "none",
-                    width: "100%",
-                    color: "var(--text-primary)",
-                    backgroundColor: "var(--color-bg-primary)",
-                  }}
-                  placeholder="Search ..."
-                  register={register}
-                  name="keyword"
-                />
-
-                <button type="submit" className={styles.search_btn}>
-                  <FiSearch size={24} />
-                </button>
-              </form>
-
-              {errors.keyword && (
-                <p className={styles.error_message}>{errors.keyword.message}</p>
-              )}
-            </div>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.header_title}>
+            <p className={styles.title}>이런 여행 일정은 어때요?</p>
+            <Button
+              variant={"solid"}
+              size="sm"
+              onClick={() => navigate(PageEndPoints.PLAN_CREATE)}
+            >
+              계획 만들기
+            </Button>
           </div>
 
-          <div className={styles.plan_container}>
-            {plans?.items.map((item) => (
-              <PlanCard key={item.tripId} item={item} />
-            ))}
-          </div>
+          <div className={styles.flex_column}>
+            <form
+              className={styles.search_input}
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <select
+                className={styles.select}
+                onChange={(e) => {
+                  const newSearchParams = new URLSearchParams(searchParams);
+                  newSearchParams.set("category", e.target.value);
+                  setSearchParams(newSearchParams);
+                }}
+              >
+                <option value="BOTH">전체</option>
+                <option value="TITLE">제목</option>
+                <option value="CITY">도시</option>
+              </select>
+              <Input
+                size="md"
+                style={{
+                  border: "none",
+                  width: "100%",
+                  color: "var(--text-primary)",
+                  backgroundColor: "var(--color-bg-primary)",
+                }}
+                placeholder="Search ..."
+                register={register}
+                name="keyword"
+              />
 
-          <div className={styles.footer}>
-            <Pagination
-              currentPage={currentPage}
-              totalPage={totalPage}
-              callback={handlePageChange}
-            />
+              <button type="submit" className={styles.search_btn}>
+                <FiSearch size={24} />
+              </button>
+            </form>
+
+            {errors.keyword && (
+              <p className={styles.error_message}>{errors.keyword.message}</p>
+            )}
           </div>
         </div>
-      )}
+
+        <div className={styles.plan_container}>
+          {plans?.items.map((item) => (
+            <PlanCard key={item.tripId} item={item} />
+          ))}
+        </div>
+
+        <div className={styles.footer}>
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            callback={handlePageChange}
+          />
+        </div>
+      </div>
     </BaseLayout>
   );
 };
