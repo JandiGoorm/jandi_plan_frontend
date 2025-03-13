@@ -5,8 +5,8 @@ import { MdDateRange } from "react-icons/md";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
+import { RiLock2Fill } from "react-icons/ri";
 import { useState } from "react";
-
 
 const PlanCard = ({ item }) => {
   const navigate = useNavigate();
@@ -30,8 +30,8 @@ const PlanCard = ({ item }) => {
   };
 
   return (
-    <div 
-      className={styles.container}       
+    <div
+      className={styles.container}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     >
@@ -45,7 +45,7 @@ const PlanCard = ({ item }) => {
         <div className={styles.content_header}>
           <div className={styles.header_title}>
             <img
-              src={item.user.profile_url ?? "/user2.jpg"}
+              src={item.user.profileImageUrl ?? "/user2.jpg"}
               className={styles.user_img}
             />
             <div className={styles.user_info}>
@@ -61,6 +61,10 @@ const PlanCard = ({ item }) => {
           </div>
 
           <div className={styles.header_stats}>
+            {item.privatePlan && (
+              <RiLock2Fill size={18} color="var(--color-indigo-500)" />
+            )}
+
             <div className={styles.header_like}>
               <TiHeartFullOutline size={20} color="var(--color-red-500)" />
               <p>{item.likeCount}</p>

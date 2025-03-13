@@ -7,25 +7,30 @@ import { useCallback, useState } from "react";
 
 const AddBanner = ({ callback }) => {
   const [bannerImg, setBannerImg] = useState(null);
+
+  const formController = useForm({
+    resolver: zodResolver(bannerWriteScheme),
+  });
+
   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue,
-  } = useForm({
-    resolver: zodResolver(bannerWriteScheme),
-  });
+  } = formController;
 
   const onSubmit = useCallback(
-    (data) => {
+    async (data) => {
       const formData = new FormData();
       formData.append("file", data.file);
       formData.append("title", data.title);
       formData.append("linkUrl", data.linkUrl);
 
-      callback(formData);
+      await callback(formData);
+
+      formController.reset();
     },
-    [callback]
+    [callback, formController]
   );
 
   return (

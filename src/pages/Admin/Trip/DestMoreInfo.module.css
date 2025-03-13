@@ -1,0 +1,14 @@
+.container {
+  min-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+}

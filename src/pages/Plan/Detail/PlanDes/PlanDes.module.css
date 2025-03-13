@@ -41,6 +41,7 @@
   background-color: var(--color-board-bg);
 
   font-weight: var(--font-weight-semibold);
+  cursor: pointer;
 }
 
 .focus {

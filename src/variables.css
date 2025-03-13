@@ -314,17 +314,18 @@
 
   /* shadow */
   --color-shadow: 0 0 0;
+  --shadow-opacity: 0.1;
 
   --shadow-2xs: 0 1px rgb(var(--color-shadow) / 0.05);
   --shadow-xs: 0 1px 2px 0 rgb(var(--color-shadow) / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(var(--color-shadow) / 0.1),
-    0 1px 2px -1px rgb(var(--color-shadow) / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(var(--color-shadow) / 0.1),
-    0 2px 4px -2px rgb(var(--color-shadow) / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(var(--color-shadow) / 0.1),
-    0 4px 6px -4px rgb(var(--color-shadow) / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(var(--color-shadow) / 0.2),
-    0 8px 10px -6px rgb(var(--color-shadow) / 0.1);
+  --shadow-sm: 0 1px 3px 0 rgb(var(--color-shadow) / var(--shadow-opacity)),
+    0 1px 2px -1px rgb(var(--color-shadow) / var(--shadow-opacity));
+  --shadow-md: 0 4px 6px -1px rgb(var(--color-shadow) / var(--shadow-opacity)),
+    0 2px 4px -2px rgb(var(--color-shadow) / var(--shadow-opacity));
+  --shadow-lg: 0 10px 15px -3px rgb(var(--color-shadow) / var(--shadow-opacity)),
+    0 4px 6px -4px rgb(var(--color-shadow) / var(--shadow-opacity));
+  --shadow-xl: 0 20px 25px -5px rgb(var(--color-shadow) / var(--shadow-opacity)),
+    0 8px 10px -6px rgb(var(--color-shadow) / var(--shadow-opacity));
   --shadow-2xl: 0 25px 50px -12px rgb(var(--color-shadow) / 0.3);
 
   /* common semantic tokens */
@@ -375,8 +376,7 @@
   --color-editor-blockquote-bg: var(--color-gray-100);
   --color-editor-blockquote-border: var(--color-gray-300);
 
-  --color-admin-side-bg: var(--color-gray-500);
-  --color-admin-bg: var(--color-gray-50);
+  --color-admin-bg: var(--color-white);
 }
 
 :root[theme="dark"] {
@@ -394,6 +394,7 @@
   --color-button-text: var(--color-black);
 
   --color-shadow: 255 255 255;
+  --shadow-opacity: 0.5;
 
   --color-tooltip-bg: var(--color-white);
   --color-tooltip-text: var(--color-gray-800);
@@ -407,6 +408,5 @@
   --color-editor-blockquote-bg: var(--color-gray-600);
   --color-editor-blockquote-border: var(--color-gray-400);
 
-  --color-admin-side-bg: var(--color-gray-600);
-  --color-admin-bg: var(--color-gray-700);
+  --color-admin-bg: var(--color-zinc-950);
 }

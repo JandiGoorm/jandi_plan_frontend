@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  box-sizing: border-box;
+  padding-left: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}

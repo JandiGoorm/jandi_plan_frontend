@@ -1,0 +1,33 @@
+import { useCallback, useState } from "react";
+import { menuData } from "./constants";
+import MenuItem from "./MenuItem";
+import styles from "./Sidebar.module.css";
+
+const Sidebar = () => {
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const handleMenuClick = useCallback((id) => {
+    setOpenMenuId((prev) => (prev === id ? null : id));
+  }, []);
+
+  return (
+    <div className={styles.sidebar}>
+      <p className={styles.sidebar_title}>Just Plan it !</p>
+
+      <div className={styles.menu_container}>
+        {menuData.map((item) => {
+          return (
+            <MenuItem
+              key={item.id}
+              item={item}
+              isOpen={openMenuId === item.id}
+              onClick={handleMenuClick}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
