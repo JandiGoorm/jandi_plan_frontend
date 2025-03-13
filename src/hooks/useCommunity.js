@@ -13,40 +13,45 @@ const useCommunity = () => {
   const {
     response: communities,
     fetchData: getCommunityApi,
-    loading: getLoading,
+    loading: communitiesLoading,
   } = useAxios();
-  const { response: reportedCommunities, fetchData: getReportedCommunityApi } =
-    useAxios();
+
+  const {
+    response: reportedCommunities,
+    fetchData: getReportedCommunityApi,
+    loading: reportedCommunitiesLoading,
+  } = useAxios();
+
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
 
   const fetchCommunities = useCallback(
-    async (params, setTotalPage) => {
+    async (params) => {
       const isSearch = params.keyword ? true : false;
       const url = isSearch
         ? buildPath(APIEndPoints.BOARD_SEARCH)
         : buildPath(APIEndPoints.BOARD);
-      await getCommunityApi({
+      return await getCommunityApi({
         method: "GET",
         url,
         params,
       }).then((res) => {
-        setTotalPage(res.data.pageInfo.totalPages || 0);
+        return res;
       });
     },
     [getCommunityApi]
   );
 
   const fetchReportedCommunities = useCallback(
-    async (params, setTotalPage) => {
+    async (params) => {
       const url = buildPath(APIEndPoints.REPORTED_BOARD);
-      await getReportedCommunityApi({
+      return await getReportedCommunityApi({
         method: "GET",
         url,
         params,
       }).then((res) => {
-        setTotalPage(res.data.pageInfo.totalPages || 0);
+        return res;
       });
     },
     [getReportedCommunityApi]
@@ -125,7 +130,8 @@ const useCommunity = () => {
     reportedCommunities,
     fetchReportedCommunities,
     fetchCommunities,
-    getLoading,
+    communitiesLoading,
+    reportedCommunitiesLoading,
     addCommunity,
     updateCommunity,
     deleteCommunity,

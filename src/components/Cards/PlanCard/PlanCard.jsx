@@ -5,13 +5,36 @@ import { MdDateRange } from "react-icons/md";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
+import { RiLock2Fill } from "react-icons/ri";
+import { useState } from "react";
 
 const PlanCard = ({ item }) => {
   const navigate = useNavigate();
   const path = buildPath(PageEndPoints.PLAN_DETAIL, { id: item.tripId });
 
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setStartX(e.clientX);
+    setStartY(e.clientY);
+  };
+
+  const handleMouseUp = (e) => {
+    const deltaX = Math.abs(e.clientX - startX);
+    const deltaY = Math.abs(e.clientY - startY);
+    // 클릭으로 인정할 최소 이동 거리 (예: 5px 이하)
+    if (deltaX < 5 && deltaY < 5) {
+      navigate(path);
+    }
+  };
+
   return (
-    <div className={styles.container} onClick={() => navigate(path)}>
+    <div
+      className={styles.container}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <div
         className={styles.img_container}
         style={{
@@ -22,7 +45,7 @@ const PlanCard = ({ item }) => {
         <div className={styles.content_header}>
           <div className={styles.header_title}>
             <img
-              src={item.user.profile_url ?? "/user2.jpg"}
+              src={item.user.profileImageUrl ?? "/user2.jpg"}
               className={styles.user_img}
             />
             <div className={styles.user_info}>
@@ -38,6 +61,10 @@ const PlanCard = ({ item }) => {
           </div>
 
           <div className={styles.header_stats}>
+            {item.privatePlan && (
+              <RiLock2Fill size={18} color="var(--color-indigo-500)" />
+            )}
+
             <div className={styles.header_like}>
               <TiHeartFullOutline size={20} color="var(--color-red-500)" />
               <p>{item.likeCount}</p>

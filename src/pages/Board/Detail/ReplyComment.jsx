@@ -1,5 +1,5 @@
 import { useAxios } from "@/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState,useCallback } from "react";
 import styles from "./ReplyComment.module.css";
 import { formatDistanceToNow } from "date-fns";
 import { buildPath } from "@/utils";
@@ -12,60 +12,79 @@ import { Modal, ModalContent, ModalTrigger } from "@/components";
 const ReplyComment = ({ commentId, user }) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const { response, fetchData } = useAxios();
   const { createToast } = useToast();
-
-  const hashId = useMemo(() => new Set(), []);
+  const { fetchData: deleteApi } = useAxios();
+  const { fetchData: fetchApi } = useAxios();
 
   const isNextPage = useMemo(() => {
     if (!response) return false;
-    return response.pageInfo.totalPage > response.pageInfo.currentPage + 1;
+    return totalPage > page+1 ;
   }, [response]);
 
-  useEffect(() => {
-    fetchData({
+  const fetchReplys = useCallback(async () => {
+    console.log(commentId);
+    await fetchData({
       url: buildPath(APIEndPoints.COMMENTS_REPLIES, { id: commentId }),
       method: "GET",
       params: {
         page,
       },
-    });
-  }, [commentId, fetchData, page]);
+    }).then((res) => {
+      console.log(res)
+      setPage(res.data.pageInfo.currentPage);
+      setTotalPage(res.data.pageInfo.totalPages);
+      setData(res.data.items);
+    })
+  },[fetchData, commentId, user?.userId, page])
 
-  useEffect(() => {
-    if (!response) return;
-
-    const itemsWithMine = response.items.map((comment) => ({
-      ...comment,
-      mine: comment.user.userId === user?.userId,
-    }));
-
-    const newItems = itemsWithMine.filter((item) => {
-      if (hashId.has(item.commentId)) {
-        return false;
-      }
-
-      hashId.add(item.commentId);
-      return true;
-    });
-
-    setData((prev) => [...prev, ...newItems]);
-  }, [hashId, response]);
-
-  const deleteReply = (id) => {
-    fetchData({
+  const deleteReply = useCallback(
+    (id) => {
+      deleteApi({
       method: "DELETE",
       url: buildPath(APIEndPoints.COMMUNITY_COMMENTS, {id}),
     }).then((res) => {
       createToast({ type: "success", text: "댓글이 삭제되었습니다." });
       setPage(0); 
+      fetchReplys();
     }).catch((err) => {
       createToast({
         type: "error",
         text: "댓글 삭제에 실패하였습니다",
       });
     })
-  }
+  },
+  [deleteApi, createToast, fetchReplys]);
+
+  const handleLike = useCallback(
+    (id, liked) => {
+      let method="";
+      if(liked){
+        method="DELETE";
+      }else{
+        method="POST";
+      }
+      fetchApi({
+        method: method,
+        url: buildPath(APIEndPoints.COMMENTS_LIKE, { id }),
+      })
+        .then(() => {
+          fetchReplys();
+        })
+        .catch(() =>
+          createToast({
+            type: "error",
+            text: "좋아요 설정에 실패하였습니다",
+          })
+        );
+    },
+    [createToast, fetchApi, fetchReplys]
+  );
+
+  useEffect(() => {
+    fetchReplys();
+  }, [fetchReplys, commentId]);
 
   return (
     <div className={styles.container}>
@@ -79,7 +98,7 @@ const ReplyComment = ({ commentId, user }) => {
               <div className={styles.comment_info}>
                 <p className={styles.comment_user_name}>{comment.user.userName}</p>
                 <p className={styles.comment_date}>{formatDate}</p>
-                {comment.mine ? 
+                {user.userId===comment.user.userId ? 
                   <>
                     <p className={styles.report} onClick={()=>deleteReply(comment.commentId)}>삭제</p> 
                   </>
@@ -90,10 +109,10 @@ const ReplyComment = ({ commentId, user }) => {
                       <p className={styles.report}>신고</p>
                     </ModalTrigger>
                     <ModalContent>
-                      <ReportModal id={comment.commentId} setUrl="replyReport"/>
+                      <ReportModal id={comment.commentId} getUrl="commentReport"/>
                     </ModalContent>
                   </Modal>
-                    <FaThumbsUp size={12} color={comment.isRecommended? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike()}} />
+                    <FaThumbsUp size={12} className={styles.thumbs}color={comment.liked? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike(comment.commentId,comment.liked)}} />
                     <p className={styles.likeCount}> {comment.likeCount}</p>
                   </>}
               </div>
@@ -105,7 +124,7 @@ const ReplyComment = ({ commentId, user }) => {
 
       {isNextPage && (
         <p
-          className={styles.more_button}
+          className={styles.more_btn}
           onClick={() => setPage((prev) => prev + 1)}
         >
           더보기

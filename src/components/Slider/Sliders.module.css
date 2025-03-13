@@ -1,3 +1,31 @@
+.container{
+    position: relative;
+}
+
+
+.prev_btn,
+.next_btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  height: 100%;
+}
+
+.prev_btn {
+  left: 0px;
+}
+
+.next_btn {
+  right: 0px;
+}
+
+.prev_btn:hover,
+.next_btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .sm_container {
     border-top: 1px solid var(--color-gray-200);
     padding: 1rem 0;

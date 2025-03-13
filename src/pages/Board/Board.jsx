@@ -21,7 +21,7 @@ const BoardPage = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
-  const { communities, fetchCommunities, getLoading } = useCommunity();
+  const { communities, fetchCommunities, communitiesLoading } = useCommunity();
 
   const {
     register,
@@ -39,24 +39,23 @@ const BoardPage = () => {
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
 
-    fetchCommunities(
-      { page: currentPage - 1, keyword, category },
-      setTotalPage
+    fetchCommunities({ page: currentPage - 1, keyword, category }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
     );
   };
 
   useEffect(() => {
     clearErrors();
-    fetchCommunities(
-      { page: currentPage - 1, keyword, category },
-      setTotalPage
+    fetchCommunities({ page: currentPage - 1, keyword, category }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
     );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 
   return (
     <BaseLayout>
-      {getLoading && <Loading />}
+      {communitiesLoading && <Loading />}
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.header_title}>

@@ -4,6 +4,9 @@ import { BaseLayout } from "@/layouts";
 import { Button, CityCard } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "@/utils";
+import { PageEndPoints } from "@/constants";
 
 const DestinationList = () => {
   const { loading, fetchData, response } = useAxios();
@@ -13,6 +16,8 @@ const DestinationList = () => {
 
   const [selectedContinent, setSelectedContinent] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData({
@@ -102,7 +107,9 @@ const DestinationList = () => {
         </div>
         <div className={styles.plan_container}>
           {destinations.map((item) => (
-            <CityCard key={item.cityId} item={item} />
+            <div key={item.cityId} onClick={() => navigate(buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId }), { state: { cityName: item.name } })}>
+              <CityCard  item={item} />
+            </div>
           ))}
         </div>
       </div>

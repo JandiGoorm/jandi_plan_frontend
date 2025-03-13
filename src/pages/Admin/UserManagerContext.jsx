@@ -7,6 +7,8 @@ export const UserManagerContext = createContext({
   fetchReportedUsers: async () => {},
   permitUser: async () => {},
   deleteUser: async () => {},
+  userLoading: false,
+  reportedUserLoading: false,
 });
 
 export const useUserManger = () => {

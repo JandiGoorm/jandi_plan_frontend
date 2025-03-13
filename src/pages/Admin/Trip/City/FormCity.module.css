@@ -1,0 +1,11 @@
+.form_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.banner_img {
+  max-height: 15rem;
+  height: 100%;
+  margin: 0 auto;
+}

@@ -32,9 +32,10 @@ const PlanDetailProvider = ({ children }) => {
       start.setDate(start.getDate() + 1);
     }
 
-    itineraries.forEach((item) => {
+    (itineraries ?? []).forEach((item) => {
       const { date, cost } = item;
       const index = temp.findIndex((day) => day.date === date);
+      if (index === -1) return;
       temp[index].data.push(item);
       temp[index].cost += cost;
     });

@@ -53,13 +53,6 @@ const SearchLayout = () => {
               />
             </div>
           </form>
-
-          {/* <div className={styles.search_recommend}>
-            <p>Recommend : </p>
-            <span>방콕</span>
-            <span>오사카</span>
-            <span>괌</span>
-          </div> */}
         </div>
 
         <AnimatePresence mode="wait">

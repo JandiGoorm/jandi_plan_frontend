@@ -7,8 +7,16 @@ import { useCallback } from "react";
 const useUser = () => {
   const { createToast } = useToast();
 
-  const { response: users, fetchData: getUserApi } = useAxios();
-  const { response: reportedUsers, fetchData: getReportedUserApi } = useAxios();
+  const {
+    response: users,
+    fetchData: getUserApi,
+    loading: userLoading,
+  } = useAxios();
+  const {
+    response: reportedUsers,
+    fetchData: getReportedUserApi,
+    loading: reportedUserLoading,
+  } = useAxios();
   const { fetchData: permitApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
 
@@ -79,6 +87,8 @@ const useUser = () => {
     fetchReportedUsers,
     permitUser,
     deleteUser,
+    userLoading,
+    reportedUserLoading,
   };
 };
 

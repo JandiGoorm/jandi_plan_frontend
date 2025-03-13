@@ -14,4 +14,4 @@ export { default as PlanDetail } from "./Plan/Detail/PlanDetail";
 export { default as MyPage } from "./MyPage/MyPage";
 export { default as DestinationDetail } from "./Destination/Detail/Destination";
 export { default as DestinationList } from "./Destination/List/DestinationList";
-export { default as AdminPage } from "./Admin/Admin";
+export { default as AdminLayout } from "./Admin/AdminLayout";

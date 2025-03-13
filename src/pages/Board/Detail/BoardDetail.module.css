@@ -93,3 +93,8 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
+
+.dropdown_menu,
+.thumbs{
+  cursor: pointer;
+}

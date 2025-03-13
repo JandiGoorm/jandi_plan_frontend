@@ -48,3 +48,8 @@
   cursor: pointer;
   color: var(--color-blue-600);
 }
+
+.report,
+.thumbs {
+  cursor: pointer;
+}
