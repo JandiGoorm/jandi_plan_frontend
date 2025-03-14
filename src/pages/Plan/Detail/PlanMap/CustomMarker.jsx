@@ -12,6 +12,7 @@ const CustomMarker = ({
 }) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
   const { place } = schedule;
+  const isSelected = selectedSchedule?.itineraryId === schedule.itineraryId;
 
   return (
     <AdvancedMarker
@@ -29,21 +30,9 @@ const CustomMarker = ({
       {...props}
     >
       <Pin
-        background={
-          selectedSchedule?.itineraryId === schedule.itineraryId
-            ? "var(--color-amber-200)"
-            : null
-        }
-        borderColor={
-          selectedSchedule?.itineraryId === schedule.itineraryId
-            ? "var(--color-amber-400)"
-            : null
-        }
-        glyphColor={
-          selectedSchedule?.itineraryId === schedule.itineraryId
-            ? "var(--color-amber-400)"
-            : null
-        }
+        background={isSelected ? "var(--color-amber-200)" : null}
+        borderColor={isSelected ? "var(--color-amber-400)" : null}
+        glyphColor={isSelected ? "var(--color-amber-400)" : null}
       />
     </AdvancedMarker>
   );
