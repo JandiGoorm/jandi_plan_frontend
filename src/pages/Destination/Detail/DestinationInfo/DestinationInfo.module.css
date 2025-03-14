@@ -1,0 +1,33 @@
+.info_box {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.weather_box {
+  height: 10rem;
+}
+
+.plane_box,
+.hotel_box {
+  display: flex;
+  height: 4rem;
+  margin-top: 1rem;
+  border-radius: var(--radius-xl);
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  background-position: center;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: lighten;
+  cursor: pointer;
+  box-shadow: var(--shadow-xl);
+}
+
+.plane_box {
+  background-image: url("/airplane.jpg");
+}
+
+.hotel_box {
+  background-image: url("/hotel.jpg");
+}

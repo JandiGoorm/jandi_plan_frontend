@@ -74,15 +74,14 @@ export const APIEndPoints = {
   TRIP_ITINERARY: "/trip/itinerary/:id",
   TRIP_RESERVATION: "/trip/reservation/:id",
   TRIP_SEARCH: "trip/search",
-
   TRIP_SORT: "/trip/rank",
-
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
   COUNTRY: "/trip/countries",
-
   PLAN_BEST: "/trip/top-likes",
   DESTINATION_BEST: "/trip/rank",
+
+  MAP_RESTAURANT: "/map/recommend/restaurant",
 
   IMAGE_UPLOAD_COMMUNITY: "/images/upload/community",
   IMAGE_UPLOAD_NOTICE: "/images/upload/notice",

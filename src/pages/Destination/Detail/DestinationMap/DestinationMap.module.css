@@ -1,0 +1,9 @@
+.map_container {
+  width: 40rem;
+  min-width: 10rem;
+  height: 100%;
+
+  box-sizing: border-box;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
