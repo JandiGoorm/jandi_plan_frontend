@@ -72,6 +72,8 @@ const protectedEndpoints = new Set([
   `PATCH:${APIEndPoints.TRIP_RESERVATION}`,
   `DELETE:${APIEndPoints.TRIP_RESERVATION}`,
 
+  `GET:${APIEndPoints.TRIP_FRIENDS}`,
+
   `POST:${APIEndPoints.PLACE}`,
 
   `POST:${APIEndPoints.IMAGE_UPLOAD_COMMUNITY}`,
@@ -100,7 +102,8 @@ const protectedEndpoints = new Set([
 
 axiosInstance.interceptors.request.use((config) => {
   const requestKey = `${config.method.toUpperCase()}:${config.url}`;
-  const normalizedUrl = requestKey.replace(/\/\d+$/, "/:id");
+
+  const normalizedUrl = requestKey.replace(/\/\d+(?=\/|$)/g, "/:id");
 
   const isRequiredAuth = protectedEndpoints.has(normalizedUrl);
 
