@@ -77,6 +77,9 @@ export const APIEndPoints = {
 
   TRIP_SORT: "/trip/rank",
 
+  TRIP_FRIENDS: "/trip/:id/participants",
+  TRIP_SET_FRIENDS: "/trip/:id/participants/:participantUserName",
+
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
   COUNTRY: "/trip/countries",

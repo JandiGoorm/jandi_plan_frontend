@@ -73,6 +73,9 @@ const protectedEndpoints = new Set([
   `DELETE:${APIEndPoints.TRIP_RESERVATION}`,
 
   `GET:${APIEndPoints.TRIP_FRIENDS}`,
+  `POST:${APIEndPoints.TRIP_FRIENDS}`,
+  `DELETE:${APIEndPoints.TRIP_SET_FRIENDS}`,
+  
 
   `POST:${APIEndPoints.PLACE}`,
 
