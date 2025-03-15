@@ -4,19 +4,34 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
+}
+
+.centered {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: var(--breakpoint-lg);
+
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.map_container {
+  display: flex;
+  height: 40rem;
+}
+
+.res {
+  width: 40rem;
 }
 
 .title_box {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
-}
-
-.main_title {
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-bold);
 }
 
 .title {
@@ -28,12 +43,6 @@
   font-size: var(--text-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-black);
-}
-
-.info_container {
-  display: flex;
-  height: 20rem;
-  gap: 1rem;
 }
 
 .restraunt_box {
@@ -89,4 +98,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1320px) {
+  .centered {
+    padding: 0 1rem;
+  }
 }

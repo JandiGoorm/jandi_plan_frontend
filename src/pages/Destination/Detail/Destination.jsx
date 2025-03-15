@@ -1,13 +1,14 @@
-import { BaseLayout } from "@/layouts";
-import styles from "./Destination.module.css";
-import { useEffect, useCallback } from "react";
-import DestinationMap from "./DestinationMap/DestinationMap";
-import { Slider, Loading, PlanCard } from "@/components";
+import { Loading, PlanCard, Slider } from "@/components";
+import { APIEndPoints } from "@/constants";
+import { useAxios } from "@/hooks";
+import { useCallback, useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import { useLocation } from "react-router-dom";
-import { useAxios } from "@/hooks";
-import { APIEndPoints } from "@/constants";
+import styles from "./Destination.module.css";
 import DestinationInfo from "./DestinationInfo/DestinationInfo";
+import DestinationMap from "./DestinationMap/DestinationMap";
+import Banner from "./Banner/Banner";
+import MapSide from "./DestinationMap/MapSide";
 
 const Destination = () => {
   const location = useLocation();
@@ -64,25 +65,22 @@ const Destination = () => {
   const item = destination[0];
 
   return (
-    <BaseLayout>
-      <div className={styles.container}>
-        <div className={styles.title_box}>
-          <p className={styles.main_title}>{item.name}</p>
-        </div>
+    <div className={styles.container}>
+      <Banner item={item} />
 
-        <div className={styles.info_container}>
+      <div className={styles.centered}>
+        <div className={styles.map_container}>
+          {restaurants && <MapSide restaurants={restaurants} />}
           <DestinationMap
             latitude={item.latitude}
             longitude={item.longitude}
             restaurants={restaurants}
           />
-          <DestinationInfo
-            latitude={item.latitude}
-            longitude={item.longitude}
-          />
         </div>
 
-        {restaurants && (
+        <DestinationInfo latitude={item.latitude} longitude={item.longitude} />
+
+        {/* {restaurants && (
           <div className={styles.restraunt_container}>
             <div className={styles.title_box}>
               <p className={styles.title}>Famous Restraunt</p>
@@ -110,7 +108,7 @@ const Destination = () => {
               )}
             </Slider>
           </div>
-        )}
+        )} */}
 
         <div className={styles.plan_container}>
           <div className={styles.title_box}>
@@ -125,7 +123,7 @@ const Destination = () => {
           </Slider>
         </div>
       </div>
-    </BaseLayout>
+    </div>
   );
 };
 

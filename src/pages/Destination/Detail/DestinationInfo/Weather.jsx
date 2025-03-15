@@ -48,25 +48,22 @@ const Weather = ({ latitude, longitude }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [fivedayForecast]);
 
+  if (!visibleForecast || visibleForecast.length === 0)
+    return <p>날씨 정보를 불러오는 중입니다...</p>;
+
   return (
-    <div className={styles.weather_container}>
-      {visibleForecast.length > 0 ? (
-        <div className={styles.forecast_container}>
-          {visibleForecast.map((forecast, index) => (
-            <div key={index} className={styles.forecast_card}>
-              <p className={styles.forecast_text}>{forecast.date}</p>
-              <img
-                src={forecast.iconUrl}
-                className={styles.forecast_img}
-                alt="weather icon"
-              />
-              <p className={styles.forecast_text}>{forecast.temp}°C</p>
-            </div>
-          ))}
+    <div className={styles.container}>
+      {visibleForecast.map((forecast, index) => (
+        <div key={index} className={styles.forecast_card}>
+          <p className={styles.forecast_text}>{forecast.date}</p>
+          <img
+            src={forecast.iconUrl}
+            className={styles.forecast_img}
+            alt="weather icon"
+          />
+          <p className={styles.forecast_text}>{forecast.temp}°C</p>
         </div>
-      ) : (
-        <p>날씨 정보를 불러오는 중입니다...</p>
-      )}
+      ))}
     </div>
   );
 };

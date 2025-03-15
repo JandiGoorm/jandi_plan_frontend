@@ -47,49 +47,55 @@ const DestinationMap = ({ latitude, longitude, restaurants }) => {
   );
 
   return (
-    <div className={styles.map_container}>
-      <APIProvider apiKey={API_KEY}>
-        <Map
-          style={{ width: "100%", height: "100%" }}
-          defaultCenter={position}
-          defaultZoom={11}
-          gestureHandling={"greedy"}
-          disableDefaultUI={true}
-          mapId="fine_place"
-        >
-          {restaurants &&
-            restaurants.map((restaurant) => {
-              return (
-                <CustomMarker
-                  key={restaurant.placeId}
-                  restaurant={restaurant}
-                  selectedRestaurant={selectedRestaurant}
-                  onMarkerClick={(marker) => onMarkerClick(restaurant, marker)}
-                  onMouseEnter={() => onMouseEnter(restaurant.placeId)}
-                  onMouseLeave={onMouseLeave}
-                  style={{
-                    transform: `scale(${
-                      [hoverId, selectedRestaurant?.placeId].includes(
-                        restaurant.placeId
-                      )
-                        ? 1.3
-                        : 1
-                    })`,
-                    transformOrigin:
-                      AdvancedMarkerAnchorPoint["BOTTOM"].join(" "),
-                  }}
-                />
-              );
-            })}
-        </Map>
-        {selectedRestaurant && selectedMarker && (
-          <CustomInfoWindow
-            selectedRestaurant={selectedRestaurant}
-            selectedMarker={selectedMarker}
-            onClose={closeInfoWindow}
-          />
-        )}
-      </APIProvider>
+    <div className={styles.container}>
+      <p className={styles.title}>위치를 확인하세요</p>
+      <div className={styles.map_container}>
+        <APIProvider apiKey={API_KEY}>
+          <Map
+            style={{ width: "100%", height: "100%" }}
+            defaultCenter={position}
+            defaultZoom={13}
+            gestureHandling={"greedy"}
+            disableDefaultUI={true}
+            mapId="fine_place"
+          >
+            {restaurants &&
+              restaurants.map((restaurant) => {
+                return (
+                  <CustomMarker
+                    key={restaurant.placeId}
+                    restaurant={restaurant}
+                    selectedRestaurant={selectedRestaurant}
+                    onMarkerClick={(marker) =>
+                      onMarkerClick(restaurant, marker)
+                    }
+                    onMouseEnter={() => onMouseEnter(restaurant.placeId)}
+                    onMouseLeave={onMouseLeave}
+                    style={{
+                      transform: `scale(${
+                        [hoverId, selectedRestaurant?.placeId].includes(
+                          restaurant.placeId
+                        )
+                          ? 1.3
+                          : 1
+                      })`,
+                      transformOrigin:
+                        AdvancedMarkerAnchorPoint["BOTTOM"].join(" "),
+                    }}
+                  />
+                );
+              })}
+          </Map>
+          {selectedRestaurant && selectedMarker && (
+            <CustomInfoWindow
+              key={selectedRestaurant.placeId}
+              selectedRestaurant={selectedRestaurant}
+              selectedMarker={selectedMarker}
+              onClose={closeInfoWindow}
+            />
+          )}
+        </APIProvider>
+      </div>
     </div>
   );
 };

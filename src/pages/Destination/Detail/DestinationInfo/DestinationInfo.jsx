@@ -13,15 +13,17 @@ const DestinationInfo = ({ latitude, longitude }) => {
   }, []);
 
   return (
-    <div className={styles.info_box}>
-      <div className={styles.weather_box}>
-        <Weather latitude={latitude} longitude={longitude} />
-      </div>
-      <div className={styles.plane_box} onClick={() => handleClick("plane")}>
-        <p className={styles.item_title}>비행기 값 알아보기</p>
-      </div>
-      <div className={styles.hotel_box} onClick={() => handleClick("hotel")}>
-        <p className={styles.item_title}>숙소 알아보기</p>
+    <div className={styles.container}>
+      <Weather latitude={latitude} longitude={longitude} />
+
+      <div className={styles.flex_column}>
+        <div className={styles.plane_box} onClick={() => handleClick("plane")}>
+          <p className={styles.item_title}>비행기 값 알아보기</p>
+        </div>
+
+        <div className={styles.hotel_box} onClick={() => handleClick("hotel")}>
+          <p className={styles.item_title}>숙소 알아보기</p>
+        </div>
       </div>
     </div>
   );
