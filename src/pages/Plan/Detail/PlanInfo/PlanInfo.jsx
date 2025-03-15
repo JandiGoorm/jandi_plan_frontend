@@ -1,4 +1,4 @@
-import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import { Button, Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
@@ -105,10 +105,14 @@ const PlanInfo = (user) => {
             {tripDetail.countryName}, {tripDetail.cityName}
           </p>
         </div>
-        <div className={styles.flex_row}>
-          <BsPersonArmsUp size={20} />
-          <p>{withUser} 명</p>
-        </div>
+       
+          <div className={styles.flex_row}>
+            <BsPersonArmsUp size={20} />
+            <Tooltip text={`${tripDetail.user.userName}, ${friends.map(f => f.participantUserName).join(", ")}`}>
+              <p>{withUser} 명</p>
+            </Tooltip>
+          </div>
+
         <div className={styles.flex_row}>
           <MdDateRange size={20} />
           <p>
