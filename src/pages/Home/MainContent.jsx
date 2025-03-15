@@ -2,10 +2,10 @@ import styles from "./MainContent.module.css";
 import { Button, Slider } from "@/components";
 
 const MainContent = ({title, items}) => {
-    console.log(items);
 
     const getImageUrl = (item) => item.imageUrl || item.cityImageUrl;
     const getName = (item) => item.name || item.title;
+    const getId = (item) => item.cityId || item.tripId;
 
     return(
         <div className={styles.interest_container}>
@@ -20,6 +20,7 @@ const MainContent = ({title, items}) => {
                     style={{
                     backgroundImage: `url(${getImageUrl(item)})`,
                     }}
+                   
                 />
                 <div className={styles.dest_container}>
                     <div className={styles.dest_title}>
