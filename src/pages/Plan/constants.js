@@ -59,6 +59,10 @@ export const modifyPlanScheme = z.object({
   privatePlan: z.string().nonempty("공개 여부를 선택해주세요"),
 });
 
+export const manageFriendsScheme = z.object({
+  participantUserName: z.string().nonempty("친구 닉네임을 입력해주세요"),
+})
+
 export const searchPlansScheme = z.object({
   keyword: z
     .string()
