@@ -70,7 +70,8 @@ const ManageFriends = ({ plan, friends }) => {
           추가
         </Button>
       </form>
-
+      
+      <p className={styles.title}>친구 목록</p>
       <div className={styles.user_name_box}>
         {friends.map((friend) => (
           <div key={friend.participantUserId} className={styles.user_name}>

@@ -43,21 +43,21 @@
 .user_name_box {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 1rem;
   width: 100%;
 }
 
 .user_name {
   display: flex;
-  justify-content: center;
-  margin: 0.5rem;
+  /* justify-content: center; */
+  /* margin: 0.5rem; */
   padding: 0.25rem;
-  border-radius: var(--radius-lg);
-  background-color: var(--color-indigo-200);
+  width: 100%;
+  justify-content: space-between;
+  /* border-radius: var(--radius-lg); */
+  /* background-color: var(--color-indigo-200); */
 }
 
 .name {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  margin-right: 0.25rem;
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
 }

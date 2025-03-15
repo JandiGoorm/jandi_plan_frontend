@@ -21,17 +21,19 @@ const useFriends = (id) => {
 
   const addFriends = useCallback(
     async (data) => {
-      console.log(data);
       const url = buildPath(APIEndPoints.TRIP_FRIENDS, {id},);
+      const formData = new FormData();
+      formData.append("participantUserName", data.participantUserName);
 
       await handleApiCall(
-        () => postApi({ url, method: "POST", data }),
+        () => postApi({ url, method: "POST", data: formData }),
         "친구가 추가되었습니다.",
         "친구 등록에 실패했습니다.",
         createToast,
+        fetchFriends,
       );
     },
-    [createToast, navigate, postApi]
+    [createToast, navigate, postApi, fetchFriends]
   );
 
   const deleteFriends = useCallback(async (participantUserName) => {
@@ -44,8 +46,9 @@ const useFriends = (id) => {
       "친구가 삭제되었습니다.",
       "친구 삭제에 실패했습니다.",
       createToast,
+      fetchFriends,
     );
-  }, [createToast, deleteApi, id, navigate]);
+  }, [createToast, deleteApi, id, navigate,fetchFriends]);
 
   useEffect(() => {
     fetchFriends();
