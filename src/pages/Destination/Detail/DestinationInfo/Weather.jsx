@@ -1,24 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./Weather.module.css";
+import { formatDate } from "date-fns";
+import axios from "axios";
 
 const Weather = ({ latitude, longitude }) => {
   const [fivedayForecast, setFivedayForecast] = useState([]);
   const [visibleForecast, setVisibleForecast] = useState(fivedayForecast);
+  const key = import.meta.env.VITE_WEATHER_API_KEY;
+  const baseUrl = `https://pro.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&lang=kr`;
 
   const fetchWeather = useCallback(async () => {
-    const key = import.meta.env.VITE_WEATHER_API_KEY;
-    const baseUrl = `https://pro.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&lang=kr`;
-
     try {
-      const response = await fetch(`${baseUrl}`);
-      const data = await response.json();
+      const { data } = await axios.get(baseUrl);
 
-      // 12시 날씨만 필터링
       const noonWeather = data.list
         .filter((item) => item.dt_txt.includes("12:00:00"))
         .map((item) => ({
-          date: item.dt_txt.split(" ")[0],
-          temp: item.main.temp,
+          date: formatDate(item.dt_txt.split(" ")[0], "MM. dd"),
+          temp: item.main.temp.toFixed(1),
           iconUrl: `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`,
         }));
 
@@ -26,7 +25,7 @@ const Weather = ({ latitude, longitude }) => {
     } catch (error) {
       console.log("Error: " + error);
     }
-  }, [latitude, longitude]);
+  }, [baseUrl]);
 
   useEffect(() => {
     fetchWeather();

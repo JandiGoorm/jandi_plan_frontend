@@ -6,7 +6,7 @@ const CustomInfoWindow = ({ selectedRestaurant, selectedMarker, onClose }) => {
   if (!selectedRestaurant || !selectedMarker) return null;
 
   const openTime = selectedRestaurant.openTimeJson.split(",");
-  console.log(selectedRestaurant);
+
   return (
     <InfoWindow
       anchor={selectedMarker}
@@ -37,6 +37,10 @@ const CustomInfoWindow = ({ selectedRestaurant, selectedMarker, onClose }) => {
           <LuDot />
           <p>평점 {selectedRestaurant.rating.toFixed(2)}</p>
         </div>
+
+        <a className={styles.link} href={selectedRestaurant.url} target="blank">
+          자세히 보기
+        </a>
       </div>
     </InfoWindow>
   );

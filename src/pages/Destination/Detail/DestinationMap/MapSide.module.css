@@ -15,10 +15,10 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
 
   box-sizing: border-box;
-  padding: 1rem;
-  padding-top: 0;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -26,7 +26,6 @@
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
-  padding: 0 1rem;
 }
 
 .restaurant {
@@ -74,4 +73,10 @@
 .rating {
   position: relative;
   top: 2px;
+}
+
+@media screen and (max-width: 968px) {
+  .container {
+    display: none;
+  }
 }

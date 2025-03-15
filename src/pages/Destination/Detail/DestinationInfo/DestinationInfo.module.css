@@ -1,5 +1,16 @@
 .container {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.content {
+  display: flex;
   gap: 1rem;
   height: 10rem;
 }
@@ -18,16 +29,16 @@
   flex: 1;
   height: 100%;
   display: flex;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-md);
   align-items: center;
   box-sizing: border-box;
   padding: 1rem;
   background-position: center;
   background-size: cover;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.6);
   background-blend-mode: lighten;
   cursor: pointer;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
 }
 
 .plane_box {

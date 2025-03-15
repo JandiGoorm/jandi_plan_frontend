@@ -14,15 +14,24 @@ const DestinationInfo = ({ latitude, longitude }) => {
 
   return (
     <div className={styles.container}>
-      <Weather latitude={latitude} longitude={longitude} />
+      <p className={styles.title}>날씨 확인 및 예약</p>
+      <div className={styles.content}>
+        <Weather latitude={latitude} longitude={longitude} />
 
-      <div className={styles.flex_column}>
-        <div className={styles.plane_box} onClick={() => handleClick("plane")}>
-          <p className={styles.item_title}>비행기 값 알아보기</p>
-        </div>
+        <div className={styles.flex_column}>
+          <div
+            className={styles.plane_box}
+            onClick={() => handleClick("plane")}
+          >
+            <p className={styles.item_title}>비행기 값 알아보기</p>
+          </div>
 
-        <div className={styles.hotel_box} onClick={() => handleClick("hotel")}>
-          <p className={styles.item_title}>숙소 알아보기</p>
+          <div
+            className={styles.hotel_box}
+            onClick={() => handleClick("hotel")}
+          >
+            <p className={styles.item_title}>숙소 알아보기</p>
+          </div>
         </div>
       </div>
     </div>
