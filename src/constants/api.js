@@ -75,6 +75,10 @@ export const APIEndPoints = {
   TRIP_RESERVATION: "/trip/reservation/:id",
   TRIP_SEARCH: "trip/search",
   TRIP_SORT: "/trip/rank",
+
+  TRIP_FRIENDS: "/trip/:id/participants",
+  TRIP_SET_FRIENDS: "/trip/:id/participants/:participantUserName",
+
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
   COUNTRY: "/trip/countries",

@@ -12,10 +12,13 @@ import { useAuth } from "@/contexts";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
-  const { focusDay, reservations, tripDetail, setFocusDay } = usePlanDetail();
+  const { focusDay, reservations, tripDetail, setFocusDay, friends } = usePlanDetail();
   const { user } = useAuth();
 
+  console.log(friends);
+
   const isMine = user?.userId === tripDetail?.user.userId;
+  const isFriend = friends?.some(friend => friend.participantUserId === user?.userId);
 
   const renderItem = useMemo(() => {
     if (focusDay === null && reservations) {
@@ -49,7 +52,7 @@ const PlanDes = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>PLAN DETAILS</div>
-        {isMine && (
+        {(isMine||isFriend) && (
           <div className={styles.buttons}>
             <Modal>
               <ModalTrigger>
