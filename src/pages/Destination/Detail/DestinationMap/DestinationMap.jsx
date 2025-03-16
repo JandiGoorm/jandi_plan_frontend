@@ -54,7 +54,7 @@ const DestinationMap = ({ latitude, longitude, restaurants }) => {
           <Map
             style={{ width: "100%", height: "100%" }}
             defaultCenter={position}
-            defaultZoom={13}
+            defaultZoom={12}
             gestureHandling={"greedy"}
             disableDefaultUI={true}
             mapId="fine_place"
