@@ -79,6 +79,7 @@ const Sliders = ({ items, children, size="sm" }) => {
               size === "sm" ? styles.sm_container : styles.md_container
               }`}
           >
+            {items.length === 0 ? (<div className={styles.no_item_box}>No items available...</div>):(
             <Slider ref={sliderRef} {...settings}>
               {[...items, ...Array(Math.max(0, 3 - items.length)).fill(null)].map((item, index) => (
                 <div
@@ -91,6 +92,7 @@ const Sliders = ({ items, children, size="sm" }) => {
                 </div>
               ))}    
             </Slider>
+            )}
           </div>
           {showNext && (
             <Button className={styles.next_btn} onClick={handleNext}>
