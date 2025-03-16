@@ -1,13 +1,13 @@
-import styles from "./MainContent.module.css";
+import styles from "./SliderSection.module.css";
 import { Slider } from "@/components";
 
-const MainContent = ({ title, items }) => {
+const SliderSection = ({ children, items }) => {
   const getImageUrl = (item) => item.imageUrl || item.cityImageUrl;
   const getName = (item) => item.name || item.title;
 
   return (
-    <div className={styles.interest_container}>
-      <p className={styles.title}>{title}</p>
+    <div className={styles.container}>
+      {children}
 
       <Slider items={items} size="sm">
         {(item) => (
@@ -30,4 +30,4 @@ const MainContent = ({ title, items }) => {
   );
 };
 
-export default MainContent;
+export default SliderSection;

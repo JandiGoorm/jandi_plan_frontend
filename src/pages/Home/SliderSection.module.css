@@ -1,13 +1,8 @@
-.interest_container {
+.container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.title {
-  color: var(--color-text-dynamic);
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-bold);
+  gap: 2rem;
+  box-sizing: border-box;
 }
 
 .img_container {
@@ -17,7 +12,7 @@
   cursor: pointer;
   background-size: cover;
   background-position: center;
-  opacity: 0.6;
+  opacity: 0.8;
   border: 3px solid var(--color-gray-200);
   border-radius: var(--radius-xl);
   z-index: -1;
