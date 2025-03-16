@@ -1,56 +1,56 @@
-import { useMemo, useEffect } from "react";
-import { SwiperSlide, Swiper } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
 import styles from "./Banner.module.css";
-import "swiper/css";
-import "swiper/css/pagination";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import BannerOverlay from "./BannerOverlay";
 
 const Banner = () => {
-  const { loading, fetchData, response } = useAxios();
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const { fetchData, response, loading } = useAxios();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({
+      delay: 6000,
+    }),
+  ]);
 
-  useEffect(()=> {
+  useEffect(() => {
     fetchData({
       method: "GET",
       url: APIEndPoints.BANNER,
-    })
-  },[fetchData]);
+    });
+  }, [fetchData]);
 
-  const swiperPagination = useMemo(() => {
-    return {
-      clickable: true,
-      renderBullet: function (_, className) {
-        return `<span class="${className} ${styles.customBullet}"></span>`;
-      },
-    };
-  }, []);
+  console.log("loading", loading);
+  console.log("response", response);
+  console.log("currentIndex", currentIndex);
+
+  if (loading || !response) return <div className={styles.loading} />;
 
   return (
-    <div>
-      <Swiper
-        pagination={swiperPagination}
-        modules={[Pagination, Autoplay]}
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-        }}
-      >
-        {response?.items.map((item) => {
-          return (
-            <SwiperSlide key={item.imageUrl}>
+    <section className={styles.embla}>
+      <div className={styles.embla_viewport} ref={emblaRef}>
+        <div className={styles.embla_container}>
+          {response?.items.map((item) => (
+            <div className={styles.embla_slide} key={item.bannerId}>
               <img
                 src={item.imageUrl}
-                alt="banner"
-                className={styles.banner_img}
+                alt={item.title}
+                className={styles.embla_image}
               />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <BannerOverlay
+        currentIndex={currentIndex}
+        allBanners={response?.items}
+        emblaApi={emblaApi}
+        setCurrentIndex={setCurrentIndex}
+      />
+    </section>
   );
 };
 

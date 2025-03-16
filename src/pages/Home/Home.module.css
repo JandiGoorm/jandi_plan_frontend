@@ -4,6 +4,39 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
 
-  gap: 4rem;
+.header_wrapper {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  max-width: var(--breakpoint-lg);
+  width: 100%;
+  z-index: 99;
+}
+
+.centered {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: var(--breakpoint-lg);
+
+  box-sizing: border-box;
+  overflow: hidden;
+  padding-bottom: 2rem;
+}
+
+@media screen and (max-width: 1320px) {
+  .centered {
+    padding: 0 1rem;
+  }
 }

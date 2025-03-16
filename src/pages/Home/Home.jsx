@@ -1,54 +1,58 @@
-import { BaseLayout } from "@/layouts";
+import { APIEndPoints } from "@/constants";
+import { useAxios } from "@/hooks";
+import { useEffect, useState } from "react";
 import Banner from "./Banner";
 import styles from "./Home.module.css";
-import { Button, Slider } from "@/components";
-import { useAxios } from "@/hooks";
-import { PageEndPoints, APIEndPoints } from "@/constants";
-import { useState, useEffect } from "react";
 import MainContent from "./MainContent";
+import Header from "@/layouts/BaseLayout/Header";
+import Footer from "@/layouts/BaseLayout/Footer";
 
 const HomePage = () => {
-  const { loading, fetchData, response } = useAxios();
+  const { fetchData } = useAxios();
   const [destinations, setDestinations] = useState([]);
   const [plans, setPlans] = useState([]);
-  const [filter, serFilter] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     fetchData({
       method: "GET",
       url: `${APIEndPoints.DESTINATION_BEST}`,
-      params: { filter },
-    }).then((res)=>{
-      setDestinations(res.data);
-    }).catch((err) => {
-      console.error(err);
-    });
+    })
+      .then((res) => {
+        setDestinations(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [fetchData]);
 
-  },[fetchData]);
-
-  useEffect(()=> {
+  useEffect(() => {
     fetchData({
       method: "GET",
       url: `${APIEndPoints.PLAN_BEST}`,
-    }).then((res)=>{
-      setPlans(res.data);
-    }).catch((err) => {
-      console.error(err);
-    });
-
-  },[fetchData]);
-
+    })
+      .then((res) => {
+        setPlans(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [fetchData]);
 
   return (
-    <BaseLayout>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.header_wrapper}>
+        <div className={styles.header}>
+          <Header />
+        </div>
         <Banner />
+      </div>
 
+      <div className={styles.centered}>
         <MainContent title="WHERE TO GO?" items={destinations} />
         <MainContent title="POPULAR PLANS?" items={plans} />
-        
+        <Footer />
       </div>
-    </BaseLayout>
+    </div>
   );
 };
 

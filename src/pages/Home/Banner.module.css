@@ -1,19 +1,28 @@
-.customBullet {
-  background: white !important;
-  opacity: 0.6 !important;
-}
-
-.customBullet[class*="swiper-pagination-bullet-active"] {
-  background: white !important;
-  opacity: 1 !important;
-}
-
-.banner_img {
+.embla {
   width: 100%;
-  max-height: 20rem;
+  height: 40rem;
+  position: relative;
+  overflow: hidden;
+}
 
-  object-fit: cover;
-  object-position: center;
+.embla_viewport {
+  overflow: hidden;
+  position: relative;
+}
 
-  border-radius: var(--radius-sm);
+.embla_container {
+  display: flex;
+}
+
+.embla_slide {
+  min-width: 0;
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 100%;
+}
+
+.embla_image {
+  width: 100%;
+  height: 40rem;
+  background-size: cover;
+  background-position: center;
 }
