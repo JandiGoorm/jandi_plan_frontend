@@ -6,12 +6,14 @@ import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./ManageFriends.module.css";
 import { useModal } from "@/components/Modal/ModalContext";
 import { useCallback } from "react";
+import { useToast } from "@/contexts";
 
-const ManageFriends = ({ plan, friends }) => {
+const ManageFriends = ({ plan, friends, user }) => {
   const { addFriends, deleteFriends } = usePlanDetail();
   const { closeModal } = useModal();
+  const { createToast } = useToast();
 
-  console.log(friends);
+  console.log(user);
 
   const {
     register,
@@ -23,6 +25,13 @@ const ManageFriends = ({ plan, friends }) => {
 
   const onSubmit = useCallback(
     (data) => {
+      if (data.participantUserName === user.user.username) {
+        createToast({
+          type: "error",
+          text: "자신을 친구로 추가할 수 없습니다.",
+        });
+        return;
+      }
       addFriends(data);
     },
     [addFriends]
