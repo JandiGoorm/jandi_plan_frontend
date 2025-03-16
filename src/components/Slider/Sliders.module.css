@@ -2,7 +2,6 @@
     position: relative;
 }
 
-
 .prev_btn,
 .next_btn {
   position: absolute;
@@ -69,4 +68,19 @@
     position: relative;
     box-sizing: border-box;
     padding: 0.5rem;
+}
+
+/* ✅ 부족한 요소가 있을 때 왼쪽 정렬 유지 */
+.slick-list {
+  overflow: hidden;
+}
+
+.slick-track {
+  display: flex;
+  justify-content: flex-start !important; /* 부족한 요소가 있어도 왼쪽 정렬 */
+  transform: none !important; /* 자동 중앙 정렬 방지 */
+}
+
+.slick-slide {
+  flex: 0 0 auto; /* 슬라이드 크기 고정 */
 }
