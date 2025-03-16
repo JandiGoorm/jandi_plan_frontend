@@ -132,8 +132,12 @@ const Header = ({ forceDark = false }) => {
           </DrawerTrigger>
           <DrawerContent>
             <div className={styles.sidebar_container}>
-              {menus.map((menu, index) => (
-                <p key={index} className={styles.nav_item}>
+              {menus.map((menu) => (
+                <p
+                  key={menu.text}
+                  className={styles.nav_item}
+                  onClick={menu.onClick}
+                >
                   {menu.text}
                 </p>
               ))}
