@@ -75,7 +75,6 @@ const protectedEndpoints = new Set([
   `GET:${APIEndPoints.TRIP_FRIENDS}`,
   `POST:${APIEndPoints.TRIP_FRIENDS}`,
   `DELETE:${APIEndPoints.TRIP_SET_FRIENDS}`,
-  
 
   `POST:${APIEndPoints.PLACE}`,
 
@@ -101,6 +100,8 @@ const protectedEndpoints = new Set([
   `GET:${APIEndPoints.REPORTED_BOARD}`,
   `GET:${APIEndPoints.REPORTED_COMMNET}`,
   `DELETE:${APIEndPoints.DELETE_COMMENT}`,
+
+  `POST:${APIEndPoints.MAP_RESTAURANT}`,
 ]);
 
 axiosInstance.interceptors.request.use((config) => {
