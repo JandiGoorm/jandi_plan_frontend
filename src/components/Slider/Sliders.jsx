@@ -43,7 +43,7 @@ const Sliders = ({ items, children, size="sm" }) => {
       return(
         <div className={styles.container}>
           <Button className={styles.prev_btn} variant="none" onClick={handlePrev}>
-            <MdNavigateBefore size={48} />
+            <MdNavigateBefore size={24} />
           </Button>
           <div
               className={`${styles.slider_container} ${
@@ -64,7 +64,7 @@ const Sliders = ({ items, children, size="sm" }) => {
             </Slider>
           </div>
           <Button className={styles.next_btn} onClick={handleNext}>
-            <MdNavigateNext size={48} />
+            <MdNavigateNext size={24} />
           </Button>
         </div>
       );

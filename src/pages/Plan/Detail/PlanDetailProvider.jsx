@@ -1,4 +1,4 @@
-import { usePlan, usePlanItinerary, usePlanReservation } from "@/hooks";
+import { usePlan, usePlanItinerary, usePlanReservation, useFriends } from "@/hooks";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PlanDetailContext } from "./PlanDetailContext";
@@ -15,6 +15,8 @@ const PlanDetailProvider = ({ children }) => {
     usePlanItinerary(id);
 
   const { tripDetail, updatePlan, deletePlan } = usePlan(id);
+
+  const {friends, addFriends, deleteFriends} = useFriends(id);
 
   // 일정 정보를 날짜별로 정리하는 코드
   useEffect(() => {
@@ -65,6 +67,10 @@ const PlanDetailProvider = ({ children }) => {
         deleteItinerary,
 
         flattendItinerary,
+
+        friends,
+        addFriends,
+        deleteFriends,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { Input } from "@/components";
+import { Input, Button } from "@/components";
 import { BaseLayout } from "@/layouts";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback } from "react";
@@ -46,11 +46,13 @@ const SearchLayout = () => {
             />
 
             <div className={styles.icon_search_box}>
+              <Button variant="none" type="submit">
               <FiSearch
                 size={24}
                 className={styles.icon_search}
-                type="submit"
+                
               />
+              </Button>
             </div>
           </form>
         </div>
