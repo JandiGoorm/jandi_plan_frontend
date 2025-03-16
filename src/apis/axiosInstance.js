@@ -50,7 +50,6 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.COMMENTS_LIKE}`,
   `DELETE:${APIEndPoints.COMMENTS_LIKE}`,
 
-  `GET:${APIEndPoints.TRIP_ALL}`,
   `POST:${APIEndPoints.TRIP_CREATE}`,
   `GET:${APIEndPoints.TRIP_MY}`,
 
