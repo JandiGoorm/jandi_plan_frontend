@@ -5,27 +5,24 @@ import {
 } from "@vis.gl/react-google-maps";
 
 const CustomMarker = ({
-  schedule,
-  selectedSchedule,
+  restaurant,
+  selectedRestaurant,
   onMarkerClick,
   ...props
 }) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
-  const { place } = schedule;
-  const isSelected = selectedSchedule?.itineraryId === schedule.itineraryId;
+  const isSelected = selectedRestaurant?.placeId === restaurant.placeId;
 
   return (
     <AdvancedMarker
-      key={schedule.itineraryId}
+      key={restaurant.placeId}
       position={{
-        lat: place.latitude,
-        lng: place.longitude,
+        lat: restaurant.latitude,
+        lng: restaurant.longitude,
       }}
       ref={markerRef}
       onClick={() => {
-        if (marker) {
-          onMarkerClick(marker);
-        }
+        if (marker) onMarkerClick(marker);
       }}
       {...props}
     >

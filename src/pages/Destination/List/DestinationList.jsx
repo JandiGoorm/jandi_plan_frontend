@@ -9,7 +9,7 @@ import { buildPath } from "@/utils";
 import { PageEndPoints } from "@/constants";
 
 const DestinationList = () => {
-  const { loading, fetchData, response } = useAxios();
+  const { fetchData } = useAxios();
   const [continents, setContinents] = useState([]);
   const [countries, setCountries] = useState([]);
   const [destinations, setDestinations] = useState([]);
@@ -70,6 +70,7 @@ const DestinationList = () => {
       setDestinations(res.data);
     });
   }, [selectedContinent, selectedCountry]);
+  console.log(destinations);
 
   return (
     <BaseLayout>
@@ -107,8 +108,18 @@ const DestinationList = () => {
         </div>
         <div className={styles.plan_container}>
           {destinations.map((item) => (
-            <div key={item.cityId} onClick={() => navigate(buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId }), { state: { cityName: item.name } })}>
-              <CityCard  item={item} />
+            <div
+              key={item.cityId}
+              onClick={() =>
+                navigate(
+                  buildPath(PageEndPoints.DESTINATION_DETAIL, {
+                    id: item.cityId,
+                  }),
+                  { state: { cityName: item.name, cityId: item.cityId } }
+                )
+              }
+            >
+              <CityCard item={item} />
             </div>
           ))}
         </div>

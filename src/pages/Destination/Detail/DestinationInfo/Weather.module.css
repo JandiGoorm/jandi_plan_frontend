@@ -1,0 +1,32 @@
+.container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.forecast_card {
+  flex: 1;
+
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: var(--color-amber-400);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.forecast_img {
+  width: 3rem;
+  aspect-ratio: 1;
+}
+
+.forecast_text {
+  color: var(--color-white);
+}
