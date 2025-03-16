@@ -92,7 +92,7 @@ const PlanMap = () => {
       <Map
         style={{ width: "100%", height: "100%" }}
         defaultCenter={defaultPosition}
-        defaultZoom={9}
+        defaultZoom={12}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         id="main-map"
