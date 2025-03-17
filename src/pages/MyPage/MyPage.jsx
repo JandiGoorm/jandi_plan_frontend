@@ -17,26 +17,10 @@ import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
-  const [size, setSize] = useState(3);
   const [preferDest, setPreferDest] = useState([]);
   const { user } = useAuth();
   const { loading, fetchData } = useAxios();
   const navigate = useNavigate();
-
-  const getSizeByViewport = useCallback((width) => {
-    if (width <= 640) return 1;
-    if (width <= 1080) return 2;
-    return 3;
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSize(getSizeByViewport(window.innerWidth));
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [getSizeByViewport]);
 
   useEffect(() => {
     fetchData({
@@ -67,7 +51,7 @@ const MyPage = () => {
           </Modal>
         </div>
 
-        <MyPlan size={size} title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY}/>
+        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY}/>
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>

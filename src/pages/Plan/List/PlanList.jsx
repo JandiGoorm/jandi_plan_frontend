@@ -3,22 +3,24 @@ import { PageEndPoints } from "@/constants";
 import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiSearch } from "react-icons/fi";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { searchPlansScheme } from "../constants";
 import styles from "./PlanList.module.css";
 
 const PlanList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { state } = useLocation();
   const keyword = searchParams.get("keyword") || "";
   const category = searchParams.get("category") || "BOTH";
+  const [fetchUrl, setFetchUrl] = useState(state?.fetchUrl || null);
 
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
-  const { plans, fetchPlans, getLoading } = usePlans();
+  const { plans, fetchPlans, userPlans, fetchUserPlans, getLoading } = usePlans();
 
   const navigate = useNavigate();
 
@@ -41,10 +43,17 @@ const PlanList = () => {
 
   useEffect(() => {
     clearErrors();
-    fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
-      setTotalPage(res.data.pageInfo.totalPages || 0)
-    );
-  }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
+
+    if(fetchUrl){
+      fetchUserPlans(fetchUrl, {page: currentPage - 1}).then((res) =>{
+        setTotalPage(res.data.pageInfo.totalPages || 0)
+      });
+    }else{
+      fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
+        setTotalPage(res.data.pageInfo.totalPages || 0)
+      );
+    }
+  }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage, fetchUrl]);
 
   if (getLoading) return <Loading />;
   return (
@@ -62,6 +71,7 @@ const PlanList = () => {
             </Button>
           </div>
 
+          {!userPlans && 
           <div className={styles.flex_column}>
             <form
               className={styles.search_input}
@@ -101,10 +111,14 @@ const PlanList = () => {
               <p className={styles.error_message}>{errors.keyword.message}</p>
             )}
           </div>
+          }
         </div>
 
         <div className={styles.plan_container}>
           {plans?.items.map((item) => (
+            <PlanCard key={item.tripId} item={item} />
+          ))}
+          {userPlans?.items.map((item) => (
             <PlanCard key={item.tripId} item={item} />
           ))}
         </div>

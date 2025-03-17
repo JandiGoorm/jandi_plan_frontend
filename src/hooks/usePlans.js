@@ -11,6 +11,8 @@ const usePlans = () => {
     loading: getLoadings,
   } = useAxios();
 
+  const { response: userPlans, fetchData: getUserApi } = useAxios();
+
   const fetchPlans = useCallback(
     async (params) => {
       const isSearch = params.keyword ? true : false;
@@ -33,9 +35,28 @@ const usePlans = () => {
     [getApi]
   );
 
+  const fetchUserPlans = useCallback(
+    async (url,params) => {
+      return await getUserApi({
+        method: "GET",
+        url,
+        params,
+      })
+        .then((res) => {
+          return res;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    },
+    [getApi]
+  );
+
   return {
     plans,
     fetchPlans,
+    userPlans,
+    fetchUserPlans,
     getLoadings,
   };
 };
