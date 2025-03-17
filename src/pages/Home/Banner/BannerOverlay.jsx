@@ -4,7 +4,7 @@ import {
   titleVariants,
   descContainerVariants,
   lineVariants,
-} from "./constants";
+} from "../constants";
 import { useCarouselHandler } from "@/hooks";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
