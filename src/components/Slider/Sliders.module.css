@@ -2,7 +2,6 @@
     position: relative;
 }
 
-
 .prev_btn,
 .next_btn {
   position: absolute;
@@ -69,4 +68,8 @@
     position: relative;
     box-sizing: border-box;
     padding: 0.5rem;
+}
+
+.no_item_box{
+  height: 5rem;
 }
