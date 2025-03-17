@@ -59,6 +59,19 @@ export const modifyPlanScheme = z.object({
   privatePlan: z.string().nonempty("공개 여부를 선택해주세요"),
 });
 
+export const manageBannerScheme = z.object({
+  file: z
+  .instanceof(FileList)
+  .refine((files) => {
+    if (forUse === "PATCH") {
+      return true; // PATCH일 때는 파일을 검증하지 않음
+    }
+    return files.length > 0; // 파일이 있을 때만 통과
+  }, {
+    message: "도시 파일을 넣어주세요",
+  }),
+})
+
 export const manageFriendsScheme = z.object({
   participantUserName: z.string().nonempty("친구 닉네임을 입력해주세요"),
 })

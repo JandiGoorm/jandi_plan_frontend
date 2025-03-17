@@ -2,11 +2,13 @@ import Header from "@/layouts/BaseLayout/Header";
 import styles from "./Banner.module.css";
 import { usePlanDetail } from "../PlanDetailContext";
 import { useEffect, useState } from "react";
+import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import { RiImageEditLine } from "react-icons/ri";
+import ModifyBanner from "../ModalContents/ModifyBanner";
 
 const Banner = () => {
   const [banner, setBanner] = useState(); 
   const { tripDetail } = usePlanDetail();
-
 
     useEffect(()=>{
       setBanner(tripDetail?.tripImageUrl || tripDetail?.cityImageUrl);
@@ -21,6 +23,16 @@ const Banner = () => {
       <div className={styles.header}>
         <Header forceDark={true} />
       </div>
+    </div>
+    <div className={styles.banner_menu}>
+      <Modal>
+        <ModalTrigger>
+          <Button size="lg" ><RiImageEditLine /></Button>
+        </ModalTrigger>
+        <ModalContent>
+          <ModifyBanner banner={banner} id={tripDetail?.tripId}/>
+        </ModalContent>
+      </Modal>
     </div>
   </div>
   );
