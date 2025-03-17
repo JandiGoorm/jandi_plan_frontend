@@ -61,7 +61,7 @@ const PlanInfo = (user) => {
                 <Button variant="ghost">친구 관리</Button>
               </ModalTrigger>
               <ModalContent>
-                <ManageFriends plan={tripDetail} friends={friends} />
+                <ManageFriends plan={tripDetail} friends={friends} user={user}/>
               </ModalContent>
             </Modal>
             <Modal>
@@ -108,7 +108,7 @@ const PlanInfo = (user) => {
        
           <div className={styles.flex_row}>
             <BsPersonArmsUp size={20} />
-            <Tooltip text={`${tripDetail.user.userName}, ${friends.map(f => f.participantUserName).join(", ")}`}>
+            <Tooltip text={`${tripDetail.user.userName}${friends.length > 0 ? `, ${friends.map(f => f.participantUserName).join(", ")}` : ""}`}>
               <p>{withUser} 명</p>
             </Tooltip>
           </div>
