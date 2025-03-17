@@ -3,6 +3,7 @@ import styles from "./Dashboard.module.css";
 import { useEffect } from "react";
 import { APIEndPoints } from "@/constants";
 import PlanChart from "./PlanChart";
+import UserChart from "./UserChart";
 
 const map = {
   "전체 회원": "allUserCount",
@@ -35,7 +36,7 @@ const DashboardCard = () => {
 
       <div className={styles.charts_container}>
         <PlanChart />
-        <PlanChart />
+        <UserChart />
       </div>
     </div>
   );

@@ -42,10 +42,12 @@
   display: flex;
   gap: 1rem;
   padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1280px) {
   .charts_container {
     flex-direction: column;
+    padding: 2rem;
   }
 }

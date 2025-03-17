@@ -99,6 +99,7 @@ export const APIEndPoints = {
   PERMIT_USER: "/manage/user/permit/:id",
   DELETE_USER: "/manage/user/delete/:id",
   MANAGE_UTIL: "/manage/util/all",
+  MANAGE_MONTH_USER: "/manage/util/month/users",
   REPORTED_BOARD: "/manage/community/reported/posts",
   DELETE_BOARD: "/manage/community/delete/posts/:id",
   REPORTED_COMMNET: "/manage/community/reported/comments",

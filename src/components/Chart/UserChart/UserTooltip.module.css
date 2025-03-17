@@ -1,0 +1,30 @@
+.tooltip {
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-md);
+  color: var(--color-black);
+}
+
+.tooltip_title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.label_box {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.label_title {
+  font-size: var(--text-sm);
+  width: 3rem;
+}
+
+.label_value {
+  font-size: var(--text-sm);
+}

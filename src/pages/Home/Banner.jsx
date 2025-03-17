@@ -22,10 +22,6 @@ const Banner = () => {
     });
   }, [fetchData]);
 
-  console.log("loading", loading);
-  console.log("response", response);
-  console.log("currentIndex", currentIndex);
-
   if (loading || !response) return <div className={styles.loading} />;
 
   return (
