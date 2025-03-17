@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { buildPath } from "@/utils";
 
 const BestPlan = () => {
-  const { response, fetchData } = useAxios();
+  const { response, fetchData, loading } = useAxios();
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(
@@ -23,6 +23,7 @@ const BestPlan = () => {
     fetchData({ method: "GET", url: APIEndPoints.PLAN_BEST });
   }, [fetchData]);
 
+  if (loading) return null;
   return (
     <div className={styles.container}>
       <div className={styles.slider_title_container}>

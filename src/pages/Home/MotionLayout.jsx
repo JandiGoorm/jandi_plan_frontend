@@ -9,6 +9,7 @@ const MotionLayout = ({ children, ...props }) => {
       whileInView="visible"
       variants={sectionVariants}
       className={styles.motion_container}
+      viewport={{ once: true, amount: 0.3 }}
       {...props}
     >
       {children}

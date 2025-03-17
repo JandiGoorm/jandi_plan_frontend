@@ -7,7 +7,7 @@ import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const BestCity = () => {
-  const { response, fetchData } = useAxios();
+  const { response, fetchData, loading } = useAxios();
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(
@@ -24,6 +24,7 @@ const BestCity = () => {
     fetchData({ url: APIEndPoints.DESTINATION_BEST, method: "GET" });
   }, [fetchData]);
 
+  if (loading) return null;
   return (
     <div className={styles.container}>
       <div className={styles.slider_title_container}>

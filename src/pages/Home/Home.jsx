@@ -27,7 +27,7 @@ const HomePage = () => {
         </MotionLayout>
       </div>
 
-      <MotionLayout viewport={{ once: true, amount: 0.7 }}>
+      <MotionLayout viewport={{ once: true, amount: 0.9 }}>
         <YoutubeSection />
       </MotionLayout>
 
