@@ -94,6 +94,7 @@ const protectedEndpoints = new Set([
   `GET:${APIEndPoints.USER_ALL}`,
   `GET:${APIEndPoints.MANAGE_UTIL}`,
   `GET:${APIEndPoints.MANAGE_MONTH_USER}`,
+  `PUT:${APIEndPoints.USER_ROLE_CHANGE}`,
   `GET:${APIEndPoints.REPORTED_USER}`,
   `POST:${APIEndPoints.PERMIT_USER}`,
   `DELETE:${APIEndPoints.DELETE_USER}`,

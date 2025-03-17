@@ -19,6 +19,7 @@ const useUser = () => {
   } = useAxios();
   const { fetchData: permitApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
+  const { fetchData: updateRole } = useAxios();
 
   const fetchUsers = useCallback(
     async (params, setTotalPage) => {
@@ -80,6 +81,26 @@ const useUser = () => {
     [createToast, deleteApi]
   );
 
+  const updateUserRole = useCallback(
+    (id, isUp) => {
+      const url = buildPath(APIEndPoints.USER_ROLE_CHANGE, { id });
+      const newRole = isUp ? "STAFF" : "USER";
+
+      return handleApiCall(
+        () =>
+          updateRole({
+            method: "PUT",
+            url,
+            data: { roleName: newRole },
+          }),
+        `사용자 권한이 ${isUp ? "스태프" : "사용자"}로 변경되었습니다.`,
+        "사용자 권한 변경에 실패했습니다.",
+        createToast
+      );
+    },
+    [createToast, updateRole]
+  );
+
   return {
     users,
     reportedUsers,
@@ -87,6 +108,7 @@ const useUser = () => {
     fetchReportedUsers,
     permitUser,
     deleteUser,
+    updateUserRole,
     userLoading,
     reportedUserLoading,
   };

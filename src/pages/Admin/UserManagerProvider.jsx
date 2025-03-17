@@ -9,6 +9,7 @@ const UserManagerProvider = ({ children }) => {
     fetchReportedUsers,
     permitUser,
     deleteUser,
+    updateUserRole,
     userLoading,
     reportedUserLoading,
   } = useUser();
@@ -22,6 +23,7 @@ const UserManagerProvider = ({ children }) => {
         fetchReportedUsers,
         permitUser,
         deleteUser,
+        updateUserRole,
         userLoading,
         reportedUserLoading,
       }}
