@@ -118,7 +118,7 @@ const CommentItem = ({ comment,deleteComment, user, fetchComments,handleLike }) 
             {isOpen ? <RiArrowUpWideLine /> : <RiArrowDownWideLine />}
             <p>답글 {comment.repliesCount}개</p>
           </div>
-          {isOpen && <ReplyComment commentId={comment.commentId} user={user}/>}
+          {isOpen && <ReplyComment commentId={comment.commentId} user={user} fetchComments={fetchComments}/>}
         </div>
       )}
     </div>
