@@ -8,7 +8,7 @@ import { useModal } from "@/components/Modal/ModalContext";
 import { useCallback } from "react";
 
 const ModifyBanner = ({ banner, id }) => {
-  const { updatePlan } = usePlanDetail();
+  const { updatePlanImg } = usePlanDetail();
   const { closeModal } = useModal();
 
   const {
@@ -21,10 +21,11 @@ const ModifyBanner = ({ banner, id }) => {
 
   const onSubmit = useCallback(
     (data) => {
-      updatePlan(data);
+      console.log(data);
+      updatePlanImg(data);
       closeModal();
     },
-    [closeModal, updatePlan]
+    [closeModal, updatePlanImg]
   );
 
   if (!banner) return <p>해당 플랜 사진을 불러오기 실패했습니다.</p>;

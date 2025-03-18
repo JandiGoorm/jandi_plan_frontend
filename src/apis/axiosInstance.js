@@ -75,6 +75,8 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.TRIP_FRIENDS}`,
   `DELETE:${APIEndPoints.TRIP_SET_FRIENDS}`,
 
+  `POST:${APIEndPoints.TRIP_IMG}`,
+
   `POST:${APIEndPoints.PLACE}`,
 
   `POST:${APIEndPoints.IMAGE_UPLOAD_COMMUNITY}`,

@@ -14,6 +14,7 @@ const usePlan = (id) => {
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
+  const { response: planImg, fetchData: updateImgApi } = useAxios();
 
   const fetchTripDetail = useCallback(async () => {
     const url = buildPath(APIEndPoints.TRIP_DETAIL, { id });
@@ -67,6 +68,24 @@ const usePlan = (id) => {
     );
   }, [createToast, deleteApi, id, navigate]);
 
+  const updatePlanImg = useCallback(
+    async (data) => {
+      console.log(data.file?.[0]);
+      const formData = new FormData();
+      formData.append("file", data.file?.[0]);
+      formData.append("targetId", id);
+      
+      await handleApiCall(
+        () => updateImgApi({ url: APIEndPoints.TRIP_IMG, method: "POST", data: formData }),
+        "계획이 수정되었습니다.",
+        "계획 수정에 실패했습니다.",
+        createToast,
+        fetchTripDetail
+      );
+    },
+    [createToast, fetchTripDetail, id, updateImgApi]
+  );
+
   useEffect(() => {
     fetchTripDetail();
   }, [fetchTripDetail]);
@@ -76,6 +95,9 @@ const usePlan = (id) => {
     addPlan,
     updatePlan,
     deletePlan,
+
+    planImg,
+    updatePlanImg,
   };
 };
 

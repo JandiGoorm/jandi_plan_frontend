@@ -63,12 +63,9 @@ export const manageBannerScheme = z.object({
   file: z
   .instanceof(FileList)
   .refine((files) => {
-    if (forUse === "PATCH") {
-      return true; // PATCH일 때는 파일을 검증하지 않음
-    }
     return files.length > 0; // 파일이 있을 때만 통과
   }, {
-    message: "도시 파일을 넣어주세요",
+    message: "플랜 사진을 넣어주세요",
   }),
 })
 
