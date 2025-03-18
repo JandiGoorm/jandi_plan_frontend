@@ -5,9 +5,11 @@ import { FaYoutube } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
+import { useDarkModeContext } from "@/contexts";
 
 const YoutubeSection = () => {
   const [renderItem, setRenderItem] = useState([]);
+  const { isDarkMode } = useDarkModeContext();
 
   const navigate = useNavigate();
 
@@ -82,12 +84,18 @@ const YoutubeSection = () => {
         </div>
       </div>
 
-      <div className={styles.youtube_footer}>
+      <div
+        className={`${styles.youtube_footer} ${
+          isDarkMode ? styles.footer_dark : ""
+        }`}
+      >
         <div className={styles.centered}>
           <div className={styles.youtube_footer_text}>
             <p>JUST PLAN IT 에서 즐거운 여행계획을 만들어보세요</p>
             <button
-              className={styles.plan_nav_btn}
+              className={`${styles.plan_nav_btn} ${
+                isDarkMode ? styles.plan_nav_btn_dark : ""
+              }`}
               onClick={() => navigate(PageEndPoints.PLAN_LIST)}
             >
               바로가기

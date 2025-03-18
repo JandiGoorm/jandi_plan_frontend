@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.heading {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+}
+
+.section {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.subHeading {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.iconBoxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
