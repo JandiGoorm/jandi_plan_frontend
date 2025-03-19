@@ -20,14 +20,21 @@ export const handleApiCall = async (
 ) => {
   try {
     const response = await fetchFunction();
-    createToast({ text: successMessage, type: "success" });
+
+    if (successMessage) {
+      createToast({ text: successMessage, type: "success" });
+    }
+
     if (onSuccess) {
       await onSuccess(response);
     }
 
     return response;
   } catch (error) {
-    createToast({ text: errorMessage, type: "error" });
+    if (errorMessage) {
+      createToast({ text: errorMessage, type: "error" });
+    }
+
     if (onError) {
       await onError(error);
     }

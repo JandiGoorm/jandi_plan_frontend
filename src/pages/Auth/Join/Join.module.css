@@ -12,3 +12,47 @@
 .title {
   font-size: var(--text-2xl);
 }
+
+.social_login_btns {
+  width: 100%;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.social_btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.divider {
+  width: 100%;
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gray-300),
+    transparent
+  );
+  text-align: center;
+}
+
+.divider::after {
+  content: "OR";
+  padding: 0 0.5rem;
+  position: relative;
+  top: -0.4rem;
+  background-color: var(--color-bg-primary);
+  color: var(--color-gray-300);
+  font-weight: var(--font-weight-semibold);
+}
+
+.login_link_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

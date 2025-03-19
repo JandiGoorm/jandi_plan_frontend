@@ -1,4 +1,4 @@
-import { APIEndPoints } from "@/constants";
+import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +7,8 @@ import { joinScheme } from "../constants";
 import styles from "./Join.module.css";
 import JoinForm from "./JoinForm";
 import { useCallback, useState } from "react";
+import { Button } from "@/components";
+import { useNavigate } from "react-router-dom";
 
 const JoinPage = () => {
   const [duplicateCheck, setDuplicateCheck] = useState({
@@ -19,6 +21,7 @@ const JoinPage = () => {
   const { fetchData: fetchDuplicateNickname } = useAxios();
 
   const { createToast } = useToast();
+  const navigate = useNavigate();
 
   const joinUseForm = useForm({
     resolver: zodResolver(joinScheme),
@@ -63,11 +66,11 @@ const JoinPage = () => {
         },
       })
         .then(() => {
+          navigate(PageEndPoints.LOGIN);
           createToast({
             type: "success",
-            text: "회원가입 성공",
+            text: "회원가입 성공, 이메일 인증 후 사용가능합니다.",
           });
-          // 해당 아이디 비밀번호로 로그인 처리 후 메인페이지로 이동
         })
         .catch((err) => {
           createToast({
@@ -76,7 +79,7 @@ const JoinPage = () => {
           });
         });
     },
-    [createToast, fetchResister, handleDuplicateCheck]
+    [createToast, fetchResister, handleDuplicateCheck, navigate]
   );
 
   const handleDuplicateEmail = useCallback(
@@ -144,12 +147,36 @@ const JoinPage = () => {
   return (
     <div className={styles.container}>
       <p className={styles.title}>회원가입</p>
+
       <JoinForm
         joinUseForm={joinUseForm}
         onSubmit={onSubmit}
         handleDuplicateEmail={handleDuplicateEmail}
         handleDuplicateNickname={handleDuplicateNickname}
       />
+
+      <div className={styles.social_login_btns}>
+        <img src="/naver_icon.png" className={styles.social_btn} />
+        <img src="/kakao_icon.png" className={styles.social_btn} />
+        <img src="/google_icon.png" className={styles.social_btn} />
+      </div>
+
+      <div className={styles.divider} />
+
+      <div className={styles.login_link_box}>
+        <div>Already have an account?</div>
+
+        <Button
+          type="button"
+          style={{
+            color: "var(--color-blue-500)",
+          }}
+          variant="none"
+          onClick={() => navigate(PageEndPoints.LOGIN)}
+        >
+          Login
+        </Button>
+      </div>
     </div>
   );
 };
