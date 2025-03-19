@@ -25,6 +25,7 @@ const AddBanner = ({ callback }) => {
       formData.append("file", data.file);
       formData.append("title", data.title);
       formData.append("linkUrl", data.linkUrl);
+      formData.append("subtitle", data.subtitle);
 
       await callback(formData);
 
@@ -59,6 +60,15 @@ const AddBanner = ({ callback }) => {
             register={register}
             name="title"
             placeholder={"제목을 입력하세요"}
+            style={{ width: "100%" }}
+          />
+        </Field>
+
+        <Field label="부제목" error={errors.title} isRequire>
+          <Input
+            register={register}
+            name="subtitle"
+            placeholder={"부제목을 입력하세요"}
             style={{ width: "100%" }}
           />
         </Field>

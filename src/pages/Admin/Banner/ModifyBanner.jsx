@@ -29,6 +29,7 @@ const ModifyBanner = ({ item, callback }) => {
       );
       formData.append("title", data.title);
       formData.append("linkUrl", data.linkUrl);
+      formData.append("subtitle", data.subtitle);
 
       await callback(item.bannerId, formData).then(() => closeModal());
     },
@@ -59,6 +60,15 @@ const ModifyBanner = ({ item, callback }) => {
             placeholder="제목을 입력해주세요"
             register={register}
             name="title"
+            style={{ width: "100%" }}
+          />
+        </Field>
+
+        <Field label="부제목" isRequire error={errors.title}>
+          <Input
+            placeholder="부제목을 입력해주세요"
+            register={register}
+            name="subtitle"
             style={{ width: "100%" }}
           />
         </Field>
