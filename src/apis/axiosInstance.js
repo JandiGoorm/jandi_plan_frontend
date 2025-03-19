@@ -53,6 +53,7 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.TRIP_CREATE}`,
   `GET:${APIEndPoints.TRIP_MY}`,
 
+  `GET:${APIEndPoints.TRIP_ALL}`,
   `GET:${APIEndPoints.TRIP_DETAIL}`,
   `PATCH:${APIEndPoints.TRIP_MY_DETAIL}`,
   `DELETE:${APIEndPoints.TRIP_MY_DETAIL}`,
@@ -113,7 +114,7 @@ axiosInstance.interceptors.request.use((config) => {
   const isRequiredAuth = protectedEndpoints.has(normalizedUrl);
 
   if (isRequiredAuth) {
-    const accessToken = localStorage.getItem("access-token");
+    const accessToken = localStorage.getItem("access-token")??"";
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
   return config;
