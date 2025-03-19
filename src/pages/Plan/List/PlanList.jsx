@@ -43,15 +43,17 @@ const PlanList = () => {
 
   useEffect(() => {
     clearErrors();
+    console.log(fetchUrl);
 
-    if(fetchUrl){
-      fetchUserPlans(fetchUrl, {page: currentPage - 1}).then((res) =>{
-        setTotalPage(res.data.pageInfo.totalPages || 0)
-      });
-    }else{
+    if(fetchUrl==="main"){
       fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
         setTotalPage(res.data.pageInfo.totalPages || 0)
       );
+    }else{
+      fetchUserPlans(fetchUrl, {page: currentPage - 1}).then((res) =>{
+        setTotalPage(res.data.pageInfo.totalPages || 0)
+      });
+      
     }
   }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage, fetchUrl]);
 
