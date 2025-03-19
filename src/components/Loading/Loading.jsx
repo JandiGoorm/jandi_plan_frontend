@@ -1,8 +1,11 @@
 import styles from "./Loading.module.css";
 
-const Loading = () => {
+const Loading = ({ isSection = false, ...props }) => {
   return (
-    <div className={styles.container}>
+    <div
+      className={isSection ? styles.section_container : styles.container}
+      {...props}
+    >
       <div className={styles.spinner} />
     </div>
   );
