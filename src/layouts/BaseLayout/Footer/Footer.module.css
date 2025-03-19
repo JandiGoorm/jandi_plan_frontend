@@ -22,6 +22,22 @@
   cursor: pointer;
 }
 
+.policy_container {
+  box-sizing: border-box;
+  max-height: 80vh;
+  max-width: 90vw;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.policy_image {
+  width: auto;
+  height: auto;
+  display: block;
+
+  image-rendering: crisp-edges;
+}
+
 .title {
   font-weight: var(--font-weight-bold);
 }
