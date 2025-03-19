@@ -1,11 +1,11 @@
-import { FaCrown } from "react-icons/fa";
-import styles from "./BestPlan.module.css";
-import { useAxios } from "@/hooks";
-import { PlanCard, Slider } from "@/components";
-import { useCallback, useEffect } from "react";
+import { Loading, PlanCard, Slider } from "@/components";
 import { APIEndPoints, PageEndPoints } from "@/constants";
-import { useNavigate } from "react-router-dom";
+import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
+import { useCallback, useEffect } from "react";
+import { FaCrown } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import styles from "./BestPlan.module.css";
 
 const BestPlan = () => {
   const { response, fetchData, loading } = useAxios();
@@ -23,7 +23,7 @@ const BestPlan = () => {
     fetchData({ method: "GET", url: APIEndPoints.PLAN_BEST });
   }, [fetchData]);
 
-  if (loading) return null;
+  if (loading) return <Loading isSection={true} style={{ height: "18rem" }} />;
   return (
     <div className={styles.container}>
       <div className={styles.slider_title_container}>

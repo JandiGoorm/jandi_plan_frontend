@@ -22,12 +22,12 @@ const HomePage = () => {
           <BestCity />
         </MotionLayout>
 
-        <MotionLayout viewport={{ once: true, amount: 0.8 }}>
+        <MotionLayout viewport={{ once: true, amount: 0.7 }}>
           <BestPlan />
         </MotionLayout>
       </div>
 
-      <MotionLayout viewport={{ once: true, amount: 0.9 }}>
+      <MotionLayout viewport={{ once: true, amount: 0.7 }}>
         <YoutubeSection />
       </MotionLayout>
 
