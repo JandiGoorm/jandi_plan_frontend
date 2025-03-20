@@ -1,9 +1,10 @@
+import { Loading } from "@/components";
+import { APIEndPoints } from "@/constants";
+import { useAxios } from "@/hooks";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import styles from "./Banner.module.css";
-import { useAxios } from "@/hooks";
-import { APIEndPoints } from "@/constants";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 import BannerOverlay from "./BannerOverlay";
 
 const Banner = () => {
@@ -22,12 +23,7 @@ const Banner = () => {
     });
   }, [fetchData]);
 
-  console.log("loading", loading);
-  console.log("response", response);
-  console.log("currentIndex", currentIndex);
-
-  if (loading || !response) return <div className={styles.loading} />;
-
+  if (loading) return <Loading isSection={true} style={{ height: "40rem" }} />;
   return (
     <section className={styles.embla}>
       <div className={styles.embla_viewport} ref={emblaRef}>

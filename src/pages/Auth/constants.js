@@ -25,3 +25,11 @@ export const joinScheme = z
     message: "비밀번호가 일치하지 않습니다.",
     path: ["passwordConfirm"],
   });
+
+export const loginScheme = z.object({
+  id: z
+    .string()
+    .email({ message: "유효한 이메일을 입력하세요." })
+    .nonempty({ message: "ID를 입력하세요." }),
+  password: z.string().nonempty({ message: "비밀번호를 입력하세요." }),
+});

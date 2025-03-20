@@ -4,7 +4,7 @@ import {
   titleVariants,
   descContainerVariants,
   lineVariants,
-} from "./constants";
+} from "../constants";
 import { useCarouselHandler } from "@/hooks";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -23,14 +23,8 @@ const BannerOverlay = ({
   if (currentIndex === null) return null;
 
   const banner = allBanners[currentIndex];
-  const dummyDesc = {
-    15: "네이버 ~~\n항공권 예약은 네이버 항공권에서",
-    16: "외교부~~\n여권 발급은 외교부에서",
-    17: "포털~~\n여행정보는 포털에서",
-    18: "열기구~~\n열기구는 열기구에서",
-  };
-  const bannerTitle = `${banner.title}\n 테스트 테스트`;
-  const burrentDesc = dummyDesc[banner.bannerId] || banner.desc || "ㅎㅇㅎㅇ";
+  const title = banner.title;
+  const desc = banner.subtitle;
   const bannersLength = allBanners.length;
 
   return (
@@ -39,14 +33,14 @@ const BannerOverlay = ({
         <div className={styles.banner_info}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
-              key={bannerTitle}
+              key={banner.title}
               variants={titleVariants}
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0, transition: { duration: 0 } }}
               className={styles.title_container}
             >
-              {bannerTitle.split("\n").map((line, index) => (
+              {title.split("\\n").map((line, index) => (
                 <motion.div key={index} variants={lineVariants}>
                   <h1>{line}</h1>
                 </motion.div>
@@ -54,14 +48,14 @@ const BannerOverlay = ({
             </motion.div>
 
             <motion.div
-              key={burrentDesc}
+              key={desc}
               variants={descContainerVariants}
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0, transition: { duration: 0 } }}
               className={styles.desc_container}
             >
-              {burrentDesc.split("\n").map((line, index) => (
+              {desc?.split("\\n").map((line, index) => (
                 <motion.div key={index} variants={lineVariants}>
                   <p>{line}</p>
                 </motion.div>

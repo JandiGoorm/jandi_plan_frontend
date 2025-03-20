@@ -11,6 +11,5 @@ export { default as useNotice } from "./useNotice";
 export { default as useQuillSetup } from "./useQuillSetup";
 export { default as useBanner } from "./useBanner";
 export { default as useUser } from "./useUser";
-export { default as useSearch } from "./useSearch";
 export { default as useFriends } from "./useFriends";
-export { default as useCarouselHandler } from "./useCarouselhandler";
+export { default as useCarouselHandler } from "./useCarouselHandler";

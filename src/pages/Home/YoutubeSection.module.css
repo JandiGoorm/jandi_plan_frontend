@@ -143,6 +143,10 @@
   color: var(--color-white);
 }
 
+.footer_dark {
+  background: var(--color-gray-800);
+}
+
 .youtube_footer_text {
   align-self: center;
 
@@ -164,6 +168,10 @@
   font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-4xl);
   color: var(--color-white);
+}
+
+.plan_nav_btn_dark {
+  background-color: var(--color-gray-700);
 }
 
 @media screen and (max-width: 1320px) {
