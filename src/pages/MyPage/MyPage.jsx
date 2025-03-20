@@ -51,7 +51,7 @@ const MyPage = () => {
           </Modal>
         </div>
 
-        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY}/>
+        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} goUrl={PageEndPoints.PLAN_MY_LIST}/>
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>
@@ -80,7 +80,7 @@ const MyPage = () => {
           </Slider>
         </div>
 
-        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED}/>
+        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED} goUrl={PageEndPoints.PLAN_LIKE_LIST}/>
         
       </div>
     </BaseLayout>

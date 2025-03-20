@@ -3,6 +3,7 @@ export { default as Test } from "./Test/Test";
 export { default as AuthLayout } from "./Auth/AuthLayout";
 export { default as PlanCreate } from "./Plan/CreatePlan/CreatePlan";
 export { default as PlanList } from "./Plan/List/PlanList";
+export { default as MyPlanList } from "./Plan/List/MyPlanList";
 export { default as PreferenceLayout } from "./Preference/PreferenceLayout";
 export { default as SearchLayout } from "./Search/SearchLayout";
 export { default as Notice } from "./Notice/Notice";

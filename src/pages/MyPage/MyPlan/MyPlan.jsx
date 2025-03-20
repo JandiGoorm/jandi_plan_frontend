@@ -5,7 +5,7 @@ import { useEffect,useState } from "react";
 import styles from "./MyPlan.module.css";
 import { useNavigate } from "react-router-dom";
 
-const MyPlan = ({ title, fetchUrl}) => {
+const MyPlan = ({ title, fetchUrl, goUrl}) => {
   const { fetchData, response } = useAxios();
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const MyPlan = ({ title, fetchUrl}) => {
   }, [fetchData]);
 
   const handleMoreClick = () => {
-    navigate(PageEndPoints.PLAN_LIST, {state: {fetchUrl}});
+    navigate(goUrl);
   };
 
   return (
