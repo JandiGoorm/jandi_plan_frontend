@@ -50,10 +50,10 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.COMMENTS_LIKE}`,
   `DELETE:${APIEndPoints.COMMENTS_LIKE}`,
 
-  `GET:${APIEndPoints.TRIP_ALL}`,
   `POST:${APIEndPoints.TRIP_CREATE}`,
   `GET:${APIEndPoints.TRIP_MY}`,
 
+  `GET:${APIEndPoints.TRIP_ALL}`,
   `GET:${APIEndPoints.TRIP_DETAIL}`,
   `PATCH:${APIEndPoints.TRIP_MY_DETAIL}`,
   `DELETE:${APIEndPoints.TRIP_MY_DETAIL}`,
@@ -71,6 +71,12 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.TRIP_RESERVATION}`,
   `PATCH:${APIEndPoints.TRIP_RESERVATION}`,
   `DELETE:${APIEndPoints.TRIP_RESERVATION}`,
+
+  `GET:${APIEndPoints.TRIP_FRIENDS}`,
+  `POST:${APIEndPoints.TRIP_FRIENDS}`,
+  `DELETE:${APIEndPoints.TRIP_SET_FRIENDS}`,
+
+  `POST:${APIEndPoints.TRIP_IMG}`,
 
   `POST:${APIEndPoints.PLACE}`,
 
@@ -90,22 +96,27 @@ const protectedEndpoints = new Set([
 
   `GET:${APIEndPoints.USER_ALL}`,
   `GET:${APIEndPoints.MANAGE_UTIL}`,
+  `GET:${APIEndPoints.MANAGE_MONTH_USER}`,
+  `PUT:${APIEndPoints.USER_ROLE_CHANGE}`,
   `GET:${APIEndPoints.REPORTED_USER}`,
   `POST:${APIEndPoints.PERMIT_USER}`,
   `DELETE:${APIEndPoints.DELETE_USER}`,
   `GET:${APIEndPoints.REPORTED_BOARD}`,
   `GET:${APIEndPoints.REPORTED_COMMNET}`,
   `DELETE:${APIEndPoints.DELETE_COMMENT}`,
+
+  `POST:${APIEndPoints.MAP_RESTAURANT}`,
 ]);
 
 axiosInstance.interceptors.request.use((config) => {
   const requestKey = `${config.method.toUpperCase()}:${config.url}`;
-  const normalizedUrl = requestKey.replace(/\/\d+$/, "/:id");
+
+  const normalizedUrl = requestKey.replace(/\/\d+(?=\/|$)/g, "/:id");
 
   const isRequiredAuth = protectedEndpoints.has(normalizedUrl);
 
   if (isRequiredAuth) {
-    const accessToken = localStorage.getItem("access-token");
+    const accessToken = localStorage.getItem("access-token")??"";
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
   return config;

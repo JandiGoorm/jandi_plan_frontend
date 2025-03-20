@@ -377,6 +377,8 @@
   --color-editor-blockquote-border: var(--color-gray-300);
 
   --color-admin-bg: var(--color-white);
+
+  --color-bg-youtube-container: var(--color-indigo-100);
 }
 
 :root[theme="dark"] {
@@ -409,4 +411,6 @@
   --color-editor-blockquote-border: var(--color-gray-400);
 
   --color-admin-bg: var(--color-zinc-950);
+
+  --color-bg-youtube-container: var(--color-gray-950);
 }

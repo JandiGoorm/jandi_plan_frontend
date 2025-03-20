@@ -74,15 +74,19 @@ export const APIEndPoints = {
   TRIP_ITINERARY: "/trip/itinerary/:id",
   TRIP_RESERVATION: "/trip/reservation/:id",
   TRIP_SEARCH: "trip/search",
-
   TRIP_SORT: "/trip/rank",
+
+  TRIP_FRIENDS: "/trip/:id/participants",
+  TRIP_SET_FRIENDS: "/trip/:id/participants/:participantUserName",
+  TRIP_IMG: "/images/upload/trip",
 
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
   COUNTRY: "/trip/countries",
-
   PLAN_BEST: "/trip/top-likes",
   DESTINATION_BEST: "/trip/rank",
+
+  MAP_RESTAURANT: "/map/recommend/restaurant",
 
   IMAGE_UPLOAD_COMMUNITY: "/images/upload/community",
   IMAGE_UPLOAD_NOTICE: "/images/upload/notice",
@@ -95,7 +99,9 @@ export const APIEndPoints = {
   REPORTED_USER: "/manage/user/reported",
   PERMIT_USER: "/manage/user/permit/:id",
   DELETE_USER: "/manage/user/delete/:id",
+  USER_ROLE_CHANGE: "/manage/user/change-role/:id",
   MANAGE_UTIL: "/manage/util/all",
+  MANAGE_MONTH_USER: "/manage/util/month/users",
   REPORTED_BOARD: "/manage/community/reported/posts",
   DELETE_BOARD: "/manage/community/delete/posts/:id",
   REPORTED_COMMNET: "/manage/community/reported/comments",

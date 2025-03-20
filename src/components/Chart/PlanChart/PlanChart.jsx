@@ -1,7 +1,5 @@
-import { useSearch } from "@/hooks";
 import styles from "./PlanChart.module.css";
 import PlanTooltip from "./PlanTooltip";
-import { useEffect } from "react";
 import {
   Bar,
   BarChart,
@@ -12,20 +10,14 @@ import {
   Tooltip,
 } from "recharts";
 
-const PlanChart = () => {
-  const { searchCount, getSearchCount } = useSearch();
-
-  useEffect(() => {
-    getSearchCount();
-  }, [getSearchCount]);
-
+const PlanChart = ({ data }) => {
   return (
     <ResponsiveContainer className={styles.responsive_container}>
       <BarChart
         margin={{
           right: 30,
         }}
-        data={searchCount}
+        data={data}
         className={styles.chart}
       >
         <XAxis

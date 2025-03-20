@@ -1,4 +1,4 @@
-import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import { Button, Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
@@ -12,15 +12,18 @@ import DeletePlan from "../ModalContents/DeletePlan";
 import ModifyPlan from "../ModalContents/ModifyPlan";
 import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./PlanInfo.module.css";
+import ManageFriends from "../ModalContents/ManageFriends";
 
 const PlanInfo = (user) => {
-  const { tripDetail } = usePlanDetail();
+  const { tripDetail, friends } = usePlanDetail();
   const [liked, setLiked] = useState(false); 
+  const [withUser, setWithUser] = useState(); 
   const { createToast } = useToast();
-  const { fetchData: postApi } = useAxios();
+  const { fetchData: postApi } = useAxios();  
 
   useEffect(()=>{
     setLiked(tripDetail?.liked);
+    setWithUser(friends?.length + 1)
   },[tripDetail])
 
   const likedTrip = (setMethod, id) => {
@@ -53,6 +56,14 @@ const PlanInfo = (user) => {
         <p className={styles.title}>{tripDetail.title}</p>
         {isMine ? (
           <div className={styles.header_menu}>
+            <Modal>
+              <ModalTrigger>
+                <Button variant="ghost">친구 관리</Button>
+              </ModalTrigger>
+              <ModalContent>
+                <ManageFriends plan={tripDetail} friends={friends} user={user}/>
+              </ModalContent>
+            </Modal>
             <Modal>
               <ModalTrigger>
                 <Button variant="ghost">수정</Button>
@@ -94,10 +105,14 @@ const PlanInfo = (user) => {
             {tripDetail.countryName}, {tripDetail.cityName}
           </p>
         </div>
-        <div className={styles.flex_row}>
-          <BsPersonArmsUp size={20} />
-          <p>1 명</p>
-        </div>
+       
+          <div className={styles.flex_row}>
+            <BsPersonArmsUp size={20} />
+            <Tooltip text={`${tripDetail.user.userName}${friends.length > 0 ? `, ${friends.map(f => f.participantUserName).join(", ")}` : ""}`}>
+              <p>{withUser} 명</p>
+            </Tooltip>
+          </div>
+
         <div className={styles.flex_row}>
           <MdDateRange size={20} />
           <p>

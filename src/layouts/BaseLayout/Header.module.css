@@ -1,3 +1,7 @@
+.container_dark {
+  --color-text-primary: var(--color-white);
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -5,7 +9,7 @@
 
   height: 4rem;
   width: 100%;
-  color: var(--color-text-dynamic);
+  color: var(--color-text-primary);
 }
 
 .title {
@@ -31,14 +35,17 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  color: var(--color-text-primary);
 }
 
 .mobile_nav_container {
   display: none;
+  color: var(--color-text-dynamic);
 }
 
 .icon_menu {
   cursor: pointer;
+  color: var(--color-text-primary);
 }
 
 .sidebar_container {
@@ -49,6 +56,8 @@
   font-weight: var(--font-weight-bold);
 
   gap: 6rem;
+  position: relative;
+  z-index: 99999;
 }
 
 .sidebar_icons_box {

@@ -1,7 +1,5 @@
 import { Button, Field, Input } from "@/components";
 import styles from "./JoinForm.module.css";
-import { useNavigate } from "react-router-dom";
-import { PageEndPoints } from "@/constants";
 
 const JoinForm = ({
   joinUseForm,
@@ -9,8 +7,6 @@ const JoinForm = ({
   handleDuplicateEmail,
   handleDuplicateNickname,
 }) => {
-  const navigate = useNavigate();
-
   const {
     register,
     formState: { errors },
@@ -133,30 +129,14 @@ const JoinForm = ({
         />
       </Field>
 
-      <div className={styles.footer}>
-        <Button
-          style={{
-            width: "100%",
-          }}
-          size="lg"
-        >
-          JOIN
-        </Button>
-        <div className={styles.divider} />
-        <div className={styles.login_link_box}>
-          <div>Already have an account?</div>
-          <Button
-            type="button"
-            style={{
-              color: "var(--color-blue-500)",
-            }}
-            variant="none"
-            onClick={() => navigate(PageEndPoints.LOGIN)}
-          >
-            Login
-          </Button>
-        </div>
-      </div>
+      <Button
+        style={{
+          width: "100%",
+        }}
+        size="lg"
+      >
+        JOIN
+      </Button>
     </form>
   );
 };

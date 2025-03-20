@@ -9,6 +9,15 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.section_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .spinner {
   font-size: 10px;
   width: 1em;

@@ -1,54 +1,40 @@
-import { BaseLayout } from "@/layouts";
-import Banner from "./Banner";
+import Banner from "./Banner/Banner";
 import styles from "./Home.module.css";
-import { Button, Slider } from "@/components";
-import { useAxios } from "@/hooks";
-import { PageEndPoints, APIEndPoints } from "@/constants";
-import { useState, useEffect } from "react";
-import MainContent from "./MainContent";
+import Header from "@/layouts/BaseLayout/Header";
+import Footer from "@/layouts/BaseLayout/Footer/Footer";
+import YoutubeSection from "./YoutubeSection";
+import BestPlan from "./BestPlan";
+import BestCity from "./BestCity";
+import MotionLayout from "./MotionLayout";
 
 const HomePage = () => {
-  const { loading, fetchData, response } = useAxios();
-  const [destinations, setDestinations] = useState([]);
-  const [plans, setPlans] = useState([]);
-  const [filter, serFilter] = useState("");
-
-  useEffect(()=> {
-    fetchData({
-      method: "GET",
-      url: `${APIEndPoints.DESTINATION_BEST}`,
-      params: { filter },
-    }).then((res)=>{
-      setDestinations(res.data);
-    }).catch((err) => {
-      console.error(err);
-    });
-
-  },[fetchData]);
-
-  useEffect(()=> {
-    fetchData({
-      method: "GET",
-      url: `${APIEndPoints.PLAN_BEST}`,
-    }).then((res)=>{
-      setPlans(res.data);
-    }).catch((err) => {
-      console.error(err);
-    });
-
-  },[fetchData]);
-
-
   return (
-    <BaseLayout>
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.header_wrapper}>
+        <div className={styles.header}>
+          <Header />
+        </div>
         <Banner />
-
-        <MainContent title="WHERE TO GO?" items={destinations} />
-        <MainContent title="POPULAR PLANS?" items={plans} />
-        
       </div>
-    </BaseLayout>
+
+      <div className={styles.centered}>
+        <MotionLayout viewport={{ once: true, amount: 0.7 }}>
+          <BestCity />
+        </MotionLayout>
+
+        <MotionLayout viewport={{ once: true, amount: 0.7 }}>
+          <BestPlan />
+        </MotionLayout>
+      </div>
+
+      <MotionLayout viewport={{ once: true, amount: 0.7 }}>
+        <YoutubeSection />
+      </MotionLayout>
+
+      <div className={styles.centered}>
+        <Footer />
+      </div>
+    </div>
   );
 };
 

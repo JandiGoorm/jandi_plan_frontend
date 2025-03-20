@@ -16,6 +16,8 @@ const PlanBudget = () => {
 
   const { cost } = reservations;
 
+  console.log(cost);
+
   const itineraryTotal = flattendItinerary.reduce((acc, cur) => {
     return acc + cur.cost;
   }, 0);
@@ -23,9 +25,15 @@ const PlanBudget = () => {
   const remain =
     tripDetail.budget -
     itineraryTotal -
-    cost.TRANSPORTATION -
-    cost.ACCOMMODATION -
-    cost.ETC;
+    (cost.TRANSPORTATION??0) -
+    (cost.ACCOMMODATION??0) -
+    (cost.ETC??0);
+
+    console.log(tripDetail.budget);
+    console.log(itineraryTotal);
+    console.log( cost.TRANSPORTATION );
+    console.log(cost.ACCOMMODATION);
+    console.log(cost.ETC);
 
   return (
     <div className={styles.container}>

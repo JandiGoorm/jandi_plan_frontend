@@ -25,6 +25,12 @@
   font-weight: var(--font-weight-semibold);
 }
 
+.role {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .action_title {
   position: relative;
   left: 0.5rem;

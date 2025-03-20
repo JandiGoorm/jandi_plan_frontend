@@ -6,7 +6,8 @@ import styles from "./AllUser.module.css";
 import AllUserTable from "./AllUserTable";
 
 const AllUser = () => {
-  const { users, fetchUsers, permitUser, userLoading } = useUserManger();
+  const { users, fetchUsers, permitUser, userLoading, updateUserRole } =
+    useUserManger();
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
@@ -23,7 +24,12 @@ const AllUser = () => {
     <div className={styles.container}>
       <p className={styles.title}>전체 회원 관리</p>
 
-      <AllUserTable users={users} permitUser={permitUser} refetch={refetch} />
+      <AllUserTable
+        users={users}
+        permitUser={permitUser}
+        refetch={refetch}
+        updateUserRole={updateUserRole}
+      />
 
       <div className={styles.pagination}>
         <Pagination

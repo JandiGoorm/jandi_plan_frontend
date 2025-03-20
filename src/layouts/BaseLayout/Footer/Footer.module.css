@@ -1,0 +1,50 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.notice_container {
+  border-top: 1px solid var(--color-gray-300);
+  width: 100%;
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.policy {
+  cursor: pointer;
+}
+
+.policy_container {
+  box-sizing: border-box;
+  max-height: 80vh;
+  max-width: 90vw;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.policy_image {
+  width: auto;
+  height: auto;
+  display: block;
+
+  image-rendering: crisp-edges;
+}
+
+.title {
+  font-weight: var(--font-weight-bold);
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 5rem;
+  }
+}

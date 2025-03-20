@@ -1,61 +1,45 @@
-import { Pagination, PlanCard } from "@/components";
-import { APIEndPoints } from "@/constants";
+import { Slider,PlanCard, Button } from "@/components";
+import { APIEndPoints,PageEndPoints } from "@/constants";
 import { useAxios, usePagination } from "@/hooks";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import styles from "./MyPlan.module.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const MyPlan = ({ title, fetchUrl, queryKey, size }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
+const MyPlan = ({ title, fetchUrl}) => {
   const { fetchData, response } = useAxios();
-  const { currentPage, totalPage, setTotalPage, handlePageChange } =
-    usePagination(queryKey);
+  const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
-  // size가 변경될때, 변경된 totalPages보다 높은 페이지를 보고 있을 수도 있기에, 페이지를 1로 초기화
-  useEffect(() => {
-    setSearchParams({ [queryKey]: 1 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size]);
 
   useEffect(() => {
     fetchData({
       method: "GET",
       url: fetchUrl,
-      params: { page: currentPage - 1, size },
+      params: { page: 0 },
     }).then((res) => {
-      setTotalPage(res.data.pageInfo?.totalPages || 0);
+      console.log(res.data);
+      setItems(res.data.items);
     });
-  }, [currentPage, fetchData, setTotalPage, size]);
+  }, [fetchData]);
+
+  const handleMoreClick = () => {
+    navigate(PageEndPoints.PLAN_LIST, {state: {fetchUrl}});
+  };
 
   return (
     <div className={styles.myplan_box}>
       <div className={styles.title_box}>
         <p className={styles.title}>{title}</p>
+        <Button variant="none" onClick={handleMoreClick}>더보기</Button>
       </div>
 
-      {response?.items?.length > 0 ? (
-        <div className={styles.flex_column}>
-          <div
-            className={styles.grid_container}
-            style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
-          >
-            {response.items.map((item) => {
-              return <PlanCard key={item.tripId} item={item} />;
-            })}
-          </div>
-
-          <div className={styles.pagination}>
-            <Pagination
-              callback={handlePageChange}
-              currentPage={currentPage}
-              totalPage={totalPage}
-            />
-          </div>
-        </div>
-      ) : (
-        <p>{title}이 없습니다.</p>
-      )}
+      <Slider items={items} size="md">
+        {(item) => (
+          <>
+            <PlanCard key={item.tripId} item={item} />
+          </>
+        )}
+      </Slider>
     </div>
   );
 };

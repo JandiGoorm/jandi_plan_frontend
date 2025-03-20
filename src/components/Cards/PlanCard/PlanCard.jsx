@@ -38,7 +38,7 @@ const PlanCard = ({ item }) => {
       <div
         className={styles.img_container}
         style={{
-          backgroundImage: `url(${item.cityImageUrl})`,
+          backgroundImage: `url(${item.tripImageUrl || item.cityImageUrl})`,
         }}
       />
       <div className={styles.content_container}>

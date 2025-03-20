@@ -4,10 +4,14 @@ import { MdNavigateBefore,MdNavigateNext  } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
-const Sliders = ({ items, children, size="sm" }) => {
+const Sliders = ({ items, children, size="sm", onLastSlide }) => {
   const sliderRef = useRef(null);
+  const [showPrev, setShowPrev] = useState(false);
+  const [showNext, setShowNext] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
 
     const settings = {
         dots: false,
@@ -30,42 +34,84 @@ const Sliders = ({ items, children, size="sm" }) => {
             },
           },
         ],
+        afterChange: (current) => {
+          setCurrentSlide(current);
+          
+          // 마지막 슬라이드 감지 & onLastSlide 콜백이 있을 때만 실행
+          if (onLastSlide && current + 3 >= items.length) {
+            onLastSlide();
+          }
+        },
       };
 
-      const handlePrev = () => {
-        sliderRef.current?.slickPrev();
-      };
+      useEffect(() => {
+        if (sliderRef.current) {
+          const totalSlides = items.length;
+          let slidesToShow = settings.slidesToShow; // 기본값 가져오기
     
+          // 반응형 설정 적용 (현재 뷰포트에 맞는 slidesToShow 찾기)
+          if (window.innerWidth < 600) {
+            slidesToShow = 1;
+          } else if (window.innerWidth < 900) {
+            slidesToShow = 2;
+          }
+    
+          // 버튼 표시 여부 설정
+          if (totalSlides > slidesToShow) {
+            setShowPrev(currentSlide > 0);
+            setShowNext(currentSlide + slidesToShow < totalSlides);
+          } else {
+            setShowPrev(false);
+            setShowNext(false);
+          }
+        }
+      }, [items, currentSlide, settings.slidesToShow]);
+      const handlePrev = () => {
+        if (sliderRef.current) {
+          const slidesToShow = settings.slidesToShow;
+          sliderRef.current.slickGoTo(Math.max(currentSlide - slidesToShow, 0));
+        }
+      };
+      
       const handleNext = () => {
-        sliderRef.current?.slickNext();
+        if (sliderRef.current) {
+          const slidesToShow = settings.slidesToShow;
+          sliderRef.current.slickGoTo(currentSlide + slidesToShow);
+        }
       };
 
       return(
         <div className={styles.container}>
-          <Button className={styles.prev_btn} variant="none" onClick={handlePrev}>
-            <MdNavigateBefore size={48} />
-          </Button>
+          {showPrev && (
+            <Button className={styles.prev_btn} variant="none" onClick={handlePrev}>
+              <MdNavigateBefore size={24} />
+            </Button>
+          )}
           <div
               className={`${styles.slider_container} ${
               size === "sm" ? styles.sm_container : styles.md_container
               }`}
           >
+            {items.length === 0 ? (<div className={styles.no_item_box}>No items available...</div>):(
             <Slider ref={sliderRef} {...settings}>
-                {items.map((item, index) => (
+              {[...items, ...Array(Math.max(0, 3 - items.length)).fill(null)].map((item, index) => (
                 <div
-                    key={index}
-                    className={`${styles.place_box} ${
-                        size === "sm" ? styles.sm_place_box : styles.md_place_box
-                    }`}
+                  key={index}
+                  className={`${styles.place_box} ${
+                    size === "sm" ? styles.sm_place_box : styles.md_place_box
+                  }`}
                 >
-                    {children(item)}
+                  {item ? children(item) : <div className={styles.empty_slide} />} {/* 빈 div 추가 */}
                 </div>
-                ))}
+              ))}    
             </Slider>
+            )}
           </div>
-          <Button className={styles.next_btn} onClick={handleNext}>
-            <MdNavigateNext size={48} />
-          </Button>
+          {showNext && (
+            <Button className={styles.next_btn} onClick={handleNext}>
+              <MdNavigateNext size={24} />
+            </Button>
+          )}
         </div>
       );
 

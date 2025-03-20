@@ -14,7 +14,6 @@ const PlanMap = () => {
   const [hoverId, setHoverId] = useState(null);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [infoWindowShown, setInfoWindowShown] = useState(false);
 
   const { itineraries, focusDay, flattendItinerary, tripDetail } =
     usePlanDetail();
@@ -30,7 +29,6 @@ const PlanMap = () => {
   const closeInfoWindow = useCallback(() => {
     setSelectedSchedule(null);
     setSelectedMarker(null);
-    setInfoWindowShown(false);
   }, []);
 
   const onMarkerClick = useCallback(
@@ -46,7 +44,6 @@ const PlanMap = () => {
       ) {
         setSelectedSchedule(schedule);
         setSelectedMarker(marker);
-        setInfoWindowShown(true);
       }
     },
     [closeInfoWindow, selectedMarker, selectedSchedule?.itineraryId]
@@ -95,7 +92,7 @@ const PlanMap = () => {
       <Map
         style={{ width: "100%", height: "100%" }}
         defaultCenter={defaultPosition}
-        defaultZoom={9}
+        defaultZoom={12}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
         id="main-map"
@@ -127,7 +124,7 @@ const PlanMap = () => {
 
         <Polyline path={flightPlanCoordinates} />
 
-        {infoWindowShown && selectedMarker && selectedSchedule && (
+        {selectedMarker && selectedSchedule && (
           <CustomInfoWindow
             key={selectedSchedule?.itineraryId}
             selectedSchedule={selectedSchedule}
