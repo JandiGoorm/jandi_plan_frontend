@@ -17,7 +17,7 @@ const PlanDetail = () => {
       <PlanDetailProvider>
         <APIProvider apiKey={API_KEY}>
           <div className={styles.container}>
-            <Banner />
+            <Banner user={user}/>
             <div className={styles.centered}>
             <PlanInfo user={user} />
             <PlanMap />

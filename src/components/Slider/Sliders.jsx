@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRef, useEffect, useState } from "react";
 
-const Sliders = ({ items, children, size="sm" }) => {
+const Sliders = ({ items, children, size="sm", onLastSlide }) => {
   const sliderRef = useRef(null);
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
@@ -34,7 +34,14 @@ const Sliders = ({ items, children, size="sm" }) => {
             },
           },
         ],
-        afterChange: (current) => setCurrentSlide(current),
+        afterChange: (current) => {
+          setCurrentSlide(current);
+          
+          // 마지막 슬라이드 감지 & onLastSlide 콜백이 있을 때만 실행
+          if (onLastSlide && current + 3 >= items.length) {
+            onLastSlide();
+          }
+        },
       };
 
       useEffect(() => {
@@ -60,11 +67,17 @@ const Sliders = ({ items, children, size="sm" }) => {
         }
       }, [items, currentSlide, settings.slidesToShow]);
       const handlePrev = () => {
-        sliderRef.current?.slickPrev();
+        if (sliderRef.current) {
+          const slidesToShow = settings.slidesToShow;
+          sliderRef.current.slickGoTo(Math.max(currentSlide - slidesToShow, 0));
+        }
       };
-    
+      
       const handleNext = () => {
-        sliderRef.current?.slickNext();
+        if (sliderRef.current) {
+          const slidesToShow = settings.slidesToShow;
+          sliderRef.current.slickGoTo(currentSlide + slidesToShow);
+        }
       };
 
       return(

@@ -77,7 +77,7 @@ const Header = ({ forceDark = false }) => {
       },
       {
         text: "여행 계획",
-        onClick: () => navigate(PageEndPoints.PLAN_LIST),
+        onClick: () => navigate(PageEndPoints.PLAN_LIST, { state: { fetchUrl: "main" } }),
       },
       {
         text: "게시판",

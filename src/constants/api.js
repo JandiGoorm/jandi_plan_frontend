@@ -78,6 +78,7 @@ export const APIEndPoints = {
 
   TRIP_FRIENDS: "/trip/:id/participants",
   TRIP_SET_FRIENDS: "/trip/:id/participants/:participantUserName",
+  TRIP_IMG: "/images/upload/trip",
 
   DESTINATION: "/trip/cities",
   CONTINENT: "/trip/continents",
