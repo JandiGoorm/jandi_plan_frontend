@@ -7,7 +7,7 @@ import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 
-const MyInfo = ({ user }) => {
+const MyInfo = ({ user, onProfileChange  }) => {
   console.log(user);
   const { loading, fetchData, response } = useAxios();
   const { createToast } = useToast();
@@ -35,6 +35,7 @@ const MyInfo = ({ user }) => {
           text: "프로필 이미지가 변경되었습니다.",
         });
         setProfile(res.data.imageUrl);
+        onProfileChange();
       }).catch((err)=>{
         console.log(err)
         createToast({
@@ -43,7 +44,7 @@ const MyInfo = ({ user }) => {
         });
       })
     };
-  }, []);
+  }, [onProfileChange]);
 
   return (
     <div className={styles.container}>

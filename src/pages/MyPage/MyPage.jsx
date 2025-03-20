@@ -21,6 +21,11 @@ const MyPage = () => {
   const { user } = useAuth();
   const { loading, fetchData } = useAxios();
   const navigate = useNavigate();
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
+
+  const handleRefreshPlans = () => {
+    setRefreshTrigger((prev) => !prev);
+  };
 
   useEffect(() => {
     fetchData({
@@ -46,12 +51,12 @@ const MyPage = () => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <MyInfo user={user} />
+              <MyInfo user={user} onProfileChange={handleRefreshPlans}/>
             </ModalContent>
           </Modal>
         </div>
 
-        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} goUrl={PageEndPoints.PLAN_MY_LIST}/>
+        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} goUrl={PageEndPoints.PLAN_MY_LIST} refreshTrigger={refreshTrigger}/>
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>
@@ -80,7 +85,7 @@ const MyPage = () => {
           </Slider>
         </div>
 
-        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED} goUrl={PageEndPoints.PLAN_LIKE_LIST}/>
+        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED} goUrl={PageEndPoints.PLAN_LIKE_LIST} refreshTrigger={refreshTrigger}/>
         
       </div>
     </BaseLayout>
