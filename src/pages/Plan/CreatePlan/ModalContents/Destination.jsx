@@ -74,6 +74,9 @@ const Destination = ({ setSelectedCity }) => {
                 key={continent}
                 variant={selectedContinent === continent ? "solid" : "ghost"}
                 onClick={() => setSelectedContinent(continent)}
+                style={{
+                  whiteSpace: "nowrap",
+                }}
               >
                 {continent}
               </Button>
