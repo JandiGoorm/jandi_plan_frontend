@@ -14,7 +14,7 @@ const PlanDetailProvider = ({ children }) => {
   const { itineraries, addItinerary, updateItinerary, deleteItinerary } =
     usePlanItinerary(id);
 
-  const { tripDetail, updatePlan, deletePlan } = usePlan(id);
+  const { tripDetail, updatePlan, deletePlan, planImg, updatePlanImg } = usePlan(id);
 
   const {friends, addFriends, deleteFriends} = useFriends(id);
 
@@ -54,9 +54,12 @@ const PlanDetailProvider = ({ children }) => {
         tripDetail,
         itineraries,
         reservations,
+        planImg,
 
         updatePlan,
         deletePlan,
+
+        updatePlanImg,
 
         addReservation,
         updateReservation,

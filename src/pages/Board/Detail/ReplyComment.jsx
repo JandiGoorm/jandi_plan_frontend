@@ -9,7 +9,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import ReportModal from "./components/ReportModal";
 import { Modal, ModalContent, ModalTrigger } from "@/components";
 
-const ReplyComment = ({ commentId, user }) => {
+const ReplyComment = ({ commentId, user,fetchComments }) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
@@ -48,6 +48,7 @@ const ReplyComment = ({ commentId, user }) => {
       createToast({ type: "success", text: "댓글이 삭제되었습니다." });
       setPage(0); 
       fetchReplys();
+      fetchComments();
     }).catch((err) => {
       createToast({
         type: "error",

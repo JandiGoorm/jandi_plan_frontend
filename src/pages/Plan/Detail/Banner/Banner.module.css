@@ -6,6 +6,7 @@
   background-position: center;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .banner_container::before {
@@ -59,4 +60,11 @@
   .header {
     padding: 0 1rem;
   }
+}
+
+.banner_menu{
+  position: absolute;
+  bottom: 1rem;
+  right: 5rem;
+  z-index: 10;
 }
