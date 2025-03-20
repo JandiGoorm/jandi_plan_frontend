@@ -33,3 +33,10 @@ export const loginScheme = z.object({
     .nonempty({ message: "ID를 입력하세요." }),
   password: z.string().nonempty({ message: "비밀번호를 입력하세요." }),
 });
+
+export const finderScheme = z.object({
+  email: z
+    .string()
+    .email({ message: "유효한 이메일을 입력하세요." })
+    .nonempty({ message: "이메일을 입력하세요." }),
+});

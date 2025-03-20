@@ -155,12 +155,6 @@ const JoinPage = () => {
         handleDuplicateNickname={handleDuplicateNickname}
       />
 
-      <div className={styles.social_login_btns}>
-        <img src="/naver_icon.png" className={styles.social_btn} />
-        <img src="/kakao_icon.png" className={styles.social_btn} />
-        <img src="/google_icon.png" className={styles.social_btn} />
-      </div>
-
       <div className={styles.divider} />
 
       <div className={styles.login_link_box}>

@@ -15,7 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { user, signIn } = useAuth(); //로그인 관리
+  const { user, signIn } = useAuth();
   const { fetchData } = useAxios();
 
   const { createToast } = useToast();
