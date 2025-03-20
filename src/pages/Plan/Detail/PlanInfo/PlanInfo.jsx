@@ -1,6 +1,12 @@
-import { Button, Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalTrigger,
+  Tooltip,
+} from "@/components";
 import { APIEndPoints } from "@/constants";
-import { useToast } from "@/contexts";
+import { useAuth, useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
 import { useEffect, useState } from "react";
@@ -14,17 +20,19 @@ import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./PlanInfo.module.css";
 import ManageFriends from "../ModalContents/ManageFriends";
 
-const PlanInfo = (user) => {
-  const { tripDetail, friends } = usePlanDetail();
-  const [liked, setLiked] = useState(false); 
-  const [withUser, setWithUser] = useState(); 
-  const { createToast } = useToast();
-  const { fetchData: postApi } = useAxios();  
+const PlanInfo = () => {
+  const [liked, setLiked] = useState(false);
+  const [withUser, setWithUser] = useState();
 
-  useEffect(()=>{
+  const { user } = useAuth();
+  const { tripDetail, friends } = usePlanDetail();
+  const { createToast } = useToast();
+  const { fetchData: postApi } = useAxios();
+
+  useEffect(() => {
     setLiked(tripDetail?.liked);
-    setWithUser(friends?.length + 1)
-  },[tripDetail])
+    setWithUser(friends?.length + 1);
+  }, [friends?.length, tripDetail?.liked]);
 
   const likedTrip = (setMethod, id) => {
     postApi({
@@ -39,7 +47,6 @@ const PlanInfo = (user) => {
         setLiked((prev) => !prev);
       })
       .catch((err) => {
-        console.log(err);
         createToast({
           type: "error",
           text: err.data.message,
@@ -48,7 +55,7 @@ const PlanInfo = (user) => {
   };
 
   if (!tripDetail) return null;
-  const isMine = tripDetail.user.userId === user?.user.userId;
+  const isMine = tripDetail.user.userId === user?.userId;
 
   return (
     <div className={styles.container}>
@@ -61,7 +68,11 @@ const PlanInfo = (user) => {
                 <Button variant="ghost">친구 관리</Button>
               </ModalTrigger>
               <ModalContent>
-                <ManageFriends plan={tripDetail} friends={friends} user={user}/>
+                <ManageFriends
+                  plan={tripDetail}
+                  friends={friends}
+                  user={user}
+                />
               </ModalContent>
             </Modal>
             <Modal>
@@ -105,13 +116,19 @@ const PlanInfo = (user) => {
             {tripDetail.countryName}, {tripDetail.cityName}
           </p>
         </div>
-       
-          <div className={styles.flex_row}>
-            <BsPersonArmsUp size={20} />
-            <Tooltip text={`${tripDetail.user.userName}${friends.length > 0 ? `, ${friends.map(f => f.participantUserName).join(", ")}` : ""}`}>
-              <p>{withUser} 명</p>
-            </Tooltip>
-          </div>
+
+        <div className={styles.flex_row}>
+          <BsPersonArmsUp size={20} />
+          <Tooltip
+            text={`${tripDetail.user.userName}${
+              friends.length > 0
+                ? `, ${friends.map((f) => f.participantUserName).join(", ")}`
+                : ""
+            }`}
+          >
+            <p>{withUser} 명</p>
+          </Tooltip>
+        </div>
 
         <div className={styles.flex_row}>
           <MdDateRange size={20} />

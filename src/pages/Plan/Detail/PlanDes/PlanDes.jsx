@@ -12,23 +12,26 @@ import { useAuth } from "@/contexts";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
-  const { focusDay, reservations, tripDetail, setFocusDay, friends } = usePlanDetail();
+  const { focusDay, reservations, tripDetail, setFocusDay, friends } =
+    usePlanDetail();
   const { user } = useAuth();
 
-  console.log(friends);
-
   const isMine = user?.userId === tripDetail?.user.userId;
-  const isFriend = friends?.some(friend => friend.participantUserId === user?.userId);
+  const isFriend = friends?.some(
+    (friend) => friend.participantUserId === user?.userId
+  );
+
+  const hasPermission = isMine || isFriend;
 
   const renderItem = useMemo(() => {
     if (focusDay === null && reservations) {
-      return <Reserved reserved={reservations} />;
+      return <Reserved reserved={reservations} hasPermission={hasPermission} />;
     }
 
     if (focusDay) {
-      return <DayDetail focus={focusDay} />;
+      return <DayDetail focus={focusDay} hasPermission={hasPermission} />;
     }
-  }, [focusDay, reservations]);
+  }, [focusDay, hasPermission, reservations]);
 
   useEffect(() => {
     if (!tripDetail) return;
@@ -52,7 +55,7 @@ const PlanDes = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>PLAN DETAILS</div>
-        {(isMine||isFriend) && (
+        {hasPermission && (
           <div className={styles.buttons}>
             <Modal>
               <ModalTrigger>
@@ -74,6 +77,7 @@ const PlanDes = () => {
           </div>
         )}
       </div>
+
       <div className={styles.des_container}>
         <div className={styles.des_nav}>
           <Swiper

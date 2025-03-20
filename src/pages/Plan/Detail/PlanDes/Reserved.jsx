@@ -6,12 +6,11 @@ import { Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
 import { usePlanDetail } from "../PlanDetailContext";
 import ModifyReservation from "../ModalContents/ModifyReservation";
 
-const Reserved = ({ reserved }) => {
+const Reserved = ({ reserved, hasPermission }) => {
   const { data } = reserved;
   const order = ["TRANSPORTATION", "ACCOMMODATION", "ETC"];
 
   const { deleteReservation } = usePlanDetail();
-  console.log("data", data);
 
   return (
     <div className={styles.container}>
@@ -29,29 +28,31 @@ const Reserved = ({ reserved }) => {
                     <p>{item.title}</p>
                     <p>{formatPrice(item.cost)}원</p>
                   </div>
-                  <div className={styles.icon_wrapper}>
-                    <Modal>
-                      <ModalTrigger>
-                        <Tooltip text="수정">
-                          <div className={styles.icon_box}>
-                            <LuClipboardPen size={14} />
-                          </div>
-                        </Tooltip>
-                      </ModalTrigger>
-                      <ModalContent>
-                        <ModifyReservation reservation={item} />
-                      </ModalContent>
-                    </Modal>
+                  {hasPermission && (
+                    <div className={styles.icon_wrapper}>
+                      <Modal>
+                        <ModalTrigger>
+                          <Tooltip text="수정">
+                            <div className={styles.icon_box}>
+                              <LuClipboardPen size={14} />
+                            </div>
+                          </Tooltip>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <ModifyReservation reservation={item} />
+                        </ModalContent>
+                      </Modal>
 
-                    <Tooltip
-                      text="삭제"
-                      onClick={() => deleteReservation(item.reservationId)}
-                    >
-                      <div className={styles.icon_box}>
-                        <TiDelete size={20} color="var(--color-red-500)" />
-                      </div>
-                    </Tooltip>
-                  </div>
+                      <Tooltip
+                        text="삭제"
+                        onClick={() => deleteReservation(item.reservationId)}
+                      >
+                        <div className={styles.icon_box}>
+                          <TiDelete size={20} color="var(--color-red-500)" />
+                        </div>
+                      </Tooltip>
+                    </div>
+                  )}
                 </div>
               );
             })}
