@@ -1,4 +1,3 @@
-import { BaseLayout } from "@/layouts";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import styles from "./PlanDetail.module.css";
 import PlanDetailProvider from "./PlanDetailProvider";
@@ -14,19 +13,19 @@ const PlanDetail = () => {
   const { user } = useAuth();
 
   return (
-      <PlanDetailProvider>
-        <APIProvider apiKey={API_KEY}>
-          <div className={styles.container}>
-            <Banner user={user}/>
-            <div className={styles.centered}>
+    <PlanDetailProvider>
+      <APIProvider apiKey={API_KEY}>
+        <div className={styles.container}>
+          <Banner user={user} />
+          <div className={styles.centered}>
             <PlanInfo user={user} />
             <PlanMap />
             <PlanDes />
             <PlanBudget />
-            </div>
           </div>
-        </APIProvider>
-      </PlanDetailProvider>
+        </div>
+      </APIProvider>
+    </PlanDetailProvider>
   );
 };
 

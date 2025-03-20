@@ -2,7 +2,7 @@ import { Loading, PlanCard, Slider } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./Destination.module.css";
 import DestinationInfo from "./DestinationInfo/DestinationInfo";
 import DestinationMap from "./DestinationMap/DestinationMap";
@@ -10,8 +10,7 @@ import Banner from "./Banner/Banner";
 import MapSide from "./DestinationMap/MapSide";
 
 const Destination = () => {
-  const location = useLocation();
-  const { cityName, cityId } = location.state;
+  const { id } = useParams();
 
   const {
     loading,
@@ -20,44 +19,57 @@ const Destination = () => {
   } = useAxios();
 
   const { fetchData: getPlans, response: plans } = useAxios();
-  const { fetchData: getRestaurants, response: restaurants } = useAxios();
 
-  const fetchRestaurants = useCallback(async () => {
-    await getRestaurants({
-      method: "POST",
-      url: APIEndPoints.MAP_RESTAURANT,
-      data: {
-        cityId,
-      },
-    });
-  }, [cityId, getRestaurants]);
+  const {
+    fetchData: getRestaurants,
+    response: restaurants,
+    loading: restaurantsLoading,
+  } = useAxios();
 
+  // 맛집 가져오기
+  const fetchRestaurants = useCallback(
+    async (cityId) => {
+      await getRestaurants({
+        method: "POST",
+        url: APIEndPoints.MAP_RESTAURANT,
+        data: {
+          cityId,
+        },
+      });
+    },
+    [getRestaurants]
+  );
+
+  // 도시 정보 가져오기
   const fetchDestination = useCallback(async () => {
-    await getDestination({
+    return await getDestination({
       method: "GET",
       url: APIEndPoints.DESTINATION,
       params: {
         category: "CITY",
-        filter: cityName,
+        filter: id,
       },
     });
-  }, [cityName, getDestination]);
+  }, [getDestination, id]);
 
+  //인기 계획 가져오기
   const fetchPlans = useCallback(async () => {
     await getPlans({
       method: "GET",
       url: APIEndPoints.TRIP_SEARCH,
       params: {
         category: "CITY",
-        keyword: cityName,
+        keyword: id,
       },
     });
-  }, [cityName, getPlans]);
+  }, [getPlans, id]);
 
   useEffect(() => {
     fetchPlans();
-    fetchDestination();
-    fetchRestaurants();
+    fetchDestination().then((res) => {
+      const cityId = res.data[0].cityId;
+      fetchRestaurants(cityId);
+    });
   }, [fetchDestination, fetchPlans, fetchRestaurants]);
 
   if (loading || !destination) return <Loading />;
@@ -69,7 +81,8 @@ const Destination = () => {
 
       <div className={styles.centered}>
         <div className={styles.map_container}>
-          {restaurants && <MapSide restaurants={restaurants} />}
+          <MapSide restaurants={restaurants} loading={restaurantsLoading} />
+
           <DestinationMap
             latitude={item.latitude}
             longitude={item.longitude}
@@ -80,13 +93,10 @@ const Destination = () => {
         <DestinationInfo latitude={item.latitude} longitude={item.longitude} />
 
         <div className={styles.plan_container}>
-          <p className={styles.title}>{cityName}의 인기 계획</p>
+          <p className={styles.title}>{id}의 최근 업로드된 계획</p>
+
           <Slider items={plans?.items || []} size="md">
-            {(item) => (
-              <>
-                <PlanCard key={item.tripId} item={item} />
-              </>
-            )}
+            {(item) => <PlanCard key={item.tripId} item={item} />}
           </Slider>
         </div>
       </div>
