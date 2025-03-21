@@ -56,7 +56,7 @@ const DrawerContent = ({ children }) => {
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           className={styles.container}

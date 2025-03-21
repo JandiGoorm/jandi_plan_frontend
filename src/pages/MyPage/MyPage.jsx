@@ -2,6 +2,7 @@ import { BaseLayout } from "@/layouts";
 import styles from "./MyPage.module.css";
 import {
   Button,
+  CityCard,
   Modal,
   ModalContent,
   ModalTrigger,
@@ -10,7 +11,7 @@ import {
 import { useAuth } from "@/contexts";
 import MyPlan from "./MyPlan/MyPlan";
 import MyInfo from "./MyInfo/MyInfo";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
@@ -20,6 +21,17 @@ const MyPage = () => {
   const { user } = useAuth();
   const { fetchData, response } = useAxios();
   const navigate = useNavigate();
+
+  const handleCityCardClick = useCallback(
+    (id) => {
+      const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
+        id,
+      });
+
+      navigate(url);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     fetchData({
@@ -63,29 +75,15 @@ const MyPage = () => {
               관심 여행지 재설정하기
             </Button>
           </div>
+
           <Slider items={response ?? []} size="sm">
             {(item) => (
-              <>
-                <div
-                  className={styles.img_container}
-                  style={{
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                  onClick={() =>
-                    navigate(
-                      buildPath(PageEndPoints.DESTINATION_DETAIL, {
-                        id: item.cityId,
-                      }),
-                      { state: { cityName: item.name } }
-                    )
-                  }
-                />
-                <div className={styles.dest_container}>
-                  <div className={styles.dest_title}>
-                    <p className={styles.dest_name}>{item.name}</p>
-                  </div>
-                </div>
-              </>
+              <div
+                className={styles.item_wrapper}
+                onClick={() => handleCityCardClick(item.name)}
+              >
+                <CityCard item={item} />
+              </div>
             )}
           </Slider>
         </div>

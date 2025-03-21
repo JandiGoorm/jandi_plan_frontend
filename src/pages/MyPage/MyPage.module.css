@@ -58,9 +58,9 @@
   gap: 1rem;
 }
 
-
-/* slider */
-
+.item_wrapper {
+  height: 100%;
+}
 
 .img_container {
   width: 100%;
@@ -131,12 +131,12 @@
 }
 
 .plan_name {
- font-weight: var(--font-weight-extrabold);
-font-size: var(--text-2xl);
+  font-weight: var(--font-weight-extrabold);
+  font-size: var(--text-2xl);
 
-display: -webkit-box;
--webkit-line-clamp: 1;
--webkit-box-orient: vertical;
-overflow: hidden;
-text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

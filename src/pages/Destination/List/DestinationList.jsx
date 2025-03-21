@@ -1,5 +1,5 @@
 import styles from "./DestinationList.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { BaseLayout } from "@/layouts";
 import { Button, CityCard } from "@/components";
 import { APIEndPoints } from "@/constants";
@@ -17,6 +17,17 @@ const DestinationList = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
 
   const navigate = useNavigate();
+
+  const handleCityCardClick = useCallback(
+    (id) => {
+      const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
+        id,
+      });
+
+      navigate(url);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     getContinent({
@@ -101,14 +112,7 @@ const DestinationList = () => {
           {destinations?.map((item) => (
             <div
               key={item.cityId}
-              onClick={() =>
-                navigate(
-                  buildPath(PageEndPoints.DESTINATION_DETAIL, {
-                    id: item.name,
-                  }),
-                  { state: { cityName: item.name, cityId: item.cityId } }
-                )
-              }
+              onClick={() => handleCityCardClick(item.name)}
             >
               <CityCard item={item} />
             </div>

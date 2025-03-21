@@ -11,9 +11,9 @@ const BestCity = () => {
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(
-    (item) => {
+    (id) => {
       const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
-        id: item.name,
+        id,
       });
 
       navigate(url);
@@ -34,11 +34,10 @@ const BestCity = () => {
 
       <Slider items={response ?? []}>
         {(item) => {
-          console.log("item", item);
           return (
             <div
               key={item.cityId}
-              onClick={() => handleNavigate(item)}
+              onClick={() => handleNavigate(item.name)}
               style={{ position: "relative", height: "100%" }}
             >
               <CityCard item={item} />
