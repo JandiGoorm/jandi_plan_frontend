@@ -10,29 +10,23 @@ import {
 import { useAuth } from "@/contexts";
 import MyPlan from "./MyPlan/MyPlan";
 import MyInfo from "./MyInfo/MyInfo";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
-  const [preferDest, setPreferDest] = useState([]);
   const { user } = useAuth();
-  const { loading, fetchData } = useAxios();
+  const { fetchData, response } = useAxios();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchData({
       method: "GET",
-      url: `${APIEndPoints.PREFER_DEST}`,
-    }).then((res)=>{
-      console.log(res.data);
-      setPreferDest(res.data);
-    })
-  }, []);
-
-  if (!user) return <p>로그인이 필요합니다.</p>;
+      url: APIEndPoints.PREFER_DEST,
+    });
+  }, [fetchData]);
 
   return (
     <BaseLayout>
@@ -51,16 +45,25 @@ const MyPage = () => {
           </Modal>
         </div>
 
-        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY}/>
+        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} />
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>
             <p className={styles.title}>관심 여행지 리스트</p>
-            <Button variant="ghost" size="sm" onClick={()=>navigate(PageEndPoints.PREF_CONT, { replace: true, state:{ mode: "edit"} })}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                navigate(PageEndPoints.PREF_CONT, {
+                  replace: true,
+                  state: { mode: "edit" },
+                })
+              }
+            >
               관심 여행지 재설정하기
             </Button>
           </div>
-          <Slider items={preferDest} size="sm">
+          <Slider items={response ?? []} size="sm">
             {(item) => (
               <>
                 <div
@@ -68,7 +71,14 @@ const MyPage = () => {
                   style={{
                     backgroundImage: `url(${item.imageUrl})`,
                   }}
-                  onClick={() => navigate(buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId }), { state: { cityName: item.name } })}
+                  onClick={() =>
+                    navigate(
+                      buildPath(PageEndPoints.DESTINATION_DETAIL, {
+                        id: item.cityId,
+                      }),
+                      { state: { cityName: item.name } }
+                    )
+                  }
                 />
                 <div className={styles.dest_container}>
                   <div className={styles.dest_title}>
@@ -80,8 +90,7 @@ const MyPage = () => {
           </Slider>
         </div>
 
-        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED}/>
-        
+        <MyPlan title="좋아요 한 플랜" fetchUrl={APIEndPoints.TRIP_LIKED} />
       </div>
     </BaseLayout>
   );
