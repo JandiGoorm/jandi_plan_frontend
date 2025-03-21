@@ -1,4 +1,4 @@
-import { Loading, Slider } from "@/components";
+import { CityCard, Loading, Slider } from "@/components";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
@@ -13,9 +13,10 @@ const BestCity = () => {
   const handleNavigate = useCallback(
     (item) => {
       const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
-        id: item.cityId,
+        id: item.name,
       });
-      navigate(url, { state: { cityName: item.name, cityId: item.cityId } });
+
+      navigate(url);
     },
     [navigate]
   );
@@ -33,21 +34,15 @@ const BestCity = () => {
 
       <Slider items={response ?? []}>
         {(item) => {
+          console.log("item", item);
           return (
-            <>
-              <div
-                className={styles.img_container}
-                style={{
-                  backgroundImage: `url(${item.imageUrl})`,
-                }}
-                onClick={() => handleNavigate(item)}
-              />
-              <div className={styles.dest_container}>
-                <div className={styles.dest_title}>
-                  <p className={styles.dest_name}>{item.name}</p>
-                </div>
-              </div>
-            </>
+            <div
+              key={item.cityId}
+              onClick={() => handleNavigate(item)}
+              style={{ position: "relative", height: "100%" }}
+            >
+              <CityCard item={item} />
+            </div>
           );
         }}
       </Slider>

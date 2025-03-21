@@ -75,6 +75,7 @@ const Destination = () => {
   if (loading || !destination) return <Loading />;
   const item = destination[0];
 
+  if (!item) return <p>존재하지 않는 페이지 입니다.</p>;
   return (
     <div className={styles.container}>
       <Banner item={item} />
