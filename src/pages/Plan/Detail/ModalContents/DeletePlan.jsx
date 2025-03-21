@@ -17,6 +17,7 @@ const DeletePlan = () => {
             flex: 1,
           }}
           onClick={() => deletePlan()}
+          isInModal
         >
           삭제하기
         </Button>
@@ -26,6 +27,7 @@ const DeletePlan = () => {
             flex: 1,
           }}
           onClick={() => closeModal()}
+          isInModal
         >
           돌아가기
         </Button>

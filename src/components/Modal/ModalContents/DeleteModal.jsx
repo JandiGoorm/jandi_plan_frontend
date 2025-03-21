@@ -18,6 +18,7 @@ const DeleteModal = ({ callback }) => {
             await callback();
             closeModal();
           }}
+          isInModal
         >
           삭제하기
         </Button>
@@ -27,6 +28,7 @@ const DeleteModal = ({ callback }) => {
             flex: 1,
           }}
           onClick={() => closeModal()}
+          isInModal
         >
           돌아가기
         </Button>

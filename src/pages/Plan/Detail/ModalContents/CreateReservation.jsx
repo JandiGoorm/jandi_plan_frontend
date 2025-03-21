@@ -80,6 +80,7 @@ const CreateReservation = () => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           추가하기
         </Button>

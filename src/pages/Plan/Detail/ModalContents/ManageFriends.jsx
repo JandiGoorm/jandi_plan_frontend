@@ -4,16 +4,12 @@ import { useForm } from "react-hook-form";
 import { manageFriendsScheme } from "../../constants";
 import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./ManageFriends.module.css";
-import { useModal } from "@/components/Modal/ModalContext";
 import { useCallback } from "react";
 import { useToast } from "@/contexts";
 
 const ManageFriends = ({ plan, friends, user }) => {
   const { addFriends, deleteFriends } = usePlanDetail();
-  const { closeModal } = useModal();
   const { createToast } = useToast();
-
-  console.log(user);
 
   const {
     register,
@@ -32,29 +28,26 @@ const ManageFriends = ({ plan, friends, user }) => {
         });
         return;
       }
+
       addFriends(data);
     },
-    [addFriends]
+    [addFriends, createToast, user]
   );
 
   const handleRemoveUser = useCallback(
     (participantUserName) => {
-      deleteFriends(participantUserName)
-    }
-  )
+      deleteFriends(participantUserName);
+    },
+    [deleteFriends]
+  );
 
   if (!plan) return <p>해당 계획을 불러오기 실패했습니다.</p>;
-
   return (
     <div className={styles.container}>
       <p className={styles.title}>친구 관리</p>
 
       <form className={styles.form_container} onSubmit={handleSubmit(onSubmit)}>
-        <Field
-          label="친구 닉네임"
-          isRequire
-          error={errors.participantUserName}
-        >
+        <Field label="친구 닉네임" isRequire error={errors.participantUserName}>
           <Input
             type="text"
             style={{
@@ -69,31 +62,38 @@ const ManageFriends = ({ plan, friends, user }) => {
         </Field>
 
         <Button
-          variant="ghost"
+          variant="solid"
           style={{
             alignSelf: "end",
-            width: "6rem",
+            width: "4rem",
+            whiteSpace: "nowrap",
           }}
           type="submit"
+          isInModal
         >
           추가
         </Button>
       </form>
-      
-      <p className={styles.title}>친구 목록</p>
-      <div className={styles.user_name_box}>
-        {friends.map((friend) => (
-          <div key={friend.participantUserId} className={styles.user_name}>
-            <p className={styles.name}>{friend.participantUserName}</p>
-            <Button
-              size="sm"
-              variant="none"
-              onClick={() => handleRemoveUser(friend.participantUserName)}
-            >
-              X
-            </Button>
-          </div>
-        ))}
+
+      <div className={styles.friend_container}>
+        <p className={styles.sub_title}>등록된 친구</p>
+
+        <div className={styles.user_name_box}>
+          {friends.map((friend) => (
+            <div key={friend.participantUserId} className={styles.user_name}>
+              <p className={styles.name}>{friend.participantUserName}</p>
+
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => handleRemoveUser(friend.participantUserName)}
+                isInModal
+              >
+                X
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

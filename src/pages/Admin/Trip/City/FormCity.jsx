@@ -106,7 +106,9 @@ const FormCity = ({ forUse, data, onSuccess }) => {
 
   return (
     <form className={styles.form_box} onSubmit={handleSubmit(onSubmit)}>
-      <img src={data.imageUrl} alt="banner" className={styles.banner_img} />
+      {data.imageUrl && (
+        <img src={data.imageUrl} alt="banner" className={styles.banner_img} />
+      )}
       <Field
         label="나라 이름"
         helperText="ex) 대한민국, 일본..."
@@ -212,6 +214,7 @@ const FormCity = ({ forUse, data, onSuccess }) => {
         style={{
           marginLeft: "auto",
         }}
+        isInModal
       >
         {forUse === "PATCH" ? "수정완료" : "추가하기"}
       </Button>

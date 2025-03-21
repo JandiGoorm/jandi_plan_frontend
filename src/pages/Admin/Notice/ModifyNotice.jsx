@@ -56,6 +56,7 @@ const ModifyNotice = ({ notice, callback }) => {
             style={{
               marginLeft: "auto",
             }}
+            isInModal
           >
             수정하기
           </Button>

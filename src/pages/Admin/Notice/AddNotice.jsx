@@ -48,6 +48,7 @@ const AddNotice = ({ callback }) => {
           style={{
             marginLeft: "auto",
           }}
+          isInModal
         >
           공지 등록
         </Button>

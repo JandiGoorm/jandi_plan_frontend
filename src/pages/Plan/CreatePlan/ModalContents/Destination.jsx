@@ -77,6 +77,7 @@ const Destination = ({ setSelectedCity }) => {
                 style={{
                   whiteSpace: "nowrap",
                 }}
+                isInModal
               >
                 {continent}
               </Button>
