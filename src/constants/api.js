@@ -5,6 +5,8 @@ export const PageEndPoints = {
   LOGIN: "/auth/login",
   JOIN: "/auth/join",
   FINDPW: "/auth/findPW",
+  KAKAO_JOIN: "/auth/kakaoLogin",
+  NAVER_JOIN: "/auth/naverLogin",
 
   PLAN_DETAIL: "/plan/:id",
   PLAN_LIST: "/plan/list",

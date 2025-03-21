@@ -4,6 +4,7 @@ import styles from "./AuthLayout.module.css";
 import JoingPage from "./Join/Join";
 import LoginPage from "./Login/Login";
 import FindPWPage from "./Find/Find";
+import SocialPage from "./Social/Social";
 import { PageEndPoints } from "@/constants";
 
 const AuthLayout = () => {
@@ -31,6 +32,8 @@ const AuthLayout = () => {
               <Route path="login" element={<LoginPage />} />
               <Route path="join" element={<JoingPage />} />
               <Route path="findPW" element={<FindPWPage />} />
+              <Route path="kakaoLogin" element={<SocialPage />} />
+              <Route path="naverLogin" element={<SocialPage />} />
             </Routes>
           </motion.div>
         </AnimatePresence>
