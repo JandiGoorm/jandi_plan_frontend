@@ -58,6 +58,10 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.dark_text {
+  color: var(--color-white);
+}
+
 .city {
   font-weight: var(--font-weight-extrabold);
   font-size: var(--text-2xl);

@@ -77,7 +77,7 @@ const AllCities = ({
                         }}
                         className={styles.wrapper_city_card}
                       >
-                        <CityCard item={city} />
+                        <CityCard item={city} isInModal />
                       </div>
                     );
                   })}
