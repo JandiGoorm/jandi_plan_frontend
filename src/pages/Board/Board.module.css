@@ -111,7 +111,7 @@
 .content_list {
   display: flex;
   flex-direction: column;
-  font-size: var(--text-sm);
+  gap: 2rem;
 }
 
 .pagination {
