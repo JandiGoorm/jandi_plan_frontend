@@ -26,6 +26,7 @@ const LoginPage = () => {
 
   const { handleSubmit } = formController;
 
+
   const onSubmit = useCallback(
     async (data) => {
       handleApiCall(
@@ -71,8 +72,16 @@ const LoginPage = () => {
         <div className={styles.divider} />
 
         <div className={styles.social_login_btns}>
-          <img src="/naver_icon.png" className={styles.social_btn} />
-          <img src="/kakao_icon.png" className={styles.social_btn} />
+          <img src="/naver_icon.png" className={styles.social_btn} 
+            onClick={async () => {window.location.href =
+              `https://nid.naver.com/oauth2.0/authorize?client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:5173${PageEndPoints.NAVER_JOIN}&state=${import.meta.env.VITE_NAVER_CLIENT_SECRET}`
+              }}
+          />
+          <img src="/kakao_icon.png" className={styles.social_btn} 
+            onClick={async () => {window.location.href =
+              `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:5173${PageEndPoints.KAKAO_JOIN}&response_type=code`
+              }}
+          />
           <img src="/google_icon.png" className={styles.social_btn} />
         </div>
       </div>

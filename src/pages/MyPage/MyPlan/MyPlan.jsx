@@ -1,24 +1,27 @@
-import { Slider, PlanCard, Button } from "@/components";
-import { PageEndPoints } from "@/constants";
+import { Button, PlanCard, Slider } from "@/components";
 import { useAxios } from "@/hooks";
-import { useEffect } from "react";
-import styles from "./MyPlan.module.css";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./MyPlan.module.css";
 
-const MyPlan = ({ title, fetchUrl }) => {
+const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
   const { fetchData, response } = useAxios();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData({
+  const fetchPlans = useCallback(async () => {
+    await fetchData({
       method: "GET",
       url: fetchUrl,
       params: { page: 0 },
     });
   }, [fetchData, fetchUrl]);
 
+  useEffect(() => {
+    fetchPlans();
+  }, [fetchPlans, title, fetchUrl, goUrl, refreshTrigger]);
+
   const handleMoreClick = () => {
-    navigate(PageEndPoints.PLAN_LIST, { state: { fetchUrl } });
+    navigate(goUrl);
   };
 
   return (

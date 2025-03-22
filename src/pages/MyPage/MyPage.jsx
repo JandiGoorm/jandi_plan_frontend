@@ -11,16 +11,23 @@ import {
 import { useAuth } from "@/contexts";
 import MyPlan from "./MyPlan/MyPlan";
 import MyInfo from "./MyInfo/MyInfo";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
+
   const { user } = useAuth();
   const { fetchData, response } = useAxios();
+
   const navigate = useNavigate();
+
+  const handleRefreshPlans = () => {
+    setRefreshTrigger((prev) => !prev);
+  };
 
   const handleCityCardClick = useCallback(
     (id) => {
@@ -52,12 +59,17 @@ const MyPage = () => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <MyInfo user={user} />
+              <MyInfo user={user} onProfileChange={handleRefreshPlans} />
             </ModalContent>
           </Modal>
         </div>
 
-        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} />
+        <MyPlan
+          title="여행 계획"
+          fetchUrl={APIEndPoints.TRIP_MY}
+          goUrl={PageEndPoints.PLAN_MY_LIST}
+          refreshTrigger={refreshTrigger}
+        />
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>
@@ -88,7 +100,12 @@ const MyPage = () => {
           </Slider>
         </div>
 
-        <MyPlan title="좋아요 한 플랜" fetchUrl={APIEndPoints.TRIP_LIKED} />
+        <MyPlan
+          title="좋아요 한 플랜"
+          fetchUrl={APIEndPoints.TRIP_LIKED}
+          goUrl={PageEndPoints.PLAN_LIKE_LIST}
+          refreshTrigger={refreshTrigger}
+        />
       </div>
     </BaseLayout>
   );

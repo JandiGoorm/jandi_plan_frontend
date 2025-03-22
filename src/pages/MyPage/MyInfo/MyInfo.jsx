@@ -8,9 +8,8 @@ import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { handleApiCall } from "@/utils";
 
-const MyInfo = ({ user }) => {
+const MyInfo = ({ user, onProfileChange }) => {
   const [profile, setProfile] = useState(user.profileImageUrl);
-
   const { fetchData } = useAxios();
   const { createToast } = useToast();
 
@@ -37,10 +36,13 @@ const MyInfo = ({ user }) => {
         "프로필 이미지가 변경되었습니다.",
         "프로필 이미지 변경에 실패하였습니다.",
         createToast,
-        (res) => setProfile(res.data.imageUrl)
+        (res) => {
+          setProfile(res.data.imageUrl);
+          onProfileChange();
+        }
       );
     };
-  }, [createToast, fetchData]);
+  }, [createToast, fetchData, onProfileChange]);
 
   return (
     <div className={styles.container}>
