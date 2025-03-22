@@ -10,7 +10,7 @@ const PlanTable = ({ plans }) => {
             <th>ID</th>
             <th>여행지</th>
             <th>기간</th>
-            <th>생성일</th>
+            <th>Private</th>
             <th className={styles.action_title}>Actions</th>
           </tr>
         </thead>
@@ -24,7 +24,7 @@ const PlanTable = ({ plans }) => {
                 <td>
                   {trip.startDate} ~ {trip.endDate}
                 </td>
-                <td>{trip.createdAt}</td>
+                <td>{trip.privatePlan ? "비공개" : "공개"}</td>
                 <td>
                   <div className={styles.actions}>
                     <Button size="sm" variant="ghost">

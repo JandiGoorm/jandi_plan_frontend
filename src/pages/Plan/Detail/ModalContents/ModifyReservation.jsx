@@ -93,6 +93,7 @@ const ModifyReservation = ({ reservation }) => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           수정하기
         </Button>

@@ -13,7 +13,7 @@ const timeToSeconds = (time) => {
   return hh * 3600 + mm * 60 + ss;
 };
 
-const DayDetail = ({ focus }) => {
+const DayDetail = ({ focus, hasPermission }) => {
   const { itineraries, deleteItinerary } = usePlanDetail();
 
   const contentData = useMemo(() => {
@@ -53,32 +53,34 @@ const DayDetail = ({ focus }) => {
                       {formatPrice(v.cost)} 원
                     </div>
 
-                    <div className={styles.icon_wrapper}>
-                      <Modal>
-                        <ModalTrigger>
-                          <Tooltip text={"수정"}>
-                            <div className={styles.icon_box}>
-                              <LuClipboardPen
-                                size={18}
-                                color="var(--color-text-dynamic)"
-                              />
-                            </div>
-                          </Tooltip>
-                        </ModalTrigger>
-                        <ModalContent>
-                          <ModifySchedule item={v} />
-                        </ModalContent>
-                      </Modal>
+                    {hasPermission && (
+                      <div className={styles.icon_wrapper}>
+                        <Modal>
+                          <ModalTrigger>
+                            <Tooltip text={"수정"}>
+                              <div className={styles.icon_box}>
+                                <LuClipboardPen
+                                  size={18}
+                                  color="var(--color-text-dynamic)"
+                                />
+                              </div>
+                            </Tooltip>
+                          </ModalTrigger>
+                          <ModalContent>
+                            <ModifySchedule item={v} />
+                          </ModalContent>
+                        </Modal>
 
-                      <Tooltip
-                        text={"삭제"}
-                        onClick={() => deleteItinerary(v.itineraryId)}
-                      >
-                        <div className={styles.icon_box}>
-                          <TiDelete size={24} color="var(--color-red-500)" />
-                        </div>
-                      </Tooltip>
-                    </div>
+                        <Tooltip
+                          text={"삭제"}
+                          onClick={() => deleteItinerary(v.itineraryId)}
+                        >
+                          <div className={styles.icon_box}>
+                            <TiDelete size={24} color="var(--color-red-500)" />
+                          </div>
+                        </Tooltip>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

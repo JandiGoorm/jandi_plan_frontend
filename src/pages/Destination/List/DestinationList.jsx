@@ -1,5 +1,5 @@
 import styles from "./DestinationList.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { BaseLayout } from "@/layouts";
 import { Button, CityCard } from "@/components";
 import { APIEndPoints } from "@/constants";
@@ -9,43 +9,48 @@ import { buildPath } from "@/utils";
 import { PageEndPoints } from "@/constants";
 
 const DestinationList = () => {
-  const { fetchData } = useAxios();
-  const [continents, setContinents] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [destinations, setDestinations] = useState([]);
+  const { fetchData: getContinent, response: continents } = useAxios();
+  const { fetchData: getCountry, response: countries } = useAxios();
+  const { fetchData: getDestination, response: destinations } = useAxios();
 
   const [selectedContinent, setSelectedContinent] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData({
-      method: "GET",
-      url: `${APIEndPoints.CONTINENT}`,
-      params: { filter: "" },
-    }).then((res) => {
-      console.log(res.data);
-      setContinents(res.data || []);
-    });
-  }, []);
+  const handleCityCardClick = useCallback(
+    (id) => {
+      const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
+        id,
+      });
+
+      navigate(url);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
-    console.log(selectedContinent);
+    getContinent({
+      method: "GET",
+      url: APIEndPoints.CONTINENT,
+      params: { filter: "" },
+    });
+  }, [getContinent]);
+
+  useEffect(() => {
     if (!selectedContinent) return;
 
-    fetchData({
+    getCountry({
       method: "GET",
-      url: `${APIEndPoints.COUNTRY}`,
+      url: APIEndPoints.COUNTRY,
       params: {
         category: "CONTINENT",
         filter: selectedContinent,
       },
-    }).then((res) => {
-      setCountries(res.data || []);
+    }).then(() => {
       setSelectedCountry("");
     });
-  }, [selectedContinent]);
+  }, [getCountry, selectedContinent]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -61,16 +66,12 @@ const DestinationList = () => {
       params.append("category", "ALL");
     }
 
-    fetchData({
+    getDestination({
       method: "GET",
-      url: `${APIEndPoints.DESTINATION}`,
-      params, ///여기에 들어가는거 수정 그냥 params만 들어가면 될듯듯
-    }).then((res) => {
-      console.log(res.data);
-      setDestinations(res.data);
+      url: APIEndPoints.DESTINATION,
+      params,
     });
-  }, [selectedContinent, selectedCountry]);
-  console.log(destinations);
+  }, [getDestination, selectedContinent, selectedCountry]);
 
   return (
     <BaseLayout>
@@ -78,11 +79,12 @@ const DestinationList = () => {
         <div className={styles.title_box}>
           <p className={styles.title}>어디로 놀러가고 싶으신가요?</p>
         </div>
+
         <div className={styles.category_container}>
           <div className={styles.category_continet}>
-            {continents.map((continent) => (
+            {continents?.map((continent) => (
               <Button
-                key={continent.id}
+                key={`continent_${continent.continentId}`}
                 onClick={() => setSelectedContinent(continent.name)}
                 variant={
                   selectedContinent === continent.name ? "solid" : "ghost"
@@ -92,32 +94,25 @@ const DestinationList = () => {
               </Button>
             ))}
           </div>
-          {countries.length > 0 && (
-            <div className={styles.category_country}>
-              {countries.map((country) => (
-                <Button
-                  key={country.id}
-                  onClick={() => setSelectedCountry(country.name)}
-                  variant={selectedCountry === country.name ? "solid" : "ghost"}
-                >
-                  {country.name}
-                </Button>
-              ))}
-            </div>
-          )}
+
+          <div className={styles.category_country}>
+            {countries?.map((country) => (
+              <Button
+                key={`country_${country.countryId}`}
+                onClick={() => setSelectedCountry(country.name)}
+                variant={selectedCountry === country.name ? "solid" : "ghost"}
+              >
+                {country.name}
+              </Button>
+            ))}
+          </div>
         </div>
+
         <div className={styles.plan_container}>
-          {destinations.map((item) => (
+          {destinations?.map((item) => (
             <div
               key={item.cityId}
-              onClick={() =>
-                navigate(
-                  buildPath(PageEndPoints.DESTINATION_DETAIL, {
-                    id: item.cityId,
-                  }),
-                  { state: { cityName: item.name, cityId: item.cityId } }
-                )
-              }
+              onClick={() => handleCityCardClick(item.name)}
             >
               <CityCard item={item} />
             </div>

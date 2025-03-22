@@ -7,7 +7,7 @@ import styles from "./ModifyBanner.module.css";
 import { useModal } from "@/components/Modal/ModalContext";
 import { useCallback } from "react";
 
-const ModifyBanner = ({ banner, id }) => {
+const ModifyBanner = ({ banner }) => {
   const { updatePlanImg } = usePlanDetail();
   const { closeModal } = useModal();
 
@@ -16,7 +16,7 @@ const ModifyBanner = ({ banner, id }) => {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: zodResolver(manageBannerScheme)
+    resolver: zodResolver(manageBannerScheme),
   });
 
   const onSubmit = useCallback(
@@ -60,6 +60,7 @@ const ModifyBanner = ({ banner, id }) => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           수정완료
         </Button>

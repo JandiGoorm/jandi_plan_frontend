@@ -55,7 +55,7 @@ const ScheduleDetail = ({
               value={watch("placeName") || ""}
               readOnly
             />
-            <Button type="button" onClick={handleAddressStep}>
+            <Button type="button" onClick={handleAddressStep} isInModal>
               검색
             </Button>
           </div>
@@ -81,6 +81,7 @@ const ScheduleDetail = ({
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           {isModify ? "수정" : "추가"}하기
         </Button>

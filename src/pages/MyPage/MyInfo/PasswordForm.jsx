@@ -109,6 +109,7 @@ const PasswordForm = () => {
           margin: "1rem 0",
         }}
         type="submit"
+        isInModal
       >
         비밀번호 수정
       </Button>

@@ -81,7 +81,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--color-text-dynamic);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   padding: 0.5rem 0.5rem;
   font-size: var(--text-3xl);
   border-radius: var(--radius-md);

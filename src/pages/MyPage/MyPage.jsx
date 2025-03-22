@@ -2,6 +2,7 @@ import { BaseLayout } from "@/layouts";
 import styles from "./MyPage.module.css";
 import {
   Button,
+  CityCard,
   Modal,
   ModalContent,
   ModalTrigger,
@@ -17,27 +18,34 @@ import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
-  const [preferDest, setPreferDest] = useState([]);
-  const { user } = useAuth();
-  const { loading, fetchData } = useAxios();
-  const navigate = useNavigate();
   const [refreshTrigger, setRefreshTrigger] = useState(false);
+
+  const { user } = useAuth();
+  const { fetchData, response } = useAxios();
+
+  const navigate = useNavigate();
 
   const handleRefreshPlans = () => {
     setRefreshTrigger((prev) => !prev);
   };
 
+  const handleCityCardClick = useCallback(
+    (id) => {
+      const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
+        id,
+      });
+
+      navigate(url);
+    },
+    [navigate]
+  );
+
   useEffect(() => {
     fetchData({
       method: "GET",
-      url: `${APIEndPoints.PREFER_DEST}`,
-    }).then((res)=>{
-      console.log(res.data);
-      setPreferDest(res.data);
-    })
-  }, []);
-
-  if (!user) return <p>로그인이 필요합니다.</p>;
+      url: APIEndPoints.PREFER_DEST,
+    });
+  }, [fetchData]);
 
   return (
     <BaseLayout>
@@ -51,42 +59,53 @@ const MyPage = () => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <MyInfo user={user} onProfileChange={handleRefreshPlans}/>
+              <MyInfo user={user} onProfileChange={handleRefreshPlans} />
             </ModalContent>
           </Modal>
         </div>
 
-        <MyPlan title="여행 계획" fetchUrl={APIEndPoints.TRIP_MY} goUrl={PageEndPoints.PLAN_MY_LIST} refreshTrigger={refreshTrigger}/>
+        <MyPlan
+          title="여행 계획"
+          fetchUrl={APIEndPoints.TRIP_MY}
+          goUrl={PageEndPoints.PLAN_MY_LIST}
+          refreshTrigger={refreshTrigger}
+        />
 
         <div className={styles.interest_container}>
           <div className={styles.title_box}>
             <p className={styles.title}>관심 여행지 리스트</p>
-            <Button variant="ghost" size="sm" onClick={()=>navigate(PageEndPoints.PREF_CONT, { replace: true, state:{ mode: "edit"} })}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                navigate(PageEndPoints.PREF_CONT, {
+                  replace: true,
+                  state: { mode: "edit" },
+                })
+              }
+            >
               관심 여행지 재설정하기
             </Button>
           </div>
-          <Slider items={preferDest} size="sm">
+
+          <Slider items={response ?? []} size="sm">
             {(item) => (
-              <>
-                <div
-                  className={styles.img_container}
-                  style={{
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                  onClick={() => navigate(buildPath(PageEndPoints.DESTINATION_DETAIL, { id: item.cityId }), { state: { cityName: item.name } })}
-                />
-                <div className={styles.dest_container}>
-                  <div className={styles.dest_title}>
-                    <p className={styles.dest_name}>{item.name}</p>
-                  </div>
-                </div>
-              </>
+              <div
+                className={styles.item_wrapper}
+                onClick={() => handleCityCardClick(item.name)}
+              >
+                <CityCard item={item} />
+              </div>
             )}
           </Slider>
         </div>
 
-        <MyPlan title="좋아요 한 플랜"  fetchUrl={APIEndPoints.TRIP_LIKED} goUrl={PageEndPoints.PLAN_LIKE_LIST} refreshTrigger={refreshTrigger}/>
-        
+        <MyPlan
+          title="좋아요 한 플랜"
+          fetchUrl={APIEndPoints.TRIP_LIKED}
+          goUrl={PageEndPoints.PLAN_LIKE_LIST}
+          refreshTrigger={refreshTrigger}
+        />
       </div>
     </BaseLayout>
   );

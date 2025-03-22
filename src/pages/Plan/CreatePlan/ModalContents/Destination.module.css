@@ -11,47 +11,8 @@
   padding: 2rem;
 }
 
-.flex_column {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .title {
   color: var(--color-black);
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
-}
-
-.sub_title {
-  color: var(--color-black);
-  font-size: var(--text-lg);
-  font-weight: var(--font-weight-semibold);
-}
-
-.filter_btns {
-  padding-bottom: 1rem;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.country_container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.continent_title,
-.country_title {
-  font-size: var(--text-lg);
-}
-
-.grid_container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.wrapper_city_card {
-  cursor: pointer;
 }

@@ -53,6 +53,8 @@ const BoardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 
+  console.log(communities);
+
   return (
     <BaseLayout>
       {communitiesLoading && <Loading />}
@@ -110,21 +112,11 @@ const BoardPage = () => {
           </div>
         </div>
 
-        <div className={styles.content}>
-          <div className={styles.content_header}>
-            <div className={styles.index}>번호</div>
-            <div className={styles.title}>제목</div>
-            <div className={styles.writer}>작성자</div>
-            <div className={styles.date}>작성일</div>
-            <div className={styles.recommend}>추천</div>
-          </div>
-
-          <ul className={styles.content_list}>
-            {communities?.items.map((item) => {
-              return <BoardItem item={item} key={item.postId} />;
-            })}
-          </ul>
-        </div>
+        <ul className={styles.content_list}>
+          {communities?.items.map((item) => {
+            return <BoardItem item={item} key={item.postId} />;
+          })}
+        </ul>
 
         <div className={styles.pagination}>
           <Pagination

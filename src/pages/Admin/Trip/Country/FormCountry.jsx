@@ -137,6 +137,7 @@ const FormCountry = ({ forUse, data, onSuccess }) => {
         style={{
           marginLeft: "auto",
         }}
+        isInModal
       >
         {forUse === "PATCH" ? "수정완료" : "추가하기"}
       </Button>

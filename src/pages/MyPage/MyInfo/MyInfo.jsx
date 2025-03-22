@@ -6,13 +6,15 @@ import { useCallback, useState } from "react";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
+import { handleApiCall } from "@/utils";
 
-const MyInfo = ({ user, onProfileChange  }) => {
-  console.log(user);
-  const { loading, fetchData, response } = useAxios();
-  const { createToast } = useToast();
-  const formatted = formatDate(user.updatedAt, "yyyy-MM-dd");
+const MyInfo = ({ user, onProfileChange }) => {
   const [profile, setProfile] = useState(user.profileImageUrl);
+  const { fetchData } = useAxios();
+  const { createToast } = useToast();
+
+  const formatted = formatDate(user.updatedAt, "yyyy-MM-dd");
+
   const handleChangeProfileImage = useCallback(() => {
     const input = document.createElement("input");
     input.type = "file";
@@ -24,27 +26,23 @@ const MyInfo = ({ user, onProfileChange  }) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // 프로필 이미지 변경 API 호출 추가
-      fetchData({
-        method: "POST",
-        url: APIEndPoints.PROFILE_UPLOAD,
-        data: formData,
-      }).then((res)=>{
-        createToast({
-          type: "success",
-          text: "프로필 이미지가 변경되었습니다.",
-        });
-        setProfile(res.data.imageUrl);
-        onProfileChange();
-      }).catch((err)=>{
-        console.log(err)
-        createToast({
-          type: "error",
-          text: "프로필 이미지 변경에 실패하였습니다.",
-        });
-      })
+      handleApiCall(
+        () =>
+          fetchData({
+            method: "POST",
+            url: APIEndPoints.PROFILE_UPLOAD,
+            data: formData,
+          }),
+        "프로필 이미지가 변경되었습니다.",
+        "프로필 이미지 변경에 실패하였습니다.",
+        createToast,
+        (res) => {
+          setProfile(res.data.imageUrl);
+          onProfileChange();
+        }
+      );
     };
-  }, [onProfileChange]);
+  }, [createToast, fetchData, onProfileChange]);
 
   return (
     <div className={styles.container}>
@@ -61,6 +59,7 @@ const MyInfo = ({ user, onProfileChange  }) => {
               variant="ghost"
               size="sm"
               onClick={handleChangeProfileImage}
+              isInModal
             >
               이미지 변경
             </Button>

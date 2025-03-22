@@ -86,6 +86,7 @@ const ModifyPlan = ({ plan }) => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           수정완료
         </Button>

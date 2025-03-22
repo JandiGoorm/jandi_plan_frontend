@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
 import { RiLock2Fill } from "react-icons/ri";
 import { useState } from "react";
+import { useDarkModeContext } from "@/contexts";
 
 const PlanCard = ({ item }) => {
   const navigate = useNavigate();
   const path = buildPath(PageEndPoints.PLAN_DETAIL, { id: item.tripId });
+
+  const { isDarkMode } = useDarkModeContext();
 
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
@@ -73,7 +76,7 @@ const PlanCard = ({ item }) => {
         </div>
 
         <div className={styles.plan_container}>
-          <div className={styles.plan_title}>
+          <div className={`${styles.plan_title} ${isDarkMode && styles.dark}`}>
             <p className={styles.title}>{item.title}</p>
             {item.description && (
               <p className={styles.description}>{item.description}</p>

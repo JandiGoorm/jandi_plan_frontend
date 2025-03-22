@@ -95,7 +95,7 @@ const BoardDetail = () => {
           <div className={styles.user_info}>
             <img src={item.user.profileImageUrl} className={styles.user_img} />
             <p className={styles.user_name}>{item.user.userName}</p>
-            <p className={styles.recommend}>조회수 654818</p>
+            <p className={styles.recommend}>조회수 {item.viewCount}</p>
             <p className={styles.recommend}>추천 {likes}</p>
           </div>
           <div className={styles.header_right_box}>
