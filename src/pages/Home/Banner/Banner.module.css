@@ -1,7 +1,7 @@
 .embla {
   width: 100%;
-  aspect-ratio: 26/9;
-  min-height: 30rem;
+  aspect-ratio: 3/1;
+  min-height: 40rem;
 
   position: relative;
   overflow: hidden;
@@ -25,8 +25,8 @@
 
 .embla_image {
   width: 100%;
-  aspect-ratio: 26/9;
-  min-height: 30rem;
+  aspect-ratio: 3/1;
+  min-height: 40rem;
 
   object-fit: cover;
   object-position: center;
