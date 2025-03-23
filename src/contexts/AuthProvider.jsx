@@ -32,6 +32,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("access-token");
     localStorage.removeItem("refresh-token");
     setUser(null);
+    window.location.reload();
   };
 
   useEffect(() => {
