@@ -17,7 +17,7 @@ const DropDown = ({ children, style = {}, dropdownRef = null }) => {
 
   const handleClickTrigger = useCallback((e) => {
     e.stopPropagation();
-    setVisible((prev) => !prev);
+    setVisible(true);
   }, []);
 
   const close = useCallback(() => {
