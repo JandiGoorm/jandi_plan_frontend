@@ -3,7 +3,7 @@
   border: 1px solid var(--color-gray-300);
   outline: none;
   box-sizing: border-box;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
   border-radius: var(--radius-input);
   font-family: "42dot Sans", serif;
 }
