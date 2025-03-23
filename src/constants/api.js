@@ -7,6 +7,7 @@ export const PageEndPoints = {
   FINDPW: "/auth/findPW",
   KAKAO_JOIN: "/auth/kakaoLogin",
   NAVER_JOIN: "/auth/naverLogin",
+  GOOGLE_JOIN: "/auth/googleLogin",
 
   PLAN_DETAIL: "/plan/:id",
   PLAN_LIST: "/plan/list",
@@ -41,6 +42,10 @@ export const APIEndPoints = {
   REFRESH: "/users/token/refresh",
   USER: "/users",
   PROFILE_UPLOAD: "images/upload/profile",
+
+  KAKAO_LOGIN: "/auth/kakaoLogin",
+  NAVER_LOGIN: "/api/auth/naver/loginUrl",
+  GOOGLE_LOGIN: "/auth/googleLogin",
 
   PREFER_DEST: "/trip/cities/prefer",
 
