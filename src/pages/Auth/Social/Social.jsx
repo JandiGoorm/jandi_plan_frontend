@@ -1,5 +1,5 @@
 import styles from "./Social.module.css";
-import { Button, Input, Field } from "@/components";
+import { Button, Input, Field, Loading } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,14 +12,9 @@ import { useLocation } from "react-router-dom";
 import { AuthService } from "@/apis";
 
 const SocialPage = ({fetchUrl}) => {
-  const { response: loginInfo, fetchData: fetchLogin } = useAxios();
+  const { response: loginInfo, fetchData: fetchLogin, loading } = useAxios();
   const { fetchData: fetchPrefer } = useAxios();
   const navigate = useNavigate();
-  const [duplicateCheck, setDuplicateCheck] = useState({
-    nickname: false,
-  });
-  const { createToast } = useToast();
-  const { getUserInfo } = AuthService;
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -66,10 +61,12 @@ const SocialPage = ({fetchUrl}) => {
     fetchSocial();
   },[fetchSocial])
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className={styles.container}>
-      <p className={styles.title}>소셜 회원가입</p>
-      
+      <p className={styles.title}>로그인 오류가 발생하였습니다. 다시 시도해주세요.</p>
+      <Button onClick={() => navigate(PageEndPoints.LOGIN)}>뒤로가기</Button>
     </div>
   );
 };
