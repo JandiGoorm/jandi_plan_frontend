@@ -34,6 +34,7 @@ const AuthLayout = () => {
               <Route path="findPW" element={<FindPWPage />} />
               <Route path="kakaoLogin" element={<SocialPage fetchUrl={APIEndPoints.KAKAO_LOGIN}/>} />
               <Route path="naverLogin" element={<SocialPage fetchUrl={APIEndPoints.NAVER_LOGIN}/>} />
+              <Route path="googleLogin" element={<SocialPage fetchUrl={APIEndPoints.GOOGLE_LOGIN}/>} />
             </Routes>
           </motion.div>
         </AnimatePresence>
