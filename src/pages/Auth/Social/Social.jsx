@@ -15,17 +15,21 @@ const SocialPage = ({fetchUrl}) => {
   const { response: loginInfo, fetchData: fetchLogin, loading } = useAxios();
   const { fetchData: fetchPrefer } = useAxios();
   const navigate = useNavigate();
+  const { getUserInfo } = AuthService;
+  const [user, setUser] = useState(null);
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const code = params.get("code");
+  const state = params.get("state");
+  const requestParams = state ? { code, state } : { code };
 
-  const redirectPath = location.state?.from || PageEndPoints.HOME;
+  console.log(requestParams);
 
   const handlePrefer = useCallback(async (token) =>{
     if(!token) return;
 
-    fetchPrefer({
+    await fetchPrefer({
       method: "GET",
       url: APIEndPoints.PREFER_DEST,
     }).then((res) => {
@@ -35,18 +39,18 @@ const SocialPage = ({fetchUrl}) => {
           state: { mode: "create" },
         });
       } else {
-        const redirectPath = location.state?.from || PageEndPoints.HOME;
+        const redirectPath = PageEndPoints.HOME;
         navigate(redirectPath, { replace: true });
       }
     });
-  },[fetchPrefer, navigate, redirectPath])
+  },[fetchPrefer, navigate])
 
   const fetchSocial = useCallback(
     async () => {
-      fetchLogin({
+       await fetchLogin({
         method: "GET",
         url: fetchUrl,
-        params: { code },
+        params: requestParams,
       }).then(async (res) => {
         localStorage.setItem("access-token", res.data?.accessToken);
         localStorage.setItem("refresh-token", res.data?.refreshToken);
@@ -54,6 +58,7 @@ const SocialPage = ({fetchUrl}) => {
         await handlePrefer(res.data?.accessToken);
       }).catch((err)=>{
         console.log(err);
+        // console.error("소셜 로그인 오류:");
       })
     }, [fetchLogin, fetchUrl, code, handlePrefer])
 

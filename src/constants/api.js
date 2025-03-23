@@ -44,7 +44,9 @@ export const APIEndPoints = {
   PROFILE_UPLOAD: "images/upload/profile",
 
   KAKAO_LOGIN: "/auth/kakaoLogin",
-  NAVER_LOGIN: "/api/auth/naver/loginUrl",
+
+  NAVER_LOGIN_URL: "/auth/naver/loginUrl",
+  NAVER_LOGIN: "/auth/naver/callback",
   GOOGLE_LOGIN: "/auth/googleLogin",
 
   PREFER_DEST: "/trip/cities/prefer",
