@@ -11,6 +11,7 @@ const Sliders = ({ items, children, size="sm", onLastSlide }) => {
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [slidesToShow, setSlidesToShow] = useState(3);
 
 
     const settings = {
@@ -44,6 +45,22 @@ const Sliders = ({ items, children, size="sm", onLastSlide }) => {
         },
       };
 
+      const updateSlidesToShow = () => {
+        if (window.innerWidth < 600) {
+          setSlidesToShow(1);
+        } else if (window.innerWidth < 900) {
+          setSlidesToShow(2);
+        } else {
+          setSlidesToShow(3);
+        }
+      };
+
+      useEffect(() => {
+        updateSlidesToShow(); // 처음에 설정
+        window.addEventListener("resize", updateSlidesToShow); // 화면 크기 변경 시 반영
+        return () => window.removeEventListener("resize", updateSlidesToShow);
+      }, []);
+
       useEffect(() => {
         if (sliderRef.current) {
           const totalSlides = items.length;
@@ -66,16 +83,15 @@ const Sliders = ({ items, children, size="sm", onLastSlide }) => {
           }
         }
       }, [items, currentSlide, settings.slidesToShow]);
+
       const handlePrev = () => {
         if (sliderRef.current) {
-          const slidesToShow = settings.slidesToShow;
           sliderRef.current.slickGoTo(Math.max(currentSlide - slidesToShow, 0));
         }
       };
       
       const handleNext = () => {
         if (sliderRef.current) {
-          const slidesToShow = settings.slidesToShow;
           sliderRef.current.slickGoTo(currentSlide + slidesToShow);
         }
       };
