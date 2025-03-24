@@ -387,11 +387,11 @@
 :root[theme="dark"] {
   --color-primary: var(--color-gray-500);
   --color-secondary: var(--color-gray-500);
-  --color-bg-primary: var(--color-gray-950);
+  --color-bg-primary: var(--color-black);
 
   --color-button-bg: var(--color-white);
-  --color-button-hover-bg: var(--color-gray-400);
-  --color-search-button-bg: var(--color-gray-950);
+  --color-button-hover-bg: var(--color-gray-200);
+  --color-search-button-bg: var(--color-black);
 
   --color-text-primary: var(--color-white);
   --color-text-dynamic: var(--color-white);
