@@ -16,7 +16,7 @@ const SocialPage = ({fetchUrl}) => {
   const { fetchData: fetchPrefer } = useAxios();
   const navigate = useNavigate();
   const { getUserInfo } = AuthService;
-  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ const SocialPage = ({fetchUrl}) => {
   console.log(requestParams);
 
   const handlePrefer = useCallback(async (token) =>{
+
     if(!token) return;
 
     await fetchPrefer({
@@ -34,16 +35,12 @@ const SocialPage = ({fetchUrl}) => {
       url: APIEndPoints.PREFER_DEST,
     }).then((res) => {
       if (Array.isArray(res.data) && res.data.length === 0) {
-        navigate(PageEndPoints.PREF_CONT, {
-          replace: true,
-          state: { mode: "create" },
-        });
+        window.location.href = PageEndPoints.PREF_CONT;
       } else {
-        const redirectPath = PageEndPoints.HOME;
-        navigate(redirectPath, { replace: true });
+        window.location.href = PageEndPoints.HOME;
       }
     });
-  },[fetchPrefer, navigate])
+  },[fetchPrefer, requestParams, navigate])
 
   const fetchSocial = useCallback(
     async () => {
@@ -52,19 +49,19 @@ const SocialPage = ({fetchUrl}) => {
         url: fetchUrl,
         params: requestParams,
       }).then(async (res) => {
+        console.log(res.data);
         localStorage.setItem("access-token", res.data?.accessToken);
         localStorage.setItem("refresh-token", res.data?.refreshToken);
         
         await handlePrefer(res.data?.accessToken);
       }).catch((err)=>{
-        console.log(err);
-        // console.error("소셜 로그인 오류:");
+        console.error("소셜 로그인 오류:");
       })
-    }, [fetchLogin, fetchUrl, code, handlePrefer])
+    }, [fetchLogin, fetchUrl, code])
 
   useEffect(()=> {
     fetchSocial();
-  },[fetchSocial])
+  },[])
 
   return loading ? (
     <Loading />
