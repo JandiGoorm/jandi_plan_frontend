@@ -8,18 +8,13 @@
   font-family: "42dot Sans", serif;
 }
 
+.dark {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
 .input::placeholder {
   color: var(--color-gray-400);
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield; /* Firefox에서 spin 버튼 숨기기 */
 }
 
 .input:focus {
@@ -35,4 +30,14 @@ input[type="number"] {
 
 .input_lg {
   font-size: var(--text-lg);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox에서 spin 버튼 숨기기 */
 }

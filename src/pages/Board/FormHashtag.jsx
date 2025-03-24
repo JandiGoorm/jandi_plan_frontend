@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDropDown } from "@/components/DropDown/DropDownContext";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
+import { useDarkModeContext } from "@/contexts";
 
 const FormHashTag = ({ defaultValue = [], callback }) => {
   const [selectedTag, setSelectedTag] = useState(defaultValue);
@@ -27,6 +28,7 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
   } = tagFormController;
   const { onClick, close } = useDropDown();
   const { fetchData, response } = useAxios();
+  const { isDarkMode } = useDarkModeContext();
 
   const handleSelectTag = (tagObject) => {
     const tag = tagObject.tag;
@@ -101,6 +103,7 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
                 }}
                 onFocus={() => onClick()}
                 onBlur={() => close()}
+                isDarkMode={isDarkMode}
               />
             </form>
           </DropDownTrigger>

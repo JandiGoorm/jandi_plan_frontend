@@ -1,5 +1,6 @@
 import { Editor, Input } from "@/components";
 import styles from "./FormEditor.module.css";
+import { useDarkModeContext } from "@/contexts";
 
 const FormEditor = ({
   onSubmit,
@@ -15,6 +16,7 @@ const FormEditor = ({
     handleSubmit,
     formState: { errors },
   } = formController;
+  const { isDarkMode } = useDarkModeContext();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
@@ -27,6 +29,7 @@ const FormEditor = ({
         size="lg"
         register={register}
         name="title"
+        isDarkMode={isDarkMode}
       />
 
       <div className={styles.editor}>
