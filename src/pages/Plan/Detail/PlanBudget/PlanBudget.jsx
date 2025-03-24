@@ -29,15 +29,16 @@ const PlanBudget = () => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>BUDGET PLAN</p>
-      <div className={styles.budget_column_container}>
-        <div className={styles.budget_row_container}>
-          <div className={styles.budget_container}>
-            <p>총 예산</p>
-            <p>{formatPrice(tripDetail.budget)}원</p>
-          </div>
+      <p className={styles.title}>예산을 한눈에 확인해보세요</p>
 
-          <div className={styles.budget_item}>
+      <div className={styles.budget_row_container}>
+        <div className={styles.budget_container}>
+          <div className={styles.wrapper}>
+            <div className={styles.flex_column}>
+              <p className={styles.budget_title}>총 예산</p>
+              <p>{formatPrice(tripDetail.budget)}원</p>
+            </div>
+
             {Object.keys(cost).map((item) => {
               const key = map[item];
               if (!key) return null;
@@ -48,9 +49,16 @@ const PlanBudget = () => {
                 </div>
               );
             })}
-          </div>
 
-          <div className={styles.budget_item}>
+            <div className={styles.flex_column}>
+              <p className={styles.budget_title}>남은 예산</p>
+              <p className={styles.remain_price}>{formatPrice(remain)}원</p>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.budget_item}>
+          <div className={styles.wrapper}>
             {flattendItinerary.map((item) => {
               return (
                 <div key={item.date} className={styles.flex_column}>
@@ -60,11 +68,6 @@ const PlanBudget = () => {
               );
             })}
           </div>
-        </div>
-
-        <div className={styles.remain_container}>
-          <p className={styles.remain_title}>남은 예산</p>
-          <p className={styles.remain_price}>{formatPrice(remain)}원</p>
         </div>
       </div>
     </div>
