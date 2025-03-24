@@ -58,7 +58,7 @@ const PlanCard = ({ item }) => {
               </div>
               <div className={styles.create_at}>
                 <MdDateRange size={20} />
-                <p>{item.startDate} ~ </p>
+                <p>{item.startDate ? item.startDate + " ~ " : ""}</p>
               </div>
             </div>
           </div>
