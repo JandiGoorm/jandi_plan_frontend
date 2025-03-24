@@ -1,5 +1,5 @@
-import { Loading, PlanCard, Slider } from "@/components";
-import { APIEndPoints } from "@/constants";
+import { Loading, PlanCard, Slider, Button } from "@/components";
+import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -8,9 +8,12 @@ import DestinationInfo from "./DestinationInfo/DestinationInfo";
 import DestinationMap from "./DestinationMap/DestinationMap";
 import Banner from "./Banner/Banner";
 import MapSide from "./DestinationMap/MapSide";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "@/utils";
 
 const Destination = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const {
     loading,
@@ -72,6 +75,10 @@ const Destination = () => {
     });
   }, [fetchDestination, fetchPlans, fetchRestaurants]);
 
+  const handleMoreClick = (dest) => {
+    navigate(buildPath(PageEndPoints.PLAN_DEST_LIST, {dest}));
+  };
+
   if (loading || !destination) return <Loading />;
   const item = destination[0];
 
@@ -94,7 +101,12 @@ const Destination = () => {
         <DestinationInfo latitude={item.latitude} longitude={item.longitude} />
 
         <div className={styles.plan_container}>
-          <p className={styles.title}>{id}의 최근 업로드된 계획</p>
+          <div className={styles.title_box}>
+            <p className={styles.title}>{id}의 최근 업로드된 계획</p>
+            <Button variant="none" onClick={()=>handleMoreClick(id)}>
+              더보기
+            </Button>
+          </div>
 
           <Slider items={plans?.items || []} size="md">
             {(item) => <PlanCard key={item.tripId} item={item} />}

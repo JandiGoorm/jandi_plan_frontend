@@ -13,7 +13,7 @@ export const PageEndPoints = {
   PLAN_LIST: "/plan/list",
   PLAN_MY_LIST: "/plan/my/list",
   PLAN_LIKE_LIST: "/plan/like/list",
-  PLAN_DEST_LIST: "/plan/destination/list",
+  PLAN_DEST_LIST: "/plan/list/:dest",
   PLAN_CREATE: "/plan/create",
 
   PREFERENCE: "/preference/*",
