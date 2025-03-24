@@ -379,6 +379,9 @@
   --color-admin-bg: var(--color-white);
 
   --color-bg-youtube-container: var(--color-indigo-100);
+
+  --color-tag-bg: var(--color-gray-100);
+  --color-tag-text: var(--color-green-500);
 }
 
 :root[theme="dark"] {
@@ -413,4 +416,7 @@
   --color-admin-bg: var(--color-zinc-950);
 
   --color-bg-youtube-container: var(--color-gray-950);
+
+  --color-tag-bg: var(--color-gray-500);
+  --color-tag-text: var(--color-green-300);
 }

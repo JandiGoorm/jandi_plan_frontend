@@ -23,7 +23,10 @@
 
   box-sizing: border-box;
   padding: 0.5rem 0.8rem;
-  background-color: var(--color-gray-100);
+
+  font-weight: var(--font-weight-bold);
+  color: var(--color-tag-text);
+  background-color: var(--color-tag-bg);
   border-radius: var(--radius-2xl);
 }
 
