@@ -52,9 +52,12 @@ const SocialPage = ({fetchUrl}) => {
         console.log(res.data);
         localStorage.setItem("access-token", res.data?.accessToken);
         localStorage.setItem("refresh-token", res.data?.refreshToken);
+        setIsLogin(true);
         
         await handlePrefer(res.data?.accessToken);
       }).catch((err)=>{
+        setIsLogin(false);
+        console.log(err);
         console.error("소셜 로그인 오류:");
       })
     }, [fetchLogin, fetchUrl, code])
@@ -65,12 +68,15 @@ const SocialPage = ({fetchUrl}) => {
 
   return loading ? (
     <Loading />
-  ) : (
+  ) : isLogin ? (
+    null
+  ):(    
     <div className={styles.container}>
       <p className={styles.title}>로그인 오류가 발생하였습니다. 다시 시도해주세요.</p>
       <Button onClick={() => navigate(PageEndPoints.LOGIN)}>뒤로가기</Button>
     </div>
   );
+
 };
 
 export default SocialPage;
