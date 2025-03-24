@@ -1,4 +1,5 @@
 import {
+  Button,
   DropDown,
   DropDownContent,
   DropDownTrigger,
@@ -13,6 +14,7 @@ import { useDropDown } from "@/components/DropDown/DropDownContext";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { useDarkModeContext } from "@/contexts";
+import { TiDelete } from "react-icons/ti";
 
 const FormHashTag = ({ defaultValue = [], callback }) => {
   const [selectedTag, setSelectedTag] = useState(defaultValue);
@@ -131,10 +133,28 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
         <div className={styles.selected_tags_container}>
           {selectedTag.map((tag) => {
             return (
-              <span key={tag} className={styles.tag}>
-                {tag}
-                <button onClick={() => handleRemoveTag(tag)}>×</button>
-              </span>
+              <div key={tag} className={styles.tag}>
+                <p>{tag}</p>
+
+                <Button
+                  onClick={() => handleRemoveTag(tag)}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: 0,
+                  }}
+                  size="sm"
+                  variant="none"
+                >
+                  <TiDelete
+                    size={24}
+                    style={{
+                      color: "var(--color-tag-text)",
+                    }}
+                  />
+                </Button>
+              </div>
             );
           })}
         </div>
