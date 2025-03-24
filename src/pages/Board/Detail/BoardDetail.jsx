@@ -83,6 +83,14 @@ const BoardDetail = () => {
   return (
     <BaseLayout>
       <div className={styles.container}>
+        <div className={styles.tags_container}>
+          {item.hashtag.map((tag) => (
+            <div className={styles.tag} key={tag.tagId}>
+              {tag}
+            </div>
+          ))}
+        </div>
+
         <p className={styles.title}>{item.title}</p>
         <div className={styles.header}>
           <div className={styles.user_info}>
