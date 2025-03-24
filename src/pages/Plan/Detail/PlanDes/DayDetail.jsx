@@ -26,19 +26,20 @@ const DayDetail = ({ focus, hasPermission }) => {
   }, [focus, itineraries]);
 
   if (!contentData) return null;
-
+  const isContent = contentData.length > 0;
   return (
     <div className={styles.container}>
-      <div className={styles.inner_wrapper}>
-        <div className={styles.divider}>
-          <MdRunCircle size={40} color="var(--color-indigo-400)" />
-          <div className={styles.vertical_divider}></div>
-        </div>
+      <div className={styles.divider}>
+        <MdRunCircle size={40} color="var(--color-indigo-400)" />
+        <div className={styles.vertical_divider}></div>
+      </div>
 
-        <div className={styles.container_right}>
-          {contentData.map((v) => {
+      <div className={styles.container_right}>
+        {isContent ? (
+          contentData.map((v) => {
             const split = v.startTime.split(":");
             const time = split[0] + ":" + split[1];
+
             return (
               <div key={v.itineraryId} className={styles.content_wrapper}>
                 <div className={styles.dashed} />
@@ -85,8 +86,12 @@ const DayDetail = ({ focus, hasPermission }) => {
                 </div>
               </div>
             );
-          })}
-        </div>
+          })
+        ) : (
+          <div className={styles.empty}>
+            <p>해당 날짜의 일정이 없습니다</p>
+          </div>
+        )}
       </div>
     </div>
   );

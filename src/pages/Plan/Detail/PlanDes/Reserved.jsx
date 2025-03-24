@@ -5,20 +5,25 @@ import styles from "./Reserved.module.css";
 import { Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
 import { usePlanDetail } from "../PlanDetailContext";
 import ModifyReservation from "../ModalContents/ModifyReservation";
+import { reservedMap } from "../constants";
 
 const Reserved = ({ reserved, hasPermission }) => {
   const { data } = reserved;
-  const order = ["TRANSPORTATION", "ACCOMMODATION", "ETC"];
 
   const { deleteReservation } = usePlanDetail();
 
   return (
     <div className={styles.container}>
-      {order.map((v) => {
+      {Object.entries(reservedMap).map(([key, value]) => {
+        const { label, icon } = value;
         return (
-          <div key={v} className={styles.des_item}>
-            <p className={styles.des_title}>{v}</p>
-            {(data[v] ?? []).map((item) => {
+          <div key={key} className={styles.des_item}>
+            <div className={styles.des_title}>
+              {icon && icon}
+              <p>{label}</p>
+            </div>
+
+            {(data[key] ?? []).map((item) => {
               return (
                 <div
                   key={item.reservationId}
@@ -28,6 +33,7 @@ const Reserved = ({ reserved, hasPermission }) => {
                     <p>{item.title}</p>
                     <p>{formatPrice(item.cost)}원</p>
                   </div>
+
                   {hasPermission && (
                     <div className={styles.icon_wrapper}>
                       <Modal>

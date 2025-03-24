@@ -1,6 +1,7 @@
 import { formatPrice } from "@/utils";
 import styles from "./PlanBudget.module.css";
 import { usePlanDetail } from "../PlanDetailContext";
+import { IoSearch } from "react-icons/io5";
 
 const map = {
   TRANSPORTATION: "교통비",
@@ -29,7 +30,10 @@ const PlanBudget = () => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>예산을 한눈에 확인해보세요</p>
+      <div className={styles.title}>
+        <IoSearch />
+        <p>예산을 한눈에 확인해보세요 !</p>
+      </div>
 
       <div className={styles.invoice_container}>
         <div className={styles.invoice}>
@@ -38,15 +42,15 @@ const PlanBudget = () => {
 
             <div className={styles.summary}>
               <div className={styles.summary_item}>
-                <span>총 예산</span>
+                <span className={styles.item_title}>총 예산</span>
                 <span>{formatPrice(tripDetail.budget)}원</span>
               </div>
               <div className={styles.summary_item}>
-                <span>사용 금액</span>
+                <span className={styles.item_title}>사용 금액</span>
                 <span>{formatPrice(tripDetail.budget - remain)}원</span>
               </div>
               <div className={styles.summary_item}>
-                <span>남은 예산</span>
+                <span className={styles.item_title}>남은 예산</span>
                 <span className={styles.remain}>{formatPrice(remain)}원</span>
               </div>
             </div>

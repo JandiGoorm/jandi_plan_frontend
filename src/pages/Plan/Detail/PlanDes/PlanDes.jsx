@@ -9,6 +9,7 @@ import DayDetail from "./DayDetail";
 import { useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAuth } from "@/contexts";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
@@ -54,7 +55,11 @@ const PlanDes = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>PLAN DETAILS</div>
+        <div className={styles.title}>
+          <FaRegCalendarAlt />
+          <p>여행 일정을 작성해보세요 !</p>
+        </div>
+
         {hasPermission && (
           <div className={styles.buttons}>
             <Modal>
