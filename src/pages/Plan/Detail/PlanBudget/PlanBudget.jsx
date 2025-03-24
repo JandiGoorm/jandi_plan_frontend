@@ -33,6 +33,7 @@ const PlanBudget = () => {
 
       <div className={styles.budget_row_container}>
         <div className={styles.budget_container}>
+          <div className={styles.top} />
           <div className={styles.wrapper}>
             <div className={styles.flex_column}>
               <p className={styles.budget_title}>총 예산</p>
@@ -58,12 +59,13 @@ const PlanBudget = () => {
         </div>
 
         <div className={styles.budget_item}>
+          <div className={styles.top} />
           <div className={styles.wrapper}>
             {flattendItinerary.map((item) => {
               return (
                 <div key={item.date} className={styles.flex_column}>
                   <p className={styles.budget_title}>{item.day}일차</p>
-                  <p>{formatPrice(item.cost)}원</p>
+                  <p>{formatPrice(item.cost)} 원</p>
                 </div>
               );
             })}
