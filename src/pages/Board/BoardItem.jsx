@@ -5,28 +5,6 @@ import { buildPath } from "@/utils";
 import { useCallback } from "react";
 import { formatDate } from "date-fns";
 
-const dummyItem = {
-  commentCount: 0,
-  createdAt: "2025-03-20T23:32:58.721771",
-  likeCount: 0,
-  postId: 1,
-  title: "제목제목",
-  content:
-    "아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ아라아르으라아ㅡㄹ아르이릐아르ㅏㅣ으리으리ㅏ으리으리ㅏㅡㅇ리ㅏㅡ이ㅏ르이ㅏ르아ㅣ르ㅏ이릐ㅏ으리ㅏ으라ㅣ으리ㅏ으리ㅏ으리ㅏ으리ㅏ으라ㅣ으리ㅏ으리으라ㅣ을ㅇ",
-  tags: ["하이", "동행", "등등"],
-  thumbnail: "/fukuoka.jpg",
-  user: {
-    email: "weg1248@naver.com",
-    firstName: "정희",
-    lastName: "한",
-    profileImageUrl:
-      "https://storage.googleapis.com/plan-storage/c8f6f6c6-efa4-448c-ad3d-7a7ebdfab927_34533234.png",
-    userId: 40,
-    userName: "정희",
-  },
-  viewCount: 20,
-};
-
 const BoardItem = ({ item }) => {
   const navigate = useNavigate();
 
@@ -39,15 +17,17 @@ const BoardItem = ({ item }) => {
 
   return (
     <li key={item.postId} className={styles.container} onClick={handleClick}>
-      <div className={styles.tags_container}>
-        {item.hashtag.map((tag) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
+      <div className={styles.left_container}>
+        {item.hashtag.length > 0 && (
+          <div className={styles.tags_container}>
+            {item.hashtag.map((tag) => (
+              <span key={tag} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-      <div className={styles.header_container}>
         <div className={styles.header_info}>
           <img
             className={styles.user_image}
@@ -66,6 +46,10 @@ const BoardItem = ({ item }) => {
           </div>
         </div>
 
+        <div className={styles.content_container}>
+          <p className={styles.content_text}>{item.preview}</p>
+        </div>
+
         <div className={styles.header_status}>
           <p>조회수 {item.viewCount}</p>&middot;
           <p>댓글 {item.commentCount}</p>&middot;
@@ -73,17 +57,13 @@ const BoardItem = ({ item }) => {
         </div>
       </div>
 
-      <div className={styles.content_container}>
-        <p className={styles.content_text}>{item.preview}</p>
-
-        {item.thumbnail && (
-          <img
-            src={item.thumbnail}
-            alt="thumbnail"
-            className={styles.thumbnail}
-          />
-        )}
-      </div>
+      {item.thumbnail && (
+        <img
+          src={item.thumbnail}
+          alt="thumbnail"
+          className={styles.thumbnail}
+        />
+      )}
     </li>
   );
 };

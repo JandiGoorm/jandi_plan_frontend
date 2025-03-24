@@ -53,8 +53,6 @@ const BoardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 
-  console.log(communities);
-
   return (
     <BaseLayout>
       {communitiesLoading && <Loading />}
@@ -62,6 +60,7 @@ const BoardPage = () => {
         <div className={styles.header}>
           <div className={styles.header_title}>
             <p>잡담부터 정보까지 !</p>
+
             <Button
               variant="solid"
               onClick={() => navigate(PageEndPoints.BOARD_WRITE)}
@@ -88,6 +87,7 @@ const BoardPage = () => {
                 <option value="TITLE">제목</option>
                 <option value="CONTENT">내용</option>
               </select>
+
               <Input
                 size="md"
                 style={{
