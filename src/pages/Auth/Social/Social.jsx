@@ -17,6 +17,7 @@ const SocialPage = ({fetchUrl}) => {
   const navigate = useNavigate();
   const { getUserInfo } = AuthService;
   const [isLogin, setIsLogin] = useState(false);
+  const { createToast } = useToast();
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -53,12 +54,20 @@ const SocialPage = ({fetchUrl}) => {
         localStorage.setItem("access-token", res.data?.accessToken);
         localStorage.setItem("refresh-token", res.data?.refreshToken);
         setIsLogin(true);
-        
+        createToast({
+          text: "로그인에 성공하셨습니다.",
+          type: "success",
+        });
+
         await handlePrefer(res.data?.accessToken);
       }).catch((err)=>{
         setIsLogin(false);
-        console.log(err);
-        console.error("소셜 로그인 오류:");
+        createToast({
+          text: "로그인에 실패하였습니다.",
+          type: "error",
+        });
+        console.error("소셜 로그인 오류");
+        navigate(PageEndPoints.LOGIN);
       })
     }, [fetchLogin, fetchUrl, code])
 
@@ -68,13 +77,8 @@ const SocialPage = ({fetchUrl}) => {
 
   return loading ? (
     <Loading />
-  ) : isLogin ? (
+  ) :  (
     null
-  ):(    
-    <div className={styles.container}>
-      <p className={styles.title}>로그인 오류가 발생하였습니다. 다시 시도해주세요.</p>
-      <Button onClick={() => navigate(PageEndPoints.LOGIN)}>뒤로가기</Button>
-    </div>
   );
 
 };
