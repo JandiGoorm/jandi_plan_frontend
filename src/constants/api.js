@@ -51,10 +51,11 @@ export const APIEndPoints = {
   PREFER_DEST: "/trip/cities/prefer",
 
   RESISTER: "/users/register",
-  USER_CHANGE_PASSWORD: "/users/change-password",
+  USER_CHANGE_PASSWORD: "/users/change-username",
   USER_VERIFY: "/users/verify",
   USER_CHECK_EMAIL: "/users/register/checkEmail",
   USER_CHECK_NICKNAME: "/users/register/checkName",
+  USER_CHANGE_NICKNAME: "/users/change-username",
 
   NOTICE: "/notice",
   NOTICE_DETAIL: "/notice/:id",

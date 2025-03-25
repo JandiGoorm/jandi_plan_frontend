@@ -7,8 +7,9 @@ import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { handleApiCall } from "@/utils";
+import NicknameForm from "./NicknameForm";
 
-const MyInfo = ({ user, onProfileChange }) => {
+const MyInfo = ({ user, onProfileChange,setNickname, nickname }) => {
   const [profile, setProfile] = useState(user.profileImageUrl);
   const { fetchData } = useAxios();
   const { createToast } = useToast();
@@ -83,11 +84,13 @@ const MyInfo = ({ user, onProfileChange }) => {
             </div>
             <div className={styles.basic_info}>
               <p className={styles.info_name}>닉네임</p>
-              <p className={styles.info_value}>{user.username}</p>
+              <p className={styles.info_value}>{nickname}</p>
             </div>
           </div>
         </div>
       </div>
+
+      <NicknameForm onProfileChange={onProfileChange} setNickname={setNickname}/>
 
       <PasswordForm />
     </div>
