@@ -8,6 +8,7 @@ import {
   useImperativeHandle,
 } from "react";
 import styles from "./DropDown.module.css";
+import { createPortal } from "react-dom";
 
 const DropDown = ({ children, style = {}, dropdownRef = null }) => {
   const [isVisible, setVisible] = useState(false);
@@ -39,21 +40,12 @@ const DropDown = ({ children, style = {}, dropdownRef = null }) => {
     const contentRect = contentRef.current.getBoundingClientRect();
 
     const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
 
-    let top = 0;
-    let left = 0;
+    let top = triggerRect.bottom + window.scrollY;
+    let left = triggerRect.left + window.scrollX;
 
-    if (viewportHeight - triggerRect.bottom >= contentRect.height) {
-      top = 0;
-    } else {
-      top = -contentRect.height - triggerRect.height - 8;
-    }
-
-    if (viewportWidth - triggerRect.left >= contentRect.width) {
-      left = 0;
-    } else {
-      left = -(contentRect.width - triggerRect.width);
+    if (viewportWidth - triggerRect.left < contentRect.width) {
+      left = triggerRect.right - contentRect.width + window.scrollX;
     }
 
     setPosition({ top, left });
@@ -111,21 +103,20 @@ const DropDownTrigger = ({ children, style = {} }) => {
 
 const DropDownContent = ({ children }) => {
   const { isVisible, contentRef, position } = useDropDown();
+  if (!isVisible) return null;
 
-  return (
-    <div className={styles.relative}>
-      <div
-        ref={contentRef}
-        className={styles.content}
-        style={{
-          display: isVisible ? "block" : "none",
-          top: `${position.top}px`,
-          left: `${position.left}px`,
-        }}
-      >
-        {children}
-      </div>
-    </div>
+  return createPortal(
+    <div
+      ref={contentRef}
+      className={styles.content}
+      style={{
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+      }}
+    >
+      {children}
+    </div>,
+    document.body
   );
 };
 
