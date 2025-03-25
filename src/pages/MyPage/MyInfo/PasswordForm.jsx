@@ -49,6 +49,7 @@ const PasswordForm = () => {
 
   return (
     <form className={styles.pw_info_box} onSubmit={handleSubmit(onSubmit)}>
+      <p className={styles.title}>비밀번호 변경</p>
       <div className={styles.plan_columns}>
         <div className={styles.input_name}>현재 비밀번호</div>
         <div className={styles.input_box}>
