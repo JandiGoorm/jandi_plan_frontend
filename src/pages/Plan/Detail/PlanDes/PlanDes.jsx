@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAuth } from "@/contexts";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import DaySlider from "./DaySlider";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
@@ -84,49 +85,7 @@ const PlanDes = () => {
       </div>
 
       <div className={styles.des_container}>
-        <div className={styles.des_nav}>
-          <Swiper
-            spaceBetween={10}
-            slidesPerView="auto"
-            style={{
-              margin: 0,
-            }}
-          >
-            <SwiperSlide
-              style={{ width: "auto", marginRight: "1px" }}
-              onClick={() => setFocusDay(null)}
-            >
-              <div
-                className={`${styles.des_nav_item} ${
-                  !focusDay && styles.focus
-                }`}
-              >
-                <p>RESERVED</p>
-              </div>
-            </SwiperSlide>
-
-            {data.map((item) => {
-              return (
-                <SwiperSlide
-                  key={item.day}
-                  style={{ width: "auto", marginRight: "1px" }}
-                  onClick={() => setFocusDay(item.date)}
-                >
-                  <div
-                    className={`${styles.des_nav_item} ${
-                      item.date === focusDay && styles.focus
-                    }`}
-                  >
-                    <p>
-                      {item.date} ({item.day}일차)
-                    </p>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
-
+        <DaySlider items={data} setDay={setFocusDay} focusDay={focusDay} />
         {renderItem}
       </div>
     </div>

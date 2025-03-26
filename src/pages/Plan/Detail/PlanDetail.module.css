@@ -12,7 +12,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
   max-width: var(--breakpoint-lg);
 
   box-sizing: border-box;

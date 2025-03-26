@@ -1,12 +1,13 @@
 import { formatPrice } from "@/utils";
-import styles from "./PlanBudget.module.css";
-import { usePlanDetail } from "../PlanDetailContext";
 import { IoSearch } from "react-icons/io5";
+import { usePlanDetail } from "../PlanDetailContext";
+import styles from "./PlanBudget.module.css";
 
 const map = {
   TRANSPORTATION: "교통비",
   ACCOMMODATION: "숙박비",
   ETC: "기타",
+  TOTAL: "총 예약 금액",
 };
 
 const PlanBudget = () => {
@@ -51,7 +52,17 @@ const PlanBudget = () => {
               </div>
               <div className={styles.summary_item}>
                 <span className={styles.item_title}>남은 예산</span>
-                <span className={styles.remain}>{formatPrice(remain)}원</span>
+                <span
+                  className={styles.remain}
+                  style={{
+                    color:
+                      remain < 0
+                        ? "var(--color-red-500)"
+                        : "var(--color-blue-600)",
+                  }}
+                >
+                  {formatPrice(remain)}원
+                </span>
               </div>
             </div>
           </div>
@@ -68,19 +79,27 @@ const PlanBudget = () => {
               </thead>
 
               <tbody>
-                {Object.keys(cost).map((item) => {
-                  const key = map[item];
-                  if (!key) return null;
+                {cost &&
+                  Object.entries(map).map(([key, value]) => {
+                    const detailCost = cost[key];
 
-                  return (
-                    <tr className={styles.service} key={key}>
-                      <td className={styles.table_item}>{key}</td>
-                      <td className={styles.table_item}>
-                        {formatPrice(cost[item])}원
-                      </td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr
+                        className={
+                          key === "TOTAL"
+                            ? styles.service_title
+                            : styles.service
+                        }
+                        key={key}
+                      >
+                        <td className={styles.table_item}>{value}</td>
+
+                        <td className={styles.table_item}>
+                          {formatPrice(detailCost)}원
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -109,6 +128,14 @@ const PlanBudget = () => {
                     </td>
                   </tr>
                 ))}
+                <tr className={styles.service_title}>
+                  <td className={styles.table_item}>
+                    일정에 사용된 금액 ({flattendItinerary.length}일)
+                  </td>
+                  <td className={styles.table_item}>
+                    {formatPrice(itineraryTotal)}원
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
