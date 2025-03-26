@@ -9,7 +9,7 @@ import styles from "./FormHashtag.module.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tagDictionary, tagScheme } from "./constants";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDropDown } from "@/components/DropDown/DropDownContext";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
@@ -31,8 +31,12 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
   const { onClick, close } = useDropDown();
   const { fetchData, response } = useAxios();
   const { isDarkMode } = useDarkModeContext();
+  const dropdownRef = useRef(null);
 
   const handleSelectTag = (tagObject) => {
+    if (!dropdownRef.current) return;
+    dropdownRef.current.close();
+
     const tag = tagObject.tag;
     const normalized = tag.startsWith("#") ? tag : `#${tag}`;
 
@@ -93,7 +97,7 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
   return (
     <div className={styles.container}>
       <div className={styles.tags_container}>
-        <DropDown>
+        <DropDown dropdownRef={dropdownRef}>
           <DropDownTrigger>
             <form onSubmit={handleSubmit(handleSelectTag)}>
               <Input
