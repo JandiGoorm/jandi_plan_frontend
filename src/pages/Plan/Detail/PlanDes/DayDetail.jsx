@@ -31,8 +31,8 @@ const DayDetail = ({ focus, hasPermission }) => {
   const isContent = contentData.length > 0;
 
   const openGoogleMap = (busIndex) => {
-    const address1 = contentData[busIndex].place.address;
-    const address2 = contentData[busIndex + 1].place.address;
+    const address1 = contentData[busIndex].place.name;
+    const address2 = contentData[busIndex + 1].place.name;
     const url = `https://www.google.com/maps/dir/${address1}/${address2}?hl=ko`;
 
     window.open(url);
