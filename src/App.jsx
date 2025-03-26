@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DarkModeProvider, ToastProvider, AuthProvider } from "@/contexts";
 import { ToastList } from "./components";
-import { PrivateRoute } from "@/routes";
+import { PrivateRoute, ScrollToTop } from "@/routes";
 import { routes } from "./routes/routes";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       <ToastProvider>
         <ToastList />
         <BrowserRouter>
+          <ScrollToTop />
           <AuthProvider>
             <Routes>
               {routes.map((route) => {
