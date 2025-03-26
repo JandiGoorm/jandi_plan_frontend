@@ -57,6 +57,7 @@
 .dropdown_content_item:hover {
   background-color: var(--color-gray-100);
 }
+
 .content_update {
   display: flex;
   align-items: center;

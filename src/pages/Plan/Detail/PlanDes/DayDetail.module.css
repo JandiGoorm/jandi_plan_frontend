@@ -16,6 +16,11 @@
   display: flex;
 }
 
+.dark {
+  --color-border: var(--color-zinc-400);
+  --color-icon: var(--color-zinc-200);
+}
+
 .container_right {
   flex: 1;
   box-sizing: border-box;
@@ -77,6 +82,11 @@
   align-items: center;
 
   cursor: pointer;
+  transition: scale 0.2s;
+}
+
+.bus_icon_wrapper:hover {
+  scale: 1.1;
 }
 
 .bus_icon {

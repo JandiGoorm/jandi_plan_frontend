@@ -4,6 +4,9 @@ import { MdRunCircle } from "react-icons/md";
 import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./DayDetail.module.css";
 import Itinerary from "./Itinerary";
+import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import CreateSchedule from "../ModalContents/CreateSchedule";
+import { useDarkModeContext } from "@/contexts";
 
 const timeToSeconds = (time) => {
   const [hh, mm, ss] = time.split(":").map(Number);
@@ -12,6 +15,7 @@ const timeToSeconds = (time) => {
 
 const DayDetail = ({ focus, hasPermission }) => {
   const { itineraries, deleteItinerary } = usePlanDetail();
+  const { isDarkMode } = useDarkModeContext();
 
   const contentData = useMemo(() => {
     if (!itineraries) return null;
@@ -29,7 +33,7 @@ const DayDetail = ({ focus, hasPermission }) => {
   const openGoogleMap = (busIndex) => {
     const address1 = contentData[busIndex].place.address;
     const address2 = contentData[busIndex + 1].place.address;
-    const url = `https://www.google.com/maps/dir/${address1}/${address2}`;
+    const url = `https://www.google.com/maps/dir/${address1}/${address2}?hl=ko`;
 
     window.open(url);
   };
@@ -46,10 +50,8 @@ const DayDetail = ({ focus, hasPermission }) => {
     ));
   };
 
-  console.log(contentData);
-
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDarkMode ? styles.dark : ""}`}>
       <div className={styles.divider}>
         <MdRunCircle size={40} className={styles.icon} />
         <div className={styles.vertical_divider}>
@@ -71,7 +73,16 @@ const DayDetail = ({ focus, hasPermission }) => {
           ))
         ) : (
           <div className={styles.empty}>
-            <p>해당 날짜의 일정이 없습니다</p>
+            <p>일정이 없습니다 !</p>
+
+            <Modal>
+              <ModalTrigger>
+                <Button variant="outline">해당 날짜의 일정추가 하기</Button>
+              </ModalTrigger>
+              <ModalContent>
+                <CreateSchedule focusDay={focus} />
+              </ModalContent>
+            </Modal>
           </div>
         )}
       </div>
