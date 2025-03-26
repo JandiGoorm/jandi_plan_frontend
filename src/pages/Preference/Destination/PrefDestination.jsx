@@ -9,24 +9,42 @@ import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
 
 const PrefDestination = () => {
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const { fetchData, response } = useAxios();
-  const { createToast } = useToast();
-
+  const [destinations, setDestinations] = useState([]);
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedContinents] = useState(state?.selectedContinents || []);
+
+  const { state } = useLocation();
   const [mode] = useState(state?.mode || []);
+
+  const navigate = useNavigate();
+
+  const { fetchData } = useAxios();
+  const { createToast } = useToast();
+
+  const [selectedContinents] = useState(state?.selectedContinents || []);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.append("category", "CONTINENT");
+    if (selectedContinents.length > 0) {
+      params.append("filter", selectedContinents.join(","));
+    }
+
+    fetchData({
+      method: "GET",
+      url: `${APIEndPoints.DESTINATION}`,
+      params,
+    }).then((res) => {
+      setDestinations(res.data || []);
+    });
+  }, [fetchData, selectedContinents]);
 
   const currentContinent = selectedContinents[currentIndex];
 
   // 현재 선택된 대륙의 도시 필터링
-  const filteredDestinations =
-    response ??
-    [].filter(
-      (destination) => destination.country.continent.name === currentContinent
-    );
+  const filteredDestinations = destinations.filter(
+    (destination) => destination.country.continent.name === currentContinent
+  );
 
   // 대륙 도시 내 국가별 그룹화화
   const groupedDestinations = filteredDestinations.reduce(
@@ -44,6 +62,14 @@ const PrefDestination = () => {
     {}
   );
 
+  const handleNext = () => {
+    if (currentIndex < state?.selectedContinents.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      handleComplete();
+    }
+  };
+
   const handleComplete = () => {
     if (selectedDestinations.length === 0) {
       createToast({ type: "error", text: "관심있는 여행지를 선택해 주세요." });
@@ -53,7 +79,7 @@ const PrefDestination = () => {
     if (mode === "create") {
       fetchData({
         method: "POST",
-        url: APIEndPoints.PREFER_DEST,
+        url: `${APIEndPoints.PREFER_DEST}`,
         data: {
           cities: selectedDestinations,
         },
@@ -65,16 +91,16 @@ const PrefDestination = () => {
           });
           navigate(PageEndPoints.HOME);
         })
-        .catch(() =>
+        .catch(() => {
           createToast({
             type: "error",
             text: "관심가는 여행지를 저장하는데 실패하였습니다.",
-          })
-        );
+          });
+        });
     } else {
       fetchData({
         method: "PATCH",
-        url: APIEndPoints.PREFER_DEST,
+        url: `${APIEndPoints.PREFER_DEST}`,
         data: {
           cities: selectedDestinations,
         },
@@ -86,21 +112,13 @@ const PrefDestination = () => {
           });
           navigate(PageEndPoints.MYPAGE);
         })
-        .catch(() =>
+        .catch(() => {
           createToast({
             type: "error",
             text: "관심가는 여행지를 수정하는데 실패하였습니다.",
-          })
-        );
+          });
+        });
     }
-  };
-
-  const handleSelectDestination = (destinationName) => {
-    setSelectedDestinations((prev) =>
-      prev.includes(destinationName)
-        ? prev.filter((name) => name !== destinationName)
-        : [...prev, destinationName]
-    );
   };
 
   const handlePrev = () => {
@@ -111,27 +129,13 @@ const PrefDestination = () => {
     }
   };
 
-  const handleNext = () => {
-    if (currentIndex < state?.selectedContinents.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      handleComplete();
-    }
+  const handleSelectDestination = (destinationName) => {
+    setSelectedDestinations((prev) =>
+      prev.includes(destinationName)
+        ? prev.filter((name) => name !== destinationName)
+        : [...prev, destinationName]
+    );
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-    params.append("category", "CONTINENT");
-    if (selectedContinents.length > 0) {
-      params.append("filter", selectedContinents.join(","));
-    }
-
-    fetchData({
-      method: "GET",
-      url: APIEndPoints.DESTINATION,
-      params,
-    });
-  }, [fetchData, selectedContinents]);
 
   return (
     <div className={styles.container}>
