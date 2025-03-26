@@ -2,7 +2,7 @@ import { Button, Input, Loading, Pagination, PlanCard } from "@/components";
 import { PageEndPoints,APIEndPoints } from "@/constants";
 import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
-import { useEffect,useMemo } from "react";
+import { useEffect,useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./MyPlanList.module.css";
 
@@ -11,20 +11,34 @@ const PlanList = () => {
   const {userPlans, fetchUserPlans, getLoading } = usePlans();
   const navigate = useNavigate();
   const location = useLocation();
+  const [dest, setDest]= useState();
 
   const fetchUrl = useMemo(() => {
     const pathParts = location.pathname.split("/"); // [ "", "plan", "my", "list" ]
     const secondSegment = pathParts[2] || ""; // "my" or ""
+    const destSegment = pathParts[3] || "list";
+    const decodedDestSegment = decodeURIComponent(destSegment);  // URL 디코딩
 
-    return secondSegment === "my" ? APIEndPoints.TRIP_MY : APIEndPoints.TRIP_LIKED;
+    console.log(decodedDestSegment);
+    if (decodedDestSegment !== "list") {
+      setDest(decodedDestSegment);
+    }
+
+    return secondSegment === "my" ? APIEndPoints.TRIP_MY : secondSegment === "like" ? APIEndPoints.TRIP_LIKED : APIEndPoints.TRIP_SEARCH;
   }, [location.pathname]);
 
   useEffect(() => {
     if (!fetchUrl) return;
 
-    fetchUserPlans(fetchUrl, {page: currentPage - 1}).then((res) =>{
-      setTotalPage(res.data.pageInfo.totalPages || 0)
-    });
+    if(fetchUrl===APIEndPoints.TRIP_SEARCH){
+      fetchUserPlans(fetchUrl, {page: currentPage - 1, category:"CITY", keyword: dest}).then((res) =>{
+        setTotalPage(res.data.pageInfo.totalPages || 0)
+      });
+    }else{
+      fetchUserPlans(fetchUrl, {page: currentPage - 1}).then((res) =>{
+        setTotalPage(res.data.pageInfo.totalPages || 0)
+      });
+    }
 
   }, [fetchUrl, currentPage, setTotalPage, fetchUserPlans]);
 

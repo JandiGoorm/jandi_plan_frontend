@@ -11,7 +11,7 @@
 }
 
 .input_name {
-  width: 10rem;
+  width: 5rem;
   font-size: var(--text-base);
   font-weight: var(--font-weight-semibold);
 }

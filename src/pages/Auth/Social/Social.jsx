@@ -1,5 +1,5 @@
 import styles from "./Social.module.css";
-import { Button, Input, Field } from "@/components";
+import { Button, Input, Field, Loading } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,104 +7,80 @@ import { useForm } from "react-hook-form";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { useToast } from "@/contexts";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { AuthService } from "@/apis";
 
-const scheme = z.object({
-  nickname: z
-  .string()
-  .min(2, { message: "2자 이상 입력하세요." })
-  .nonempty({ message: "닉네임을 입력하세요." }),
-});
-
-const SocialPage = () => {
-  const { fetchData: fetchDuplicateNickname } = useAxios();
+const SocialPage = ({fetchUrl}) => {
+  const { response: loginInfo, fetchData: fetchLogin, loading } = useAxios();
+  const { fetchData: fetchPrefer } = useAxios();
   const navigate = useNavigate();
-  const [duplicateCheck, setDuplicateCheck] = useState({
-    nickname: false,
-  });
+  const { getUserInfo } = AuthService;
+  const [isLogin, setIsLogin] = useState(false);
   const { createToast } = useToast();
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-    getValues,
-  } = useForm({
-    resolver: zodResolver(scheme),
-  });
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const code = params.get("code");
+  const state = params.get("state");
+  const requestParams = state ? { code, state } : { code };
 
-  const handleDuplicateNickname = useCallback(
-    async (name) => {
-      await fetchDuplicateNickname({
-        url: APIEndPoints.USER_CHECK_NICKNAME,
+  console.log(requestParams);
+
+  const handlePrefer = useCallback(async (token) =>{
+
+    if(!token) return;
+
+    await fetchPrefer({
+      method: "GET",
+      url: APIEndPoints.PREFER_DEST,
+    }).then((res) => {
+      if (Array.isArray(res.data) && res.data.length === 0) {
+        window.location.href = PageEndPoints.PREF_CONT;
+      } else {
+        window.location.href = PageEndPoints.HOME;
+      }
+    });
+  },[fetchPrefer, requestParams, navigate])
+
+  const fetchSocial = useCallback(
+    async () => {
+       await fetchLogin({
         method: "GET",
-        params: {
-          name,
-        },
-      })
-        .then(() => {
-          setDuplicateCheck((prev) => ({
-            ...prev,
-            nickname: true,
-          }));
-          createToast({
-            type: "success",
-            text: "사용가능한 닉네임입니다.",
-          });
-        })
-        .catch((err) => {
-          createToast({
-            type: "error",
-            text: err.message || "사용 불가능한 닉네임 입니다.",
-          });
-          setError("nickname", {
-            type: "custom",
-            message: "사용 불가능한 닉네임 입니다.",
-          });
+        url: fetchUrl,
+        params: requestParams,
+      }).then(async (res) => {
+        console.log(res.data);
+        localStorage.setItem("access-token", res.data?.accessToken);
+        localStorage.setItem("refresh-token", res.data?.refreshToken);
+        setIsLogin(true);
+        createToast({
+          text: "로그인에 성공하셨습니다.",
+          type: "success",
         });
-    },
-    [createToast, fetchDuplicateNickname, setError]
+
+        await handlePrefer(res.data?.accessToken);
+      }).catch((err)=>{
+        setIsLogin(false);
+        createToast({
+          text: "로그인에 실패하였습니다.",
+          type: "error",
+        });
+        console.error("소셜 로그인 오류");
+        navigate(PageEndPoints.LOGIN);
+      })
+    }, [fetchLogin, fetchUrl, code])
+
+  useEffect(()=> {
+    fetchSocial();
+  },[])
+
+  return loading ? (
+    <Loading />
+  ) :  (
+    null
   );
 
-  return (
-    <div className={styles.container}>
-      <p className={styles.title}>소셜 회원가입</p>
-      <form className={styles.form_box} >
-        <div className={styles.input_box}>
-          <Field label={"닉네임"} error={errors.nickname} isRequire>
-            <div className={styles.nickname}>
-              <Input
-                type="text"
-                register={register}
-                name={"nickname"}
-                style={{
-                  boxSizing: "border-box",
-                  width: "100%",
-                }}
-                size="sm"
-              />
-              <Button
-                type="button"
-                size="sm"
-                style={{
-                  width: "5.5rem",
-                }}
-                onClick={() => handleDuplicateNickname(getValues("nickname"))}
-              >
-                중복확인
-              </Button>
-            </div>
-          </Field>
-        </div>
-        <div className={styles.btn_box}>
-          <Button size="md" variant="solid">
-            확인
-          </Button>
-        </div>
-      </form>
-    </div>
-  );
 };
 
 export default SocialPage;

@@ -7,12 +7,13 @@ export const PageEndPoints = {
   FINDPW: "/auth/findPW",
   KAKAO_JOIN: "/auth/kakaoLogin",
   NAVER_JOIN: "/auth/naverLogin",
+  GOOGLE_JOIN: "/auth/googleLogin",
 
   PLAN_DETAIL: "/plan/:id",
   PLAN_LIST: "/plan/list",
   PLAN_MY_LIST: "/plan/my/list",
   PLAN_LIKE_LIST: "/plan/like/list",
-  PLAN_DEST_LIST: "/plan/destination/list",
+  PLAN_DEST_LIST: "/plan/list/:dest",
   PLAN_CREATE: "/plan/create",
 
   PREFERENCE: "/preference/*",
@@ -42,13 +43,19 @@ export const APIEndPoints = {
   USER: "/users",
   PROFILE_UPLOAD: "images/upload/profile",
 
+  KAKAO_LOGIN: "/auth/kakaoLogin",
+  NAVER_LOGIN_URL: "/auth/naver/loginUrl",
+  NAVER_LOGIN: "/auth/naver/callback",
+  GOOGLE_LOGIN: "/auth/googleLogin",
+
   PREFER_DEST: "/trip/cities/prefer",
 
   RESISTER: "/users/register",
-  USER_CHANGE_PASSWORD: "/users/change-password",
+  USER_CHANGE_PASSWORD: "/users/change-username",
   USER_VERIFY: "/users/verify",
   USER_CHECK_EMAIL: "/users/register/checkEmail",
   USER_CHECK_NICKNAME: "/users/register/checkName",
+  USER_CHANGE_NICKNAME: "/users/change-username",
 
   NOTICE: "/notice",
   NOTICE_DETAIL: "/notice/:id",

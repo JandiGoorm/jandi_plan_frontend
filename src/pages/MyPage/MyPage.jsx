@@ -22,6 +22,7 @@ const MyPage = () => {
 
   const { user } = useAuth();
   const { fetchData, response } = useAxios();
+  const [nickname, setNickname] = useState(user.username);
 
   const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ const MyPage = () => {
     <BaseLayout>
       <div className={styles.container}>
         <div className={styles.main_title_box}>
-          <p className={styles.main_title}>{user.username}님, 반갑습니다!</p>
+          <p className={styles.main_title}>{nickname}님, 반갑습니다!</p>
           <Modal>
             <ModalTrigger>
               <Button variant="ghost" size="lg">
@@ -59,7 +60,7 @@ const MyPage = () => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <MyInfo user={user} onProfileChange={handleRefreshPlans} />
+              <MyInfo user={user} onProfileChange={handleRefreshPlans} setNickname={setNickname} nickname={nickname}/>
             </ModalContent>
           </Modal>
         </div>

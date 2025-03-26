@@ -5,7 +5,7 @@ import JoingPage from "./Join/Join";
 import LoginPage from "./Login/Login";
 import FindPWPage from "./Find/Find";
 import SocialPage from "./Social/Social";
-import { PageEndPoints } from "@/constants";
+import { APIEndPoints, PageEndPoints } from "@/constants";
 
 const AuthLayout = () => {
   const location = useLocation();
@@ -32,8 +32,9 @@ const AuthLayout = () => {
               <Route path="login" element={<LoginPage />} />
               <Route path="join" element={<JoingPage />} />
               <Route path="findPW" element={<FindPWPage />} />
-              <Route path="kakaoLogin" element={<SocialPage />} />
-              <Route path="naverLogin" element={<SocialPage />} />
+              <Route path="kakaoLogin" element={<SocialPage fetchUrl={APIEndPoints.KAKAO_LOGIN}/>} />
+              <Route path="naverLogin" element={<SocialPage fetchUrl={APIEndPoints.NAVER_LOGIN}/>} />
+              <Route path="googleLogin" element={<SocialPage fetchUrl={APIEndPoints.GOOGLE_LOGIN}/>} />
             </Routes>
           </motion.div>
         </AnimatePresence>
