@@ -13,12 +13,13 @@ import { createPortal } from "react-dom";
 const DropDown = ({ children, style = {}, dropdownRef = null }) => {
   const [isVisible, setVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
+
   const ref = useRef(null);
   const contentRef = useRef(null);
 
   const handleClickTrigger = useCallback((e) => {
     e.stopPropagation();
-    setVisible(true);
+    setVisible((prev) => !prev);
   }, []);
 
   const close = useCallback(() => {
@@ -63,7 +64,11 @@ const DropDown = ({ children, style = {}, dropdownRef = null }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (
+        ref.current &&
+        !ref.current.contains(event.target) &&
+        !contentRef.current?.contains(event.target)
+      ) {
         setVisible(false);
       }
     };
@@ -103,6 +108,7 @@ const DropDownTrigger = ({ children, style = {} }) => {
 
 const DropDownContent = ({ children }) => {
   const { isVisible, contentRef, position } = useDropDown();
+
   if (!isVisible) return null;
 
   return createPortal(
