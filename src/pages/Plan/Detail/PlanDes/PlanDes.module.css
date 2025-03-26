@@ -18,6 +18,10 @@
 .title {
   font-weight: var(--font-weight-bold);
   font-size: var(--text-2xl);
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .des_container {

@@ -1,7 +1,18 @@
 .container {
   display: flex;
+  gap: 1rem;
+
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.left_container {
+  display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  flex: 1;
 }
 
 .tags_container {
@@ -13,15 +24,9 @@
 .tag {
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-2xl);
-  background-color: #f0f0f0;
-  color: var(--color-green-400);
-  font-size: var(--text-lg);
+  background-color: var(--color-tag-bg);
+  color: var(--color-tag-text);
   font-weight: var(--font-weight-bold);
-}
-
-.header_container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .header_info {
@@ -65,11 +70,14 @@
   align-items: center;
 
   color: var(--color-gray-400);
+  font-size: var(--text-sm);
 }
 
 .content_container {
   display: flex;
   gap: 2rem;
+
+  flex: 1;
 }
 
 .content_text {

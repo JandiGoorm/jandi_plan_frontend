@@ -1,3 +1,4 @@
+import styles from "./BoardModify.module.css";
 import { Button, Loading } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useAuth } from "@/contexts";
@@ -10,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { boardWriteScheme } from "../constants";
 import FormEditor from "../FormEditor";
+import FormHashTag from "../FormHashtag";
 
 const BoardModify = () => {
   const { id } = useParams();
@@ -47,25 +49,31 @@ const BoardModify = () => {
 
   return (
     <BaseLayout>
-      <FormEditor
-        formController={formController}
-        setQuill={setQuill}
-        tempPostId={id}
-        onSubmit={updateCommunity}
-        defaultValue={response ? JSON.parse(response.items.content) : null}
-        category="Commnunity"
-      >
-        <Button
-          type="submit"
-          variant="solid"
-          size="md"
-          style={{
-            marginLeft: "auto",
-          }}
+      <div className={styles.container}>
+        <FormHashTag
+          defaultValue={response.items.hashtag}
+          callback={(selectedTag) => setValue("hashtag", selectedTag)}
+        />
+        <FormEditor
+          formController={formController}
+          setQuill={setQuill}
+          tempPostId={id}
+          onSubmit={updateCommunity}
+          defaultValue={response ? JSON.parse(response.items.content) : null}
+          category="Commnunity"
         >
-          포스팅 수정 완료
-        </Button>
-      </FormEditor>
+          <Button
+            type="submit"
+            variant="solid"
+            size="md"
+            style={{
+              marginLeft: "auto",
+            }}
+          >
+            포스팅 수정 완료
+          </Button>
+        </FormEditor>
+      </div>
     </BaseLayout>
   );
 };

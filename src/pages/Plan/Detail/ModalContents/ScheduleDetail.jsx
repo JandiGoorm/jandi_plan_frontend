@@ -7,6 +7,7 @@ const ScheduleDetail = ({
   onSubmit,
   handleAddressStep,
   isModify = false,
+  focusDay,
 }) => {
   const { formState, register, watch } = formController;
   const { tripDetail } = usePlanDetail();
@@ -26,6 +27,7 @@ const ScheduleDetail = ({
             name={"date"}
             min={tripDetail.startDate}
             max={tripDetail.endDate}
+            defaultValue={focusDay}
           />
         </Field>
 

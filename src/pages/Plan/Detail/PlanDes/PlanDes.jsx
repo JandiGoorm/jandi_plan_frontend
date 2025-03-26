@@ -1,14 +1,14 @@
 import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import { useAuth } from "@/contexts";
+import { useEffect, useMemo, useState } from "react";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import CreateReservation from "../ModalContents/CreateReservation";
 import CreateSchedule from "../ModalContents/CreateSchedule";
-import styles from "./PlanDes.module.css";
-import "swiper/css";
 import { usePlanDetail } from "../PlanDetailContext";
-import Reserved from "./Reserved";
 import DayDetail from "./DayDetail";
-import { useEffect, useMemo, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useAuth } from "@/contexts";
+import DaySlider from "./DaySlider";
+import styles from "./PlanDes.module.css";
+import Reserved from "./Reserved";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
@@ -54,7 +54,11 @@ const PlanDes = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.title}>PLAN DETAILS</div>
+        <div className={styles.title}>
+          <FaRegCalendarAlt />
+          <p>여행 일정을 작성해보세요 !</p>
+        </div>
+
         {hasPermission && (
           <div className={styles.buttons}>
             <Modal>
@@ -79,49 +83,7 @@ const PlanDes = () => {
       </div>
 
       <div className={styles.des_container}>
-        <div className={styles.des_nav}>
-          <Swiper
-            spaceBetween={10}
-            slidesPerView="auto"
-            style={{
-              margin: 0,
-            }}
-          >
-            <SwiperSlide
-              style={{ width: "auto", marginRight: "1px" }}
-              onClick={() => setFocusDay(null)}
-            >
-              <div
-                className={`${styles.des_nav_item} ${
-                  !focusDay && styles.focus
-                }`}
-              >
-                <p>RESERVED</p>
-              </div>
-            </SwiperSlide>
-
-            {data.map((item) => {
-              return (
-                <SwiperSlide
-                  key={item.day}
-                  style={{ width: "auto", marginRight: "1px" }}
-                  onClick={() => setFocusDay(item.date)}
-                >
-                  <div
-                    className={`${styles.des_nav_item} ${
-                      item.date === focusDay && styles.focus
-                    }`}
-                  >
-                    <p>
-                      {item.date} ({item.day}일차)
-                    </p>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
-
+        <DaySlider items={data} setDay={setFocusDay} focusDay={focusDay} />
         {renderItem}
       </div>
     </div>

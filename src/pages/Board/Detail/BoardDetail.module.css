@@ -8,6 +8,28 @@
   overflow: hidden;
 }
 
+.tags_container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding-bottom: 0.5rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0.5rem 0.8rem;
+
+  font-weight: var(--font-weight-bold);
+  color: var(--color-tag-text);
+  background-color: var(--color-tag-bg);
+  border-radius: var(--radius-2xl);
+}
+
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
@@ -95,6 +117,6 @@
 }
 
 .dropdown_menu,
-.thumbs{
+.thumbs {
   cursor: pointer;
 }

@@ -1,61 +1,92 @@
 import { formatPrice } from "@/utils";
-import { TiDelete } from "react-icons/ti";
-import { LuClipboardPen } from "react-icons/lu";
 import styles from "./Reserved.module.css";
-import { Modal, ModalContent, ModalTrigger, Tooltip } from "@/components";
+import {
+  DropDown,
+  DropDownContent,
+  DropDownTrigger,
+  Modal,
+  ModalContent,
+  ModalTrigger,
+} from "@/components";
 import { usePlanDetail } from "../PlanDetailContext";
 import ModifyReservation from "../ModalContents/ModifyReservation";
+import { reservedMap } from "../constants";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { useDarkModeContext } from "@/contexts";
 
 const Reserved = ({ reserved, hasPermission }) => {
+  const { isDarkMode } = useDarkModeContext();
   const { data } = reserved;
-  const order = ["TRANSPORTATION", "ACCOMMODATION", "ETC"];
 
   const { deleteReservation } = usePlanDetail();
 
   return (
-    <div className={styles.container}>
-      {order.map((v) => {
-        return (
-          <div key={v} className={styles.des_item}>
-            <p className={styles.des_title}>{v}</p>
-            {(data[v] ?? []).map((item) => {
-              return (
-                <div
-                  key={item.reservationId}
-                  className={styles.rservation_container}
-                >
-                  <div className={styles.reservation_info}>
-                    <p>{item.title}</p>
-                    <p>{formatPrice(item.cost)}원</p>
-                  </div>
-                  {hasPermission && (
-                    <div className={styles.icon_wrapper}>
-                      <Modal>
-                        <ModalTrigger>
-                          <Tooltip text="수정">
-                            <div className={styles.icon_box}>
-                              <LuClipboardPen size={14} />
-                            </div>
-                          </Tooltip>
-                        </ModalTrigger>
-                        <ModalContent>
-                          <ModifyReservation reservation={item} />
-                        </ModalContent>
-                      </Modal>
+    <div className={`${styles.container} ${isDarkMode ? styles.dark : ""}`}>
+      {Object.entries(reservedMap).map(([key, value]) => {
+        const { label, icon } = value;
 
-                      <Tooltip
-                        text="삭제"
-                        onClick={() => deleteReservation(item.reservationId)}
-                      >
-                        <div className={styles.icon_box}>
-                          <TiDelete size={20} color="var(--color-red-500)" />
+        return (
+          <div key={key} className={styles.des_item}>
+            <div className={styles.des_title}>
+              {icon && icon}
+              <p>{label}</p>
+            </div>
+
+            <div className={styles.scroll_wrapper}>
+              {(data[key] ?? []).map((item, index) => {
+                return (
+                  <Modal key={item.reservationId}>
+                    <ModalTrigger>
+                      <div className={styles.reservation_container}>
+                        <div className={styles.flex_row}>
+                          <p
+                            className={styles.reservation_index}
+                            style={{
+                              borderBottom:
+                                index === (data[key]?.length || 0) - 1
+                                  ? "none"
+                                  : "",
+                            }}
+                          >
+                            {index + 1}
+                          </p>
+
+                          <div className={styles.reservation_info}>
+                            <p>{item.title}</p>
+                            <p>{formatPrice(item.cost)}원</p>
+                          </div>
                         </div>
-                      </Tooltip>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+
+                        <DropDown>
+                          <DropDownTrigger>
+                            <HiOutlineDotsVertical size={20} />
+                          </DropDownTrigger>
+                          <DropDownContent>
+                            <div className={styles.dropdown_content}>
+                              <p
+                                className={styles.dropdown_content_item}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  deleteReservation(item.reservationId);
+                                }}
+                              >
+                                삭제
+                              </p>
+                            </div>
+                          </DropDownContent>
+                        </DropDown>
+                      </div>
+                    </ModalTrigger>
+
+                    {hasPermission && (
+                      <ModalContent>
+                        <ModifyReservation reservation={item} />
+                      </ModalContent>
+                    )}
+                  </Modal>
+                );
+              })}
+            </div>
           </div>
         );
       })}

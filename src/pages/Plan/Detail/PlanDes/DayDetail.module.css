@@ -1,16 +1,24 @@
 .container {
-  height: 40rem;
+  min-height: 15rem;
+  max-height: 40rem;
+
   overflow-y: auto;
+  overflow-x: clip;
+
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   box-sizing: border-box;
-  padding: 4rem 1rem 0 1rem;
+  padding: 1rem 1rem 0 1rem;
+
+  --color-border: var(--color-zinc-400);
+  --color-icon: var(--color-zinc-600);
+
+  display: flex;
 }
 
-.inner_wrapper {
-  display: flex;
-  align-items: stretch;
-  min-height: 100%;
+.dark {
+  --color-border: var(--color-zinc-400);
+  --color-icon: var(--color-zinc-200);
 }
 
 .container_right {
@@ -20,7 +28,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 3rem;
 }
 
 .divider {
@@ -31,62 +39,70 @@
   align-items: center;
 }
 
+.icon {
+  color: var(--color-icon);
+  position: relative;
+  top: 3px;
+
+  z-index: 1;
+}
+
 .vertical_divider {
   flex: 1;
   width: 4px;
-  background-color: var(--color-indigo-400);
+  background-color: var(--color-border);
+
+  position: relative;
 }
 
-.content_wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.dashed {
-  width: 3rem;
-  border-bottom: 1px dashed var(--color-indigo-400);
-}
-
-.content_item {
-  flex: 1;
-  border: 1px solid var(--color-indigo-400);
-  height: 3rem;
+.vertical_bus_icons {
+  width: 100%;
+  height: 100%;
 
   box-sizing: border-box;
-  padding: 0 1rem;
+  padding-top: calc(7.5rem - 40px);
+  position: absolute;
+  z-index: 2;
+  right: calc(1rem - 2px);
 
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4rem;
 }
 
-.content_item_des {
+.bus_icon_wrapper {
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-bg-primary);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+
   display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.content_item_time {
-  font-weight: var(--font-weight-semibold);
-}
-
-.icon_wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.icon_box {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  width: 1.8rem;
-  height: 1.8rem;
+  align-items: center;
+
   cursor: pointer;
+  transition: scale 0.2s;
 }
 
-.content_update {
+.bus_icon_wrapper:hover {
+  scale: 1.1;
+}
+
+.bus_icon {
+  font-size: 1.5rem;
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
 }

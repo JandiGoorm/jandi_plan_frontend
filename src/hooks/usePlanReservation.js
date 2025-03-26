@@ -11,7 +11,7 @@ const usePlanReservation = (id) => {
   const { response: reservations, fetchData: getApi } = useAxios();
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
-  const { fetchData: deleteApi } = useAxios();
+  const { fetchData: deleteApi, loading } = useAxios();
 
   const fetchReservations = useCallback(async () => {
     const url = buildPath(APIEndPoints.TRIP_RESERVATION, { id });
@@ -52,6 +52,7 @@ const usePlanReservation = (id) => {
 
   const deleteReservation = useCallback(
     async (reservationId) => {
+      if (loading) return;
       const url = buildPath(APIEndPoints.TRIP_RESERVATION, {
         id: reservationId,
       });
@@ -64,7 +65,7 @@ const usePlanReservation = (id) => {
         fetchReservations
       );
     },
-    [createToast, deleteApi, fetchReservations]
+    [createToast, deleteApi, fetchReservations, loading]
   );
 
   useEffect(() => {

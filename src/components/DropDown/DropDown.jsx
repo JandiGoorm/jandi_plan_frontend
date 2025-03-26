@@ -8,10 +8,12 @@ import {
   useImperativeHandle,
 } from "react";
 import styles from "./DropDown.module.css";
+import { createPortal } from "react-dom";
 
 const DropDown = ({ children, style = {}, dropdownRef = null }) => {
   const [isVisible, setVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
+
   const ref = useRef(null);
   const contentRef = useRef(null);
 
@@ -39,21 +41,12 @@ const DropDown = ({ children, style = {}, dropdownRef = null }) => {
     const contentRect = contentRef.current.getBoundingClientRect();
 
     const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
 
-    let top = 0;
-    let left = 0;
+    let top = triggerRect.bottom + window.scrollY;
+    let left = triggerRect.left + window.scrollX;
 
-    if (viewportHeight - triggerRect.bottom >= contentRect.height) {
-      top = 0;
-    } else {
-      top = -contentRect.height - triggerRect.height - 8;
-    }
-
-    if (viewportWidth - triggerRect.left >= contentRect.width) {
-      left = 0;
-    } else {
-      left = -(contentRect.width - triggerRect.width);
+    if (viewportWidth - triggerRect.left < contentRect.width) {
+      left = triggerRect.right - contentRect.width + window.scrollX;
     }
 
     setPosition({ top, left });
@@ -71,7 +64,11 @@ const DropDown = ({ children, style = {}, dropdownRef = null }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (
+        ref.current &&
+        !ref.current.contains(event.target) &&
+        !contentRef.current?.contains(event.target)
+      ) {
         setVisible(false);
       }
     };
@@ -112,20 +109,20 @@ const DropDownTrigger = ({ children, style = {} }) => {
 const DropDownContent = ({ children }) => {
   const { isVisible, contentRef, position } = useDropDown();
 
-  return (
-    <div className={styles.relative}>
-      <div
-        ref={contentRef}
-        className={styles.content}
-        style={{
-          display: isVisible ? "block" : "none",
-          top: `${position.top}px`,
-          left: `${position.left}px`,
-        }}
-      >
-        {children}
-      </div>
-    </div>
+  if (!isVisible) return null;
+
+  return createPortal(
+    <div
+      ref={contentRef}
+      className={styles.content}
+      style={{
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+      }}
+    >
+      {children}
+    </div>,
+    document.body
   );
 };
 

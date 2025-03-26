@@ -12,13 +12,15 @@ import styles from "./Field.module.css";
  */
 const Field = ({ label, children, error, isRequire, helperText, ...props }) => (
   <div className={styles.container} {...props}>
-    <div className={styles.header}>
-      <label className={styles.label}>
-        {isRequire && <p className={styles.require}>*</p>}
-        <p>{label}</p>
-      </label>
-      {helperText && <p className={styles.helper_text}>{helperText}</p>}
-    </div>
+    {(label || isRequire || helperText) && (
+      <div className={styles.header}>
+        <label className={styles.label}>
+          {isRequire && <p className={styles.require}>*</p>}
+          <p>{label}</p>
+        </label>
+        {helperText && <p className={styles.helper_text}>{helperText}</p>}
+      </div>
+    )}
 
     {children}
     {error && <p className={styles.error}>{error.message}</p>}
