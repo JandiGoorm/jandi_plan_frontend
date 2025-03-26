@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { FaBusSimple } from "react-icons/fa6";
 import { MdRunCircle } from "react-icons/md";
 import { usePlanDetail } from "../PlanDetailContext";
 import styles from "./DayDetail.module.css";
@@ -22,13 +23,40 @@ const DayDetail = ({ focus, hasPermission }) => {
   }, [focus, itineraries]);
 
   if (!contentData) return null;
+
   const isContent = contentData.length > 0;
+
+  const openGoogleMap = (busIndex) => {
+    const address1 = contentData[busIndex].place.address;
+    const address2 = contentData[busIndex + 1].place.address;
+    const url = `https://www.google.com/maps/dir/${address1}/${address2}`;
+
+    window.open(url);
+  };
+
+  const renderBusIcon = (count) => {
+    return Array.from({ length: count }).map((_, idx) => (
+      <div
+        className={styles.bus_icon_wrapper}
+        key={idx}
+        onClick={() => openGoogleMap(idx)}
+      >
+        <FaBusSimple className={styles.bus_icon} />
+      </div>
+    ));
+  };
+
+  console.log(contentData);
 
   return (
     <div className={styles.container}>
       <div className={styles.divider}>
         <MdRunCircle size={40} className={styles.icon} />
-        <div className={styles.vertical_divider}></div>
+        <div className={styles.vertical_divider}>
+          <div className={styles.vertical_bus_icons}>
+            {renderBusIcon(contentData.length - 1)}
+          </div>
+        </div>
       </div>
 
       <div className={styles.container_right}>
