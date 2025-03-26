@@ -28,6 +28,7 @@ const AllCities = ({
     <div className={styles.flex_column}>
       <div className={styles.sub_title}>
         <p>전체 여행지</p>
+
         <Button variant="ghost" isInModal onClick={handleChangeView}>
           선호 여행지
         </Button>

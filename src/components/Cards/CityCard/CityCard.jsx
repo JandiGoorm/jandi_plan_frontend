@@ -15,7 +15,11 @@ const CityCard = ({ item, isInModal = false }) => {
 
       <div className={styles.plan_container}>
         <div className={`${styles.destination} ${isDarkMode && styles.dark}`}>
-          <p className={`${styles.city} ${isInModal && styles.dark_text}`}>
+          <p
+            className={`${styles.city} ${
+              isInModal && isDarkMode && styles.dark_text
+            }`}
+          >
             {item.name}
           </p>
           <p className={styles.country}>
