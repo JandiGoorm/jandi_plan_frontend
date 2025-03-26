@@ -62,9 +62,8 @@
   }
 }
 
-.banner_menu{
+.banner_menu {
   position: absolute;
   bottom: 1rem;
   right: 5rem;
-  z-index: 10;
 }
