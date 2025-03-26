@@ -10,6 +10,15 @@
 
   --color-hover-bg: var(--color-zinc-100);
   --color-border: var(--color-zinc-300);
+  --color-index-bg: var(--color-zinc-300);
+  --color-index-border: var(--color-zinc-100);
+}
+
+.dark {
+  --color-hover-bg: var(--color-zinc-500);
+  --color-border: var(--color-zinc-500);
+  --color-index-bg: var(--color-zinc-600);
+  --color-index-border: var(--color-zinc-400);
 }
 
 .des_item {
@@ -23,6 +32,8 @@
 
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+
+  overflow: hidden;
 }
 
 .des_title {
@@ -73,7 +84,8 @@
 
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
-  background-color: var(--color-border);
+  background-color: var(--color-index-bg);
+  border-bottom: 1px solid var(--color-index-border);
 }
 
 .reservation_info {

@@ -12,14 +12,16 @@ import { usePlanDetail } from "../PlanDetailContext";
 import ModifyReservation from "../ModalContents/ModifyReservation";
 import { reservedMap } from "../constants";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { useDarkModeContext } from "@/contexts";
 
 const Reserved = ({ reserved, hasPermission }) => {
+  const { isDarkMode } = useDarkModeContext();
   const { data } = reserved;
 
   const { deleteReservation } = usePlanDetail();
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isDarkMode ? styles.dark : ""}`}>
       {Object.entries(reservedMap).map(([key, value]) => {
         const { label, icon } = value;
 
@@ -37,7 +39,15 @@ const Reserved = ({ reserved, hasPermission }) => {
                     <ModalTrigger>
                       <div className={styles.reservation_container}>
                         <div className={styles.flex_row}>
-                          <p className={styles.reservation_index}>
+                          <p
+                            className={styles.reservation_index}
+                            style={{
+                              borderBottom:
+                                index === (data[key]?.length || 0) - 1
+                                  ? "none"
+                                  : "",
+                            }}
+                          >
                             {index + 1}
                           </p>
 
