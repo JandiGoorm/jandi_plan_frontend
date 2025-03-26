@@ -1,16 +1,14 @@
 import { Button, Modal, ModalContent, ModalTrigger } from "@/components";
+import { useAuth } from "@/contexts";
+import { useEffect, useMemo, useState } from "react";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import CreateReservation from "../ModalContents/CreateReservation";
 import CreateSchedule from "../ModalContents/CreateSchedule";
-import styles from "./PlanDes.module.css";
-import "swiper/css";
 import { usePlanDetail } from "../PlanDetailContext";
-import Reserved from "./Reserved";
 import DayDetail from "./DayDetail";
-import { useEffect, useMemo, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useAuth } from "@/contexts";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import DaySlider from "./DaySlider";
+import styles from "./PlanDes.module.css";
+import Reserved from "./Reserved";
 
 const PlanDes = () => {
   const [data, setData] = useState([]);
