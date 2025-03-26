@@ -27,21 +27,22 @@ const Banner = () => {
           <Header forceDark={true} />
         </div>
       </div>
-      {isMine ? (
-        <div className={styles.banner_menu}>
-          <Modal>
-            <ModalTrigger>
-              <Button size="lg">
-                <RiImageEditLine />
-              </Button>
-            </ModalTrigger>
-            <ModalContent>
-              <ModifyBanner banner={banner} id={tripDetail?.tripId} />
-            </ModalContent>
-          </Modal>
+
+      {isMine && (
+        <div className={styles.banner_menu_wrapper}>
+          <div className={styles.banner_menu}>
+            <Modal>
+              <ModalTrigger>
+                <Button>
+                  <RiImageEditLine size={24} />
+                </Button>
+              </ModalTrigger>
+              <ModalContent>
+                <ModifyBanner banner={banner} id={tripDetail?.tripId} />
+              </ModalContent>
+            </Modal>
+          </div>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

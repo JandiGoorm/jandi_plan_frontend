@@ -32,10 +32,11 @@ const ModifyBanner = ({ banner }) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>사진 수정</p>
+      <p className={styles.title}>배너사진 수정</p>
 
       <form className={styles.form_container} onSubmit={handleSubmit(onSubmit)}>
         <img src={banner} alt="banner" className={styles.banner_img} />
+
         <Field
           label="플랜 사진"
           helperText="플랜 사진을 넣어주세요."

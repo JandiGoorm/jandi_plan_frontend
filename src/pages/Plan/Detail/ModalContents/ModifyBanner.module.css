@@ -42,7 +42,6 @@
 }
 
 .banner_img {
-  max-height: 15rem;
+  max-height: 20rem;
   height: 100%;
-  margin: 0 auto;
 }
