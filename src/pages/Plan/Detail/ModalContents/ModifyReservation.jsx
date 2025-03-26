@@ -5,18 +5,14 @@ import { usePlanDetail } from "../PlanDetailContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createReservationScheme } from "../../constants";
 import { useModal } from "@/components/Modal/ModalContext";
+import { reservedMap } from "../constants";
 
-const map = {
-  TRANSPORTATION: "교통편",
-  ACCOMMODATION: "숙박",
-  ETC: "기타",
-};
 const ModifyReservation = ({ reservation }) => {
   const formController = useForm({
     resolver: zodResolver(createReservationScheme),
     defaultValues: {
       ...reservation,
-      category: map[reservation.category],
+      category: reservedMap[reservation.category].label,
     },
   });
 
@@ -93,6 +89,7 @@ const ModifyReservation = ({ reservation }) => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           수정하기
         </Button>

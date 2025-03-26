@@ -126,6 +126,7 @@ const SchedulePlace = ({ handleScheduleStep, formController }) => {
         style={{
           alignSelf: "end",
         }}
+        isInModal
       >
         등록
       </Button>

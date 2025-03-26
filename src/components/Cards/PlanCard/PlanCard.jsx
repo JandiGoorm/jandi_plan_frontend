@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { PageEndPoints } from "@/constants";
 import { RiLock2Fill } from "react-icons/ri";
 import { useState } from "react";
+import { useDarkModeContext } from "@/contexts";
 
 const PlanCard = ({ item }) => {
   const navigate = useNavigate();
   const path = buildPath(PageEndPoints.PLAN_DETAIL, { id: item.tripId });
+
+  const { isDarkMode } = useDarkModeContext();
 
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
@@ -45,7 +48,7 @@ const PlanCard = ({ item }) => {
         <div className={styles.content_header}>
           <div className={styles.header_title}>
             <img
-              src={item.user.profileImageUrl ?? "/user2.jpg"}
+              src={item.user.profileImageUrl || "/defaultProfileImage.png"}
               className={styles.user_img}
             />
             <div className={styles.user_info}>
@@ -55,7 +58,7 @@ const PlanCard = ({ item }) => {
               </div>
               <div className={styles.create_at}>
                 <MdDateRange size={20} />
-                <p>{item.startDate} ~ </p>
+                <p>{item.startDate ? item.startDate + " ~ " : ""}</p>
               </div>
             </div>
           </div>
@@ -73,8 +76,8 @@ const PlanCard = ({ item }) => {
         </div>
 
         <div className={styles.plan_container}>
-          <div className={styles.plan_title}>
-            <p className={styles.title}>{item.title}</p>
+          <div className={`${styles.plan_title} ${isDarkMode && styles.dark}`}>
+            <p className={styles.title}>{item.title.trim() ? item.title : "비공개 여행"}</p>
             {item.description && (
               <p className={styles.description}>{item.description}</p>
             )}

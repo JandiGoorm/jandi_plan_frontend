@@ -7,6 +7,7 @@ const ScheduleDetail = ({
   onSubmit,
   handleAddressStep,
   isModify = false,
+  focusDay,
 }) => {
   const { formState, register, watch } = formController;
   const { tripDetail } = usePlanDetail();
@@ -26,6 +27,7 @@ const ScheduleDetail = ({
             name={"date"}
             min={tripDetail.startDate}
             max={tripDetail.endDate}
+            defaultValue={focusDay}
           />
         </Field>
 
@@ -55,7 +57,7 @@ const ScheduleDetail = ({
               value={watch("placeName") || ""}
               readOnly
             />
-            <Button type="button" onClick={handleAddressStep}>
+            <Button type="button" onClick={handleAddressStep} isInModal>
               검색
             </Button>
           </div>
@@ -81,6 +83,7 @@ const ScheduleDetail = ({
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           {isModify ? "수정" : "추가"}하기
         </Button>

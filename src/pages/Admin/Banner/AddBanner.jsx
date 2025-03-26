@@ -88,6 +88,7 @@ const AddBanner = ({ callback }) => {
             alignSelf: "end",
           }}
           type="submit"
+          isInModal
         >
           작성완료
         </Button>

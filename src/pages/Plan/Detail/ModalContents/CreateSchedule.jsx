@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { createScheduleScheme } from "../../constants";
+import { usePlanDetail } from "../PlanDetailContext";
 import ScheduleDetail from "./ScheduleDetail";
 import SchedulePlace from "./SchedulePlace";
-import { usePlanDetail } from "../PlanDetailContext";
-import { createScheduleScheme } from "../../constants";
 
-const CreateSchedule = () => {
+const CreateSchedule = ({ focusDay }) => {
   const [isAddressStep, setIsAddressStep] = useState(false);
   const { addItinerary } = usePlanDetail();
 
@@ -46,6 +46,7 @@ const CreateSchedule = () => {
           formController={formController}
           onSubmit={handleSubmit(onSubmit)}
           handleAddressStep={handleAddressStep}
+          focusDay={focusDay}
         />
       )}
     </>

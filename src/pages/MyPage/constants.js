@@ -29,3 +29,11 @@ export const changePasswordScheme = z
     message: "현재 비밀번호와 새 비밀번호가 같습니다.",
     path: ["newPassword"],
   });
+  
+  export const changeNicknameScheme = z
+  .object({
+    nickname: z
+    .string()
+    .min(2, { message: "2자 이상 입력하세요." })
+    .nonempty({ message: "닉네임을 입력하세요." }),
+  });

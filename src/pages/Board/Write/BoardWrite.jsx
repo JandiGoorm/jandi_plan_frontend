@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { boardWriteScheme } from "../constants";
 import FormEditor from "../FormEditor";
+import FormHashTag from "../FormHashtag";
+import styles from "./BoardWrite.module.css";
 
 const BoardWrite = () => {
   const { addCommunity } = useCommunity();
@@ -22,24 +24,32 @@ const BoardWrite = () => {
 
   return (
     <BaseLayout>
-      <FormEditor
-        formController={formController}
-        onSubmit={addCommunity}
-        setQuill={setQuill}
-        tempPostId={tempId}
-        category="Community"
-      >
-        <Button
-          type="submit"
-          variant="solid"
-          size="md"
-          style={{
-            marginLeft: "auto",
-          }}
+      <div className={styles.container}>
+        <FormHashTag
+          callback={(selectedTag) =>
+            formController.setValue("hashtag", selectedTag)
+          }
+        />
+
+        <FormEditor
+          formController={formController}
+          onSubmit={addCommunity}
+          setQuill={setQuill}
+          tempPostId={tempId}
+          category="Community"
         >
-          포스팅 완료
-        </Button>
-      </FormEditor>
+          <Button
+            type="submit"
+            variant="ghost"
+            size="md"
+            style={{
+              marginLeft: "auto",
+            }}
+          >
+            포스팅 완료
+          </Button>
+        </FormEditor>
+      </div>
     </BaseLayout>
   );
 };

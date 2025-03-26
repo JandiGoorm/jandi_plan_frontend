@@ -18,6 +18,7 @@ const ConfirmModal = ({ confirmMessage, buttnMessage, callback }) => {
             await callback();
             closeModal();
           }}
+          isInModal
         >
           {buttnMessage}
         </Button>
@@ -28,6 +29,7 @@ const ConfirmModal = ({ confirmMessage, buttnMessage, callback }) => {
             flex: 1,
           }}
           onClick={() => closeModal()}
+          isInModal
         >
           돌아가기
         </Button>

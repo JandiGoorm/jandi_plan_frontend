@@ -27,7 +27,7 @@ const Modal = ({ children }) => {
   );
 };
 
-const ModalTrigger = ({ children }) => {
+const ModalTrigger = ({ children, onOpen }) => {
   const { openModal } = useModal();
 
   return cloneElement(children, {
@@ -36,6 +36,10 @@ const ModalTrigger = ({ children }) => {
         children.props.onClick(event);
       }
       openModal();
+
+      if (onOpen) {
+        onOpen();
+      }
     },
   });
 };

@@ -6,6 +6,11 @@
   transition: all 0.2s;
 }
 
+.modal_btn {
+  --color-button-bg: var(--color-gray-500);
+  --color-button-text: var(--color-white);
+}
+
 /* Size variants */
 .btn_sm {
   padding: 0.25rem 0.5rem;

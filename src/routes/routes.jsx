@@ -5,6 +5,7 @@ import {
   AuthLayout,
   PlanCreate,
   PlanList,
+  MyPlanList,
   SearchLayout,
   Notice,
   Board,
@@ -79,6 +80,21 @@ export const routes = [
     path: PageEndPoints.PLAN_LIST,
     element: <PlanList />,
     requireAuth: false,
+  },
+  {
+    path: PageEndPoints.PLAN_MY_LIST,
+    element: <MyPlanList />,
+    requireAuth: true,
+  },
+  {
+    path: PageEndPoints.PLAN_LIKE_LIST,
+    element: <MyPlanList />,
+    requireAuth: true,
+  },
+  {
+    path: PageEndPoints.PLAN_DEST_LIST,
+    element: <MyPlanList />,
+    requireAuth: true,
   },
   {
     path: PageEndPoints.BOARD,

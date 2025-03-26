@@ -1,10 +1,3 @@
-import { BaseLayout } from "@/layouts";
-import { FaThumbsUp } from "react-icons/fa";
-import styles from "./BoardDetail.module.css";
-import Comment from "./Comment";
-import { APIEndPoints, PageEndPoints } from "@/constants";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import {
   Button,
   Loading,
@@ -13,21 +6,35 @@ import {
   ModalTrigger,
   ViewEditorContent,
 } from "@/components";
+import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios, useCommunity } from "@/hooks";
+import { BaseLayout } from "@/layouts";
 import { formatDistanceToNow } from "date-fns";
+import { useCallback, useEffect } from "react";
+import { FaThumbsUp } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "./BoardDetail.module.css";
+import Comment from "./Comment";
 
-import { buildPath } from "@/utils";
-import { useAuth, useToast } from "@/contexts";
-import ReportModal from "./components/ReportModal";
 import DeleteModal from "@/components/Modal/ModalContents/DeleteModal";
+import { useAuth, useToast } from "@/contexts";
+import { buildPath, handleApiCall } from "@/utils";
+import ReportModal from "./components/ReportModal";
+
+const likeActionMap = {
+  true: {
+    method: "DELETE",
+    successText: "좋아요를 취소했습니다.",
+  },
+  false: {
+    method: "POST",
+    successText: "좋아요를 눌렀습니다.",
+  },
+};
 
 const BoardDetail = () => {
-  const [likes, setLikes] = useState();
-
   const { id } = useParams();
-  const [isLiked, setIsLiked] = useState(false);
-
-  const { loading, fetchData, response } = useAxios();
+  const { fetchData, response } = useAxios();
   const { fetchData: fetchLike } = useAxios();
 
   const { user } = useAuth();
@@ -36,52 +43,38 @@ const BoardDetail = () => {
 
   const { deleteCommunity } = useCommunity();
 
-  useEffect(() => {
+  const fetchDetail = useCallback(() => {
     fetchData({
       method: "GET",
       url: buildPath(APIEndPoints.BOARD_DETAIL, { id }),
-    })
-      .then((res) => {
-        const items = res.data.items;
-
-        setLikes(items.likeCount);
-        setIsLiked(items.liked);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    });
   }, [fetchData, id]);
 
-  const handleLike = () => {
-    let method = "";
-    if (isLiked) {
-      method = "DELETE";
-    } else {
-      method = "POST";
-    }
-    fetchLike({
-      method: method,
-      url: buildPath(APIEndPoints.BOARD_LIKE, { id }),
-    })
-      .then(() => {
-        if (isLiked) {
-          setLikes(likes - 1);
-          setIsLiked((prev) => !prev);
-        } else {
-          setLikes(likes + 1);
-          setIsLiked((prev) => !prev);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        createToast({
-          type: "error",
-          text: err.data.message,
-        });
-      });
-  };
+  const handleClickLike = useCallback(
+    (isLiked) => {
+      const { method, successText } = likeActionMap[isLiked];
 
-  if (loading || !response) {
+      handleApiCall(
+        () =>
+          fetchLike({
+            method: method,
+            url: buildPath(APIEndPoints.BOARD_LIKE, { id }),
+          }),
+        successText,
+        null,
+        createToast,
+        null,
+        (res) => createToast({ text: res.data.message, type: "error" })
+      ).then(() => fetchDetail());
+    },
+    [createToast, fetchDetail, fetchLike, id]
+  );
+
+  useEffect(() => {
+    fetchDetail();
+  }, [fetchDetail]);
+
+  if (!response) {
     return <Loading />;
   }
 
@@ -90,13 +83,21 @@ const BoardDetail = () => {
   return (
     <BaseLayout>
       <div className={styles.container}>
+        <div className={styles.tags_container}>
+          {item.hashtag.map((tag) => (
+            <div className={styles.tag} key={tag.tagId}>
+              {tag}
+            </div>
+          ))}
+        </div>
+
         <p className={styles.title}>{item.title}</p>
         <div className={styles.header}>
           <div className={styles.user_info}>
             <img src={item.user.profileImageUrl} className={styles.user_img} />
             <p className={styles.user_name}>{item.user.userName}</p>
-            <p className={styles.recommend}>조회수 654818</p>
-            <p className={styles.recommend}>추천 {likes}</p>
+            <p className={styles.recommend}>조회수 {item.viewCount}</p>
+            <p className={styles.recommend}>추천 {item.likeCount}</p>
           </div>
           <div className={styles.header_right_box}>
             <p className={styles.date}>{formatDistanceToNow(item.createdAt)}</p>
@@ -150,11 +151,11 @@ const BoardDetail = () => {
             size={32}
             className={styles.thumbs}
             color={
-              isLiked ? "var(--color-amber-400)" : "var( --color-gray-300)"
+              item.liked ? "var(--color-amber-400)" : "var( --color-gray-300)"
             }
-            onClick={() => handleLike()}
+            onClick={() => handleClickLike(item.liked)}
           />
-          <p className={styles.recommend_count}>{likes}</p>
+          <p className={styles.recommend_count}>{item.likeCount}</p>
         </div>
         <div className={styles.divider} />
 

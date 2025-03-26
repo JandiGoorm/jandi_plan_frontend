@@ -25,6 +25,12 @@
   gap: 0.5rem;
 }
 
+.title_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);

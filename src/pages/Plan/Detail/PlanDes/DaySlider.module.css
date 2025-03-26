@@ -1,0 +1,78 @@
+.embla {
+  width: 100%;
+  position: relative;
+
+  --color-bg: var(--color-zinc-400);
+  --color-focus-bg: var(--color-zinc-600);
+  --color-text: var(--color-white);
+
+  --slide-width: 10rem;
+}
+
+.embla_viewport {
+  overflow: hidden;
+}
+
+.embla_container {
+  display: flex;
+  gap: 0.5rem;
+  touch-action: pan-y pinch-zoom;
+
+  color: var(--color-text);
+}
+
+.embla_slide,
+.focus_embla_slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  min-width: var(--slide-width);
+
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+
+  transition: background-color 0.2s;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.embla_slide {
+  background-color: var(--color-bg);
+}
+
+.focus_embla_slide {
+  background-color: var(--color-focus-bg);
+}
+
+.prev_btn,
+.next_btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  height: 2rem;
+  width: 2rem;
+  z-index: 10;
+
+  border-radius: var(--radius-full);
+  justify-content: center;
+  background-color: white;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev_btn {
+  left: -12px;
+}
+
+.next_btn {
+  right: -12px;
+}

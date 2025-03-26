@@ -60,6 +60,7 @@ const BoardPage = () => {
         <div className={styles.header}>
           <div className={styles.header_title}>
             <p>잡담부터 정보까지 !</p>
+
             <Button
               variant="solid"
               onClick={() => navigate(PageEndPoints.BOARD_WRITE)}
@@ -86,6 +87,7 @@ const BoardPage = () => {
                 <option value="TITLE">제목</option>
                 <option value="CONTENT">내용</option>
               </select>
+
               <Input
                 size="md"
                 style={{
@@ -110,21 +112,11 @@ const BoardPage = () => {
           </div>
         </div>
 
-        <div className={styles.content}>
-          <div className={styles.content_header}>
-            <div className={styles.index}>번호</div>
-            <div className={styles.title}>제목</div>
-            <div className={styles.writer}>작성자</div>
-            <div className={styles.date}>작성일</div>
-            <div className={styles.recommend}>추천</div>
-          </div>
-
-          <ul className={styles.content_list}>
-            {communities?.items.map((item) => {
-              return <BoardItem item={item} key={item.postId} />;
-            })}
-          </ul>
-        </div>
+        <ul className={styles.content_list}>
+          {communities?.items.map((item) => {
+            return <BoardItem item={item} key={item.postId} />;
+          })}
+        </ul>
 
         <div className={styles.pagination}>
           <Pagination

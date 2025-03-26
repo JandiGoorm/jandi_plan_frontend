@@ -9,6 +9,7 @@ const Input = forwardRef(
       type = "text",
       register,
       name = "",
+      isDarkMode = false,
       ...props
     },
     ref
@@ -18,7 +19,9 @@ const Input = forwardRef(
     return (
       <input
         ref={ref}
-        className={`${sizeClass} ${styles.input}`}
+        className={`${sizeClass} ${styles.input} ${
+          isDarkMode ? styles.dark : ""
+        }`}
         placeholder={placeholder}
         type={type}
         {...(register ? register(name) : {})}

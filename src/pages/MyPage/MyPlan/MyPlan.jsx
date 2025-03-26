@@ -1,44 +1,40 @@
-import { Slider,PlanCard, Button } from "@/components";
-import { APIEndPoints,PageEndPoints } from "@/constants";
-import { useAxios, usePagination } from "@/hooks";
-import { useEffect,useState } from "react";
-import styles from "./MyPlan.module.css";
+import { Button, PlanCard, Slider } from "@/components";
+import { useAxios } from "@/hooks";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./MyPlan.module.css";
 
-const MyPlan = ({ title, fetchUrl}) => {
+const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
   const { fetchData, response } = useAxios();
-  const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    fetchData({
+  const fetchPlans = useCallback(async () => {
+    await fetchData({
       method: "GET",
       url: fetchUrl,
       params: { page: 0 },
-    }).then((res) => {
-      console.log(res.data);
-      setItems(res.data.items);
     });
-  }, [fetchData]);
+  }, [fetchData, fetchUrl]);
+
+  useEffect(() => {
+    fetchPlans();
+  }, [fetchPlans, title, fetchUrl, goUrl, refreshTrigger]);
 
   const handleMoreClick = () => {
-    navigate(PageEndPoints.PLAN_LIST, {state: {fetchUrl}});
+    navigate(goUrl);
   };
 
   return (
     <div className={styles.myplan_box}>
       <div className={styles.title_box}>
         <p className={styles.title}>{title}</p>
-        <Button variant="none" onClick={handleMoreClick}>더보기</Button>
+        <Button variant="none" onClick={handleMoreClick}>
+          더보기
+        </Button>
       </div>
 
-      <Slider items={items} size="md">
-        {(item) => (
-          <>
-            <PlanCard key={item.tripId} item={item} />
-          </>
-        )}
+      <Slider items={response?.items ?? []} size="md">
+        {(item) => <PlanCard key={item.tripId} item={item} />}
       </Slider>
     </div>
   );
