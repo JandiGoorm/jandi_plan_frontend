@@ -19,10 +19,20 @@ const PlanDetailProvider = ({ children }) => {
   const { itineraries, addItinerary, updateItinerary, deleteItinerary } =
     usePlanItinerary(id);
 
-  const { tripDetail, updatePlan, deletePlan, planImg, updatePlanImg } =
-    usePlan(id);
+  const {
+    tripDetail,
+    updatePlan,
+    deletePlan,
+    planImg,
+    updatePlanImg,
+    fetchTripDetail,
+  } = usePlan(id);
 
   const { friends, addFriends, deleteFriends } = useFriends(id);
+
+  useEffect(() => {
+    fetchTripDetail();
+  }, [fetchTripDetail]);
 
   // 일정 정보를 날짜별로 정리하는 코드
   useEffect(() => {

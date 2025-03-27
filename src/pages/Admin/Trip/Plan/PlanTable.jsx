@@ -1,7 +1,23 @@
 import { Button } from "@/components";
 import styles from "./PlanTable.module.css";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "@/utils";
+import { PageEndPoints } from "@/constants";
+import { useCallback } from "react";
+import { usePlan } from "@/hooks";
 
-const PlanTable = ({ plans }) => {
+const PlanTable = ({ plans, refetchPlans }) => {
+  const navigate = useNavigate();
+  const { deletePlan } = usePlan();
+
+  const handleViewCilck = useCallback(
+    (id) => {
+      const url = buildPath(PageEndPoints.PLAN_DETAIL, { id });
+      navigate(url);
+    },
+    [navigate]
+  );
+
   return (
     <div className={styles.table_wrapper}>
       <table className={styles.table}>
@@ -27,10 +43,18 @@ const PlanTable = ({ plans }) => {
                 <td>{trip.privatePlan ? "비공개" : "공개"}</td>
                 <td>
                   <div className={styles.actions}>
-                    <Button size="sm" variant="ghost">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleViewCilck(trip.tripId)}
+                    >
                       View
                     </Button>
-                    <Button size="sm" variant="ghost">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => deletePlan(refetchPlans, trip.tripId)}
+                    >
                       Delete
                     </Button>
                   </div>
