@@ -121,7 +121,7 @@ const PlanInfo = () => {
           <BsPersonArmsUp size={20} />
           <Tooltip
             text={`${tripDetail.user.userName}${
-              friends.length > 0
+              friends && friends.length > 0
                 ? `, ${friends.map((f) => f.participantUserName).join(", ")}`
                 : ""
             }`}
