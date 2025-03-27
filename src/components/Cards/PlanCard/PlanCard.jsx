@@ -1,43 +1,15 @@
-import { buildPath } from "@/utils";
-import styles from "./PlanCard.module.css";
+import { useDarkModeContext } from "@/contexts";
 import { FaUserCircle } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
-import { TiHeartFullOutline } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
-import { PageEndPoints } from "@/constants";
 import { RiLock2Fill } from "react-icons/ri";
-import { useState } from "react";
-import { useDarkModeContext } from "@/contexts";
+import { TiHeartFullOutline } from "react-icons/ti";
+import styles from "./PlanCard.module.css";
 
 const PlanCard = ({ item }) => {
-  const navigate = useNavigate();
-  const path = buildPath(PageEndPoints.PLAN_DETAIL, { id: item.tripId });
-
   const { isDarkMode } = useDarkModeContext();
 
-  const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
-
-  const handleMouseDown = (e) => {
-    setStartX(e.clientX);
-    setStartY(e.clientY);
-  };
-
-  const handleMouseUp = (e) => {
-    const deltaX = Math.abs(e.clientX - startX);
-    const deltaY = Math.abs(e.clientY - startY);
-    // 클릭으로 인정할 최소 이동 거리 (예: 5px 이하)
-    if (deltaX < 5 && deltaY < 5) {
-      navigate(path);
-    }
-  };
-
   return (
-    <div
-      className={styles.container}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-    >
+    <div className={styles.container}>
       <div
         className={styles.img_container}
         style={{
@@ -77,7 +49,9 @@ const PlanCard = ({ item }) => {
 
         <div className={styles.plan_container}>
           <div className={`${styles.plan_title} ${isDarkMode && styles.dark}`}>
-            <p className={styles.title}>{item.title.trim() ? item.title : "비공개 여행"}</p>
+            <p className={styles.title}>
+              {item.title.trim() ? item.title : "비공개 여행"}
+            </p>
             {item.description && (
               <p className={styles.description}>{item.description}</p>
             )}

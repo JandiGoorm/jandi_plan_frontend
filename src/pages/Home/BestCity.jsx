@@ -1,22 +1,23 @@
 import { CityCard, Loading, Slider } from "@/components";
 import { APIEndPoints, PageEndPoints } from "@/constants";
-import { useAxios } from "@/hooks";
-import { buildPath } from "@/utils";
+import { useAxios, usePreventDragClick } from "@/hooks";
 import { useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./BestCity.module.css";
+import { buildPath } from "@/utils";
+import { useNavigate } from "react-router-dom";
 
 const BestCity = () => {
-  const { response, fetchData, loading } = useAxios();
   const navigate = useNavigate();
+  const { response, fetchData, loading } = useAxios();
 
-  const handleNavigate = useCallback(
-    (id) => {
-      const url = buildPath(PageEndPoints.DESTINATION_DETAIL, {
-        id,
+  const { handleMouseDown, handleMouseUp } = usePreventDragClick();
+
+  const callback = useCallback(
+    (item) => {
+      const path = buildPath(PageEndPoints.DESTINATION_DETAIL, {
+        id: item.name,
       });
-
-      navigate(url);
+      navigate(path);
     },
     [navigate]
   );
@@ -36,9 +37,12 @@ const BestCity = () => {
         {(item) => {
           return (
             <div
-              key={item.cityId}
-              onClick={() => handleNavigate(item.name)}
-              style={{ position: "relative", height: "100%" }}
+              onMouseDown={handleMouseDown}
+              onMouseUp={(e) => handleMouseUp(e, () => callback(item))}
+              style={{
+                position: "relative",
+                height: "100%",
+              }}
             >
               <CityCard item={item} />
             </div>
