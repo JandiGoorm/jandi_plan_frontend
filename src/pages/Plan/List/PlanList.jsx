@@ -19,7 +19,7 @@ const PlanList = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
-  const { plans, fetchPlans, getLoading } = usePlans();
+  const { plans, fetchPlans, getLoadings } = usePlans();
 
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const PlanList = () => {
     );
   }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
 
-  if (getLoading) return <Loading />;
+  if (getLoadings) return <Loading />;
   return (
     <BaseLayout>
       <div className={styles.container}>

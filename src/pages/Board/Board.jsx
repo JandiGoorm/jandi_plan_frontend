@@ -53,9 +53,9 @@ const BoardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 
+  if (communitiesLoading) return <Loading />;
   return (
     <BaseLayout>
-      {communitiesLoading && <Loading />}
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.header_title}>
