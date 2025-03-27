@@ -16,21 +16,18 @@ const Notice = () => {
     });
   }, [fetchData]);
 
+  if (loading) return <Loading />;
   return (
     <BaseLayout>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className={styles.container}>
-          <p className={styles.title}>공지사항</p>
+      <div className={styles.container}>
+        <p className={styles.title}>공지사항</p>
 
-          <div className={styles.content_container}>
-            {response?.items.map((item) => {
-              return <NoticeItem key={item.noticeId} item={item} />;
-            })}
-          </div>
+        <div className={styles.content_container}>
+          {response?.items.map((item) => {
+            return <NoticeItem key={item.noticeId} item={item} />;
+          })}
         </div>
-      )}
+      </div>
     </BaseLayout>
   );
 };
