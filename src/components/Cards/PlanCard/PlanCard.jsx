@@ -4,6 +4,7 @@ import { MdDateRange } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { TiHeartFullOutline } from "react-icons/ti";
 import styles from "./PlanCard.module.css";
+import { ImageWithPlaceholder } from "@/components";
 
 const PlanCard = ({ item }) => {
   const { isDarkMode } = useDarkModeContext();
@@ -19,10 +20,15 @@ const PlanCard = ({ item }) => {
       <div className={styles.content_container}>
         <div className={styles.content_header}>
           <div className={styles.header_title}>
-            <img
-              src={item.user.profileImageUrl || "/defaultProfileImage.png"}
-              className={styles.user_img}
-            />
+            <div className={styles.img_container}>
+              <ImageWithPlaceholder
+                src={item.tripImageUrl || item.cityImageUrl}
+                alt="여행지 이미지"
+                className={styles.bg_img}
+              />
+              <div className={styles.overlay} />
+            </div>
+
             <div className={styles.user_info}>
               <div className={styles.user_name}>
                 <FaUserCircle size={20} />

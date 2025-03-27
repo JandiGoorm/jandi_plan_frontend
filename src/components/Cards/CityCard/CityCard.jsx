@@ -1,16 +1,16 @@
 import { useDarkModeContext } from "@/contexts";
 import styles from "./CityCard.module.css";
+import { ImageWithPlaceholder } from "@/components";
 
 const CityCard = ({ item, isInModal = false }) => {
   const { isDarkMode } = useDarkModeContext();
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.img_container}
-        style={{
-          backgroundImage: `url(${item.imageUrl})`,
-        }}
+      <ImageWithPlaceholder
+        src={item.imageUrl ?? "/none-image.png"}
+        alt="도시 이미지"
+        className={styles.bg_img}
       />
 
       <div className={styles.plan_container}>
