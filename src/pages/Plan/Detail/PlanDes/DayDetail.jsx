@@ -75,14 +75,16 @@ const DayDetail = ({ focus, hasPermission }) => {
           <div className={styles.empty}>
             <p>일정이 없습니다 !</p>
 
-            <Modal>
-              <ModalTrigger>
-                <Button variant="outline">해당 날짜의 일정추가 하기</Button>
-              </ModalTrigger>
-              <ModalContent>
-                <CreateSchedule focusDay={focus} />
-              </ModalContent>
-            </Modal>
+            {hasPermission && (
+              <Modal>
+                <ModalTrigger>
+                  <Button variant="outline">해당 날짜의 일정추가 하기</Button>
+                </ModalTrigger>
+                <ModalContent>
+                  <CreateSchedule focusDay={focus} />
+                </ModalContent>
+              </Modal>
+            )}
           </div>
         )}
       </div>
