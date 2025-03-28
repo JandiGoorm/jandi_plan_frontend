@@ -129,7 +129,7 @@ const FormCreatePlan = ({
             <div className={styles.radio_box}>
               <Input
                 type="radio"
-                name="private"
+                name="privatePlan"
                 value="yes"
                 register={register}
               />
@@ -138,30 +138,6 @@ const FormCreatePlan = ({
           </div>
         </Field>
       </div>
-
-      {/* <div className={styles.plan_columns}>
-        <Field label="친구 추가">
-          <div className={styles.place}>
-            <Input
-              type="text"
-              style={{ flex: 1 }}
-              size="sm"
-              value={withUser || ""}
-              readOnly
-            />
-            <Modal>
-              <ModalTrigger>
-                <Button size="md" type="button">
-                  추가
-                </Button>
-              </ModalTrigger>
-              <ModalContent>
-                <AddUser onConfirm={handleConfirmUsers} />
-              </ModalContent>
-            </Modal>
-          </div>
-        </Field>
-      </div> */}
 
       <div className={styles.button_container}>
         <Button size="lg" variant="ghost" type="submit">
