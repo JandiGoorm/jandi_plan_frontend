@@ -99,7 +99,7 @@ const Sliders = ({ items, children, size = "sm", onLastSlide }) => {
     <div className={styles.container}>
       {showPrev && (
         <Button className={styles.prev_btn} variant="none" onClick={handlePrev}>
-          <MdNavigateBefore size={24} />
+          <MdNavigateBefore className={styles.arrow_icon} />
         </Button>
       )}
       <div
@@ -133,7 +133,7 @@ const Sliders = ({ items, children, size = "sm", onLastSlide }) => {
 
       {showNext && (
         <Button className={styles.next_btn} onClick={handleNext}>
-          <MdNavigateNext size={24} />
+          <MdNavigateNext className={styles.arrow_icon} />
         </Button>
       )}
     </div>

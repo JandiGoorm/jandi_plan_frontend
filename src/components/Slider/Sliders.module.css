@@ -19,10 +19,22 @@
 
 .prev_btn {
   left: 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .next_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   right: 0px;
+}
+
+.arrow_icon {
+  font-size: var(--text-3xl);
 }
 
 .sm_container {
