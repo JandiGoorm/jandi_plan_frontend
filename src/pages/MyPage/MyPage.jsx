@@ -84,12 +84,7 @@ const MyPage = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() =>
-                navigate(PageEndPoints.PREF_CONT, {
-                  replace: true,
-                  state: { mode: "edit" },
-                })
-              }
+              onClick={() => navigate(PageEndPoints.PREF_CONT)}
             >
               관심 여행지 재설정하기
             </Button>
