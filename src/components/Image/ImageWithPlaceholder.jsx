@@ -22,7 +22,7 @@ const ImageWithPlaceholder = ({
         style={{ display: loaded ? "block" : "none" }}
         src={src}
         alt={alt}
-        className={className}
+        className={`${styles.image} ${className}`}
         onLoad={() => setLoaded(true)}
       />
     </div>
