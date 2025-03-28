@@ -1,7 +1,7 @@
 import styles from "./PrefDestination.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Button } from "@/components";
+import { Button, ImageWithPlaceholder, Loading } from "@/components";
 import { PageEndPoints, APIEndPoints } from "@/constants";
 import { FaCheck } from "react-icons/fa";
 import { BiSolidPlaneAlt } from "react-icons/bi";
@@ -17,7 +17,11 @@ const PrefDestination = () => {
   const navigate = useNavigate();
 
   const { fetchData } = useAxios();
-  const { fetchData: fetchDestinations, response: destinations } = useAxios();
+  const {
+    fetchData: fetchDestinations,
+    response: destinations,
+    loading,
+  } = useAxios();
   const { createToast } = useToast();
 
   const [selectedContinents] = useState(state?.selectedContinents || []);
@@ -111,6 +115,7 @@ const PrefDestination = () => {
     });
   }, [fetchDestinations, selectedContinents]);
 
+  if (loading) return <Loading />;
   return (
     <div className={styles.container}>
       <p className={styles.title}>
@@ -135,7 +140,7 @@ const PrefDestination = () => {
                     onClick={() => handleSelectDestination(destination.name)}
                   >
                     <div className={styles.dest_trans}>
-                      <img
+                      <ImageWithPlaceholder
                         src={destination.imageUrl}
                         alt={destination.name}
                         className={`${styles.dest_img} ${
