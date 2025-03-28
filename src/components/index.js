@@ -19,6 +19,8 @@ export { default as PlanCard } from "./Cards/PlanCard/PlanCard.jsx";
 export { default as PlanChart } from "./Chart/PlanChart/PlanChart.jsx";
 export { default as UserChart } from "./Chart/UserChart/UserChart.jsx";
 
+export { default as EmptyItem } from "./Empty/EmptyItem.jsx";
+
 export { default as ImageWithPlaceholder } from "./Image/ImageWithPlaceholder.jsx";
 
 export * from "./Drawer/Drawer.jsx";

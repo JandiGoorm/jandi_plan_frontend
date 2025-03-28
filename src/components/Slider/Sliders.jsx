@@ -1,5 +1,5 @@
 import styles from "./Sliders.module.css";
-import { Button } from "@/components";
+import { Button, EmptyItem } from "@/components";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -108,14 +108,7 @@ const Sliders = ({ items, children, size = "sm", onLastSlide }) => {
         }`}
       >
         {items.length === 0 ? (
-          <div className={styles.no_item_box}>
-            <img
-              src="/no-items.png"
-              alt="no items"
-              className={styles.img_none}
-            />
-            <p>No items available...</p>
-          </div>
+          <EmptyItem />
         ) : (
           <Slider ref={sliderRef} {...settings}>
             {[...items, ...Array(Math.max(0, 3 - items.length)).fill(null)].map(
