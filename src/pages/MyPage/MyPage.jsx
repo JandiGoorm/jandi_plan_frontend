@@ -3,6 +3,7 @@ import styles from "./MyPage.module.css";
 import {
   Button,
   CityCard,
+  Loading,
   Modal,
   ModalContent,
   ModalTrigger,
@@ -21,7 +22,7 @@ const MyPage = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(false);
 
   const { user } = useAuth();
-  const { fetchData, response } = useAxios();
+  const { fetchData, response, loading } = useAxios();
   const [nickname, setNickname] = useState(user.username);
 
   const navigate = useNavigate();
@@ -60,7 +61,12 @@ const MyPage = () => {
               </Button>
             </ModalTrigger>
             <ModalContent>
-              <MyInfo user={user} onProfileChange={handleRefreshPlans} setNickname={setNickname} nickname={nickname}/>
+              <MyInfo
+                user={user}
+                onProfileChange={handleRefreshPlans}
+                setNickname={setNickname}
+                nickname={nickname}
+              />
             </ModalContent>
           </Modal>
         </div>
@@ -89,16 +95,25 @@ const MyPage = () => {
             </Button>
           </div>
 
-          <Slider items={response ?? []} size="sm">
-            {(item) => (
-              <div
-                className={styles.item_wrapper}
-                onClick={() => handleCityCardClick(item.name)}
-              >
-                <CityCard item={item} />
-              </div>
-            )}
-          </Slider>
+          {loading ? (
+            <Loading
+              isSection
+              style={{
+                minHeight: "18rem",
+              }}
+            />
+          ) : (
+            <Slider items={response ?? []} size="sm">
+              {(item) => (
+                <div
+                  className={styles.item_wrapper}
+                  onClick={() => handleCityCardClick(item.name)}
+                >
+                  <CityCard item={item} />
+                </div>
+              )}
+            </Slider>
+          )}
         </div>
 
         <MyPlan
