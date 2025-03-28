@@ -12,6 +12,7 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
 
   box-sizing: border-box;
   padding-bottom: 0.5rem;
@@ -28,6 +29,8 @@
   color: var(--color-tag-text);
   background-color: var(--color-tag-bg);
   border-radius: var(--radius-2xl);
+
+  white-space: nowrap;
 }
 
 .title {
@@ -39,6 +42,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 
   font-size: var(--text-sm);
   color: var(--color-gray-400);

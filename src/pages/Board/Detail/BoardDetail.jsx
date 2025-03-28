@@ -99,6 +99,7 @@ const BoardDetail = () => {
             <p className={styles.recommend}>조회수 {item.viewCount}</p>
             <p className={styles.recommend}>추천 {item.likeCount}</p>
           </div>
+
           <div className={styles.header_right_box}>
             <p className={styles.date}>{formatDistanceToNow(item.createdAt)}</p>
             {item.user.userId == user.userId ? (
