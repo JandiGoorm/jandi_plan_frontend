@@ -31,8 +31,8 @@ const DayDetail = ({ focus, hasPermission }) => {
   const isContent = contentData.length > 0;
 
   const openGoogleMap = (busIndex) => {
-    const address1 = contentData[busIndex].place.address;
-    const address2 = contentData[busIndex + 1].place.address;
+    const address1 = contentData[busIndex].place.name;
+    const address2 = contentData[busIndex + 1].place.name;
     const url = `https://www.google.com/maps/dir/${address1}/${address2}?hl=ko`;
 
     window.open(url);
@@ -75,14 +75,16 @@ const DayDetail = ({ focus, hasPermission }) => {
           <div className={styles.empty}>
             <p>일정이 없습니다 !</p>
 
-            <Modal>
-              <ModalTrigger>
-                <Button variant="outline">해당 날짜의 일정추가 하기</Button>
-              </ModalTrigger>
-              <ModalContent>
-                <CreateSchedule focusDay={focus} />
-              </ModalContent>
-            </Modal>
+            {hasPermission && (
+              <Modal>
+                <ModalTrigger>
+                  <Button variant="outline">해당 날짜의 일정추가 하기</Button>
+                </ModalTrigger>
+                <ModalContent>
+                  <CreateSchedule focusDay={focus} />
+                </ModalContent>
+              </Modal>
+            )}
           </div>
         )}
       </div>

@@ -1,11 +1,11 @@
-import { Button, PlanCard, Slider } from "@/components";
+import { Button, Loading, PlanCard, Slider } from "@/components";
 import { useAxios } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MyPlan.module.css";
 
 const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
-  const { fetchData, response } = useAxios();
+  const { fetchData, response, loading } = useAxios();
   const navigate = useNavigate();
 
   const fetchPlans = useCallback(async () => {
@@ -33,9 +33,18 @@ const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
         </Button>
       </div>
 
-      <Slider items={response?.items ?? []} size="md">
-        {(item) => <PlanCard key={item.tripId} item={item} />}
-      </Slider>
+      {loading ? (
+        <Loading
+          isSection
+          style={{
+            minHeight: "24rem",
+          }}
+        />
+      ) : (
+        <Slider items={response?.items ?? []} size="md">
+          {(item) => <PlanCard key={item.tripId} item={item} />}
+        </Slider>
+      )}
     </div>
   );
 };

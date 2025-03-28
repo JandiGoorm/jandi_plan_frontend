@@ -1,4 +1,4 @@
-import { Button, Input, Loading, Pagination } from "@/components";
+import { Button, EmptyItem, Input, Loading, Pagination } from "@/components";
 import { PageEndPoints } from "@/constants";
 import { useCommunity } from "@/hooks";
 import { usePagination } from "@/hooks";
@@ -28,12 +28,23 @@ const BoardPage = () => {
     handleSubmit,
     formState: { errors },
     clearErrors,
+    setError,
+    reset,
   } = useForm({
     resolver: zodResolver(searchBoardScheme),
   });
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
+
+    if (category === "HASHTAG" && !searchKeyword.startsWith("#")) {
+      setError("keyword", {
+        type: "manual",
+        message: "해시태그는 #으로 시작해야 합니다.",
+      });
+      return;
+    }
+
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("page", "1");
     newSearchParams.set("keyword", searchKeyword);
@@ -53,9 +64,14 @@ const BoardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
 
+  useEffect(() => {
+    reset({ keyword });
+  }, [keyword, reset]);
+
+  if (communitiesLoading || !communities) return <Loading />;
+
   return (
     <BaseLayout>
-      {communitiesLoading && <Loading />}
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.header_title}>
@@ -82,10 +98,12 @@ const BoardPage = () => {
                   newSearchParams.set("category", e.target.value);
                   setSearchParams(newSearchParams);
                 }}
+                defaultValue={category}
               >
-                <option value="BOTH">전체</option>
+                <option value="BOTH">제목 + 내용</option>
                 <option value="TITLE">제목</option>
                 <option value="CONTENT">내용</option>
+                <option value="HASHTAG">해시태그</option>
               </select>
 
               <Input
@@ -112,19 +130,24 @@ const BoardPage = () => {
           </div>
         </div>
 
-        <ul className={styles.content_list}>
-          {communities?.items.map((item) => {
-            return <BoardItem item={item} key={item.postId} />;
-          })}
-        </ul>
-
-        <div className={styles.pagination}>
-          <Pagination
-            callback={handlePageChange}
-            currentPage={currentPage}
-            totalPage={totalPage}
-          />
-        </div>
+        {communities.items.length > 0 ? (
+          <>
+            <ul className={styles.content_list}>
+              {communities?.items.map((item) => {
+                return <BoardItem item={item} key={item.postId} />;
+              })}
+            </ul>
+            <div className={styles.pagination}>
+              <Pagination
+                callback={handlePageChange}
+                currentPage={currentPage}
+                totalPage={totalPage}
+              />
+            </div>
+          </>
+        ) : (
+          <EmptyItem parentClassName={styles.empty} />
+        )}
       </div>
     </BaseLayout>
   );

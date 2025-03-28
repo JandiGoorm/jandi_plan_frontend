@@ -3,12 +3,13 @@ import { PageEndPoints } from "@/constants";
 import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect,useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FiSearch } from "react-icons/fi";
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { searchPlansScheme } from "../constants";
 import styles from "./PlanList.module.css";
+import { buildPath } from "@/utils";
 
 const PlanList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +19,7 @@ const PlanList = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
-  const { plans, fetchPlans, getLoading } = usePlans();
+  const { plans, fetchPlans, getLoadings } = usePlans();
 
   const navigate = useNavigate();
 
@@ -30,6 +31,14 @@ const PlanList = () => {
   } = useForm({
     resolver: zodResolver(searchPlansScheme),
   });
+
+  const handleNavigate = useCallback(
+    (id) => {
+      const path = buildPath(PageEndPoints.PLAN_DETAIL, { id });
+      navigate(path);
+    },
+    [navigate]
+  );
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
@@ -45,10 +54,9 @@ const PlanList = () => {
     fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
       setTotalPage(res.data.pageInfo.totalPages || 0)
     );
-    
   }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
 
-  if (getLoading) return <Loading />;
+  if (getLoadings) return <Loading />;
   return (
     <BaseLayout>
       <div className={styles.container}>
@@ -107,7 +115,9 @@ const PlanList = () => {
 
         <div className={styles.plan_container}>
           {plans?.items.map((item) => (
-            <PlanCard key={item.tripId} item={item} />
+            <div key={item.tripId} onClick={() => handleNavigate(item.tripId)}>
+              <PlanCard item={item} />
+            </div>
           ))}
         </div>
 

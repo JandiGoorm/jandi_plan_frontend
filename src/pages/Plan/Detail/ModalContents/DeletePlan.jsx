@@ -2,10 +2,18 @@ import { Button } from "@/components";
 import { useModal } from "@/components/Modal/ModalContext";
 import styles from "./DeletePlan.module.css";
 import { usePlanDetail } from "../PlanDetailContext";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { PageEndPoints } from "@/constants";
 
 const DeletePlan = () => {
   const { closeModal } = useModal();
   const { deletePlan } = usePlanDetail();
+  const navigate = useNavigate();
+
+  const deleteSuccessCallback = useCallback(() => {
+    navigate(PageEndPoints.PLAN_LIST);
+  }, [navigate]);
 
   return (
     <div className={styles.container}>
@@ -16,7 +24,7 @@ const DeletePlan = () => {
           style={{
             flex: 1,
           }}
-          onClick={() => deletePlan()}
+          onClick={() => deletePlan(deleteSuccessCallback)}
           isInModal
         >
           삭제하기

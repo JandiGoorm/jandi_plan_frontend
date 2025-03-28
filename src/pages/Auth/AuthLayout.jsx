@@ -6,6 +6,7 @@ import LoginPage from "./Login/Login";
 import FindPWPage from "./Find/Find";
 import SocialPage from "./Social/Social";
 import { APIEndPoints, PageEndPoints } from "@/constants";
+import { ImageWithPlaceholder } from "@/components";
 
 const AuthLayout = () => {
   const location = useLocation();
@@ -15,8 +16,18 @@ const AuthLayout = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.left_box}>
-          <p className={styles.title}>JUST PLAN IT !</p>
-          <p className={styles.title_des}>여행 계획을 만들고, 공유 해보세요</p>
+          <ImageWithPlaceholder
+            src="/plan_img.jpg"
+            alt="plan background"
+            className={styles.bg_img}
+          />
+
+          <div className={styles.text_wrapper}>
+            <p className={styles.title}>JUST PLAN IT !</p>
+            <p className={styles.title_des}>
+              여행 계획을 만들고, 공유 해보세요
+            </p>
+          </div>
         </div>
 
         <AnimatePresence mode="wait">
@@ -32,9 +43,18 @@ const AuthLayout = () => {
               <Route path="login" element={<LoginPage />} />
               <Route path="join" element={<JoingPage />} />
               <Route path="findPW" element={<FindPWPage />} />
-              <Route path="kakaoLogin" element={<SocialPage fetchUrl={APIEndPoints.KAKAO_LOGIN}/>} />
-              <Route path="naverLogin" element={<SocialPage fetchUrl={APIEndPoints.NAVER_LOGIN}/>} />
-              <Route path="googleLogin" element={<SocialPage fetchUrl={APIEndPoints.GOOGLE_LOGIN}/>} />
+              <Route
+                path="kakaoLogin"
+                element={<SocialPage fetchUrl={APIEndPoints.KAKAO_LOGIN} />}
+              />
+              <Route
+                path="naverLogin"
+                element={<SocialPage fetchUrl={APIEndPoints.NAVER_LOGIN} />}
+              />
+              <Route
+                path="googleLogin"
+                element={<SocialPage fetchUrl={APIEndPoints.GOOGLE_LOGIN} />}
+              />
             </Routes>
           </motion.div>
         </AnimatePresence>

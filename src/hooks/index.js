@@ -13,3 +13,4 @@ export { default as useBanner } from "./useBanner";
 export { default as useUser } from "./useUser";
 export { default as useFriends } from "./useFriends";
 export { default as useCarouselHandler } from "./useCarouselHandler";
+export { default as usePreventDragClick } from "./usePreventDragClick";

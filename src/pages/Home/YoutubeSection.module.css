@@ -168,6 +168,8 @@
   font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-4xl);
   color: var(--color-white);
+
+  white-space: nowrap;
 }
 
 .plan_nav_btn_dark {

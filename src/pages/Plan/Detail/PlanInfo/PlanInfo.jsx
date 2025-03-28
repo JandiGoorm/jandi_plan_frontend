@@ -29,11 +29,6 @@ const PlanInfo = () => {
   const { createToast } = useToast();
   const { fetchData: postApi } = useAxios();
 
-  useEffect(() => {
-    setLiked(tripDetail?.liked);
-    setWithUser(friends?.length + 1);
-  }, [friends?.length, tripDetail?.liked]);
-
   const likedTrip = (setMethod, id) => {
     postApi({
       method: setMethod,
@@ -53,6 +48,11 @@ const PlanInfo = () => {
         });
       });
   };
+
+  useEffect(() => {
+    setLiked(tripDetail?.liked);
+    setWithUser(friends?.length + 1);
+  }, [friends?.length, tripDetail?.liked]);
 
   if (!tripDetail) return null;
   const isMine = tripDetail.user.userId === user?.userId;
@@ -121,7 +121,7 @@ const PlanInfo = () => {
           <BsPersonArmsUp size={20} />
           <Tooltip
             text={`${tripDetail.user.userName}${
-              friends.length > 0
+              friends && friends.length > 0
                 ? `, ${friends.map((f) => f.participantUserName).join(", ")}`
                 : ""
             }`}

@@ -26,15 +26,15 @@ const NoticeItem = ({ item }) => {
           <div className={styles.header_right}>
             <p className={styles.created_at}>{formmatDate}</p>
             {isOpen ? (
-              <IoMdArrowDropup size={24} />
+              <IoMdArrowDropup size={24} className={styles.arrow_icon} />
             ) : (
-              <IoMdArrowDropdown size={24} />
+              <IoMdArrowDropdown size={24} className={styles.arrow_icon} />
             )}
           </div>
         </div>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
           <motion.div
             key="content"
@@ -42,15 +42,15 @@ const NoticeItem = ({ item }) => {
             animate={{ height: "fit-content", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{
-              height: { duration: 0.2 },
-              opacity: { duration: 0 },
+              duration: 0.3,
             }}
             style={{ overflow: "hidden" }}
           >
             <ViewEditorContent
               content={item.content}
               style={{
-                padding: "1rem 4rem",
+                padding: "1rem calc(2rem + 24px)",
+                overflow: "hidden",
               }}
             />
           </motion.div>
