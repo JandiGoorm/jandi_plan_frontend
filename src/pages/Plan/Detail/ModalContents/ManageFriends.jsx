@@ -41,6 +41,7 @@ const ManageFriends = ({ plan, friends, user }) => {
     [deleteFriends]
   );
 
+  console.log("erros", errors);
   if (!plan) return <p>해당 계획을 불러오기 실패했습니다.</p>;
   return (
     <div className={styles.container}>
