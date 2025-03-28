@@ -36,7 +36,6 @@ const BoardPage = () => {
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
-    const newSearchParams = new URLSearchParams(searchParams);
 
     if (category === "HASHTAG" && !searchKeyword.startsWith("#")) {
       setError("keyword", {
@@ -46,6 +45,7 @@ const BoardPage = () => {
       return;
     }
 
+    const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("page", "1");
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
