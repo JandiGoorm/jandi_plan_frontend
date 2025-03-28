@@ -18,6 +18,9 @@
 .iconLink {
   transition: transform 0.2s ease-in-out;
   color: var(--color-text-dynamic);
+
+  display: flex;
+  align-items: center;
 }
 
 .iconLink:hover {
