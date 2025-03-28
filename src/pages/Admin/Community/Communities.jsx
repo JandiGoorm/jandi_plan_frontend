@@ -15,6 +15,12 @@ const Communities = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } =
     usePagination();
 
+  const refetch = useCallback(() => {
+    fetchCommunities({ page: currentPage - 1 }).then((res) =>
+      setTotalPage(res.data.pageInfo.totalPages || 0)
+    );
+  }, [currentPage, fetchCommunities, setTotalPage]);
+
   const handleViewClick = useCallback(
     (id) => {
       const path = buildPath(PageEndPoints.BOARD_DETAIL, { id });
@@ -24,10 +30,8 @@ const Communities = () => {
   );
 
   useEffect(() => {
-    fetchCommunities({ page: currentPage - 1 }).then((res) =>
-      setTotalPage(res.data.pageInfo.totalPages || 0)
-    );
-  }, [currentPage, fetchCommunities, setTotalPage]);
+    refetch();
+  }, [refetch]);
 
   if (communitiesLoading) return <Loading />;
   return (
@@ -38,6 +42,7 @@ const Communities = () => {
         communities={communities?.items ?? []}
         handleViewClick={handleViewClick}
         deleteCommunity={deleteCommunity}
+        refetch={refetch}
       />
 
       <div className={styles.pagination}>
