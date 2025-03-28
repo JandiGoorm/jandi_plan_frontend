@@ -1,7 +1,7 @@
 import styles from "./Continent.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Loading } from "@/components";
+import { Button, ImageWithPlaceholder, Loading } from "@/components";
 import { PageEndPoints, APIEndPoints } from "@/constants";
 import { FaCheck } from "react-icons/fa";
 import { useAxios } from "@/hooks";
@@ -59,13 +59,15 @@ const Continent = () => {
               className={styles.continent}
               onClick={() => handleContinentClick(item.name)}
             >
-              <img
+              <ImageWithPlaceholder
                 src={item.imageUrl}
                 alt="continent"
                 className={`${styles.cont_img} ${
                   isSelected ? styles.selected_img : ""
                 }`}
+                placeholderClassName={styles.cont_img_placeholder}
               />
+
               {isSelected ? <FaCheck className={styles.check_box} /> : null}
               {isSelected ? (
                 <div className={styles.selected_text}>{item.name}</div>
@@ -76,6 +78,7 @@ const Continent = () => {
           );
         })}
       </div>
+
       <div className={styles.button_box}>
         <Button size="lg" variant="outline" onClick={() => handleNextClick()}>
           다음
