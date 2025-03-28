@@ -21,7 +21,7 @@ const ManageFriends = ({ plan, friends, user }) => {
 
   const onSubmit = useCallback(
     (data) => {
-      if (data.participantUserName === user.user.username) {
+      if (data.participantUserName === user.username) {
         createToast({
           type: "error",
           text: "자신을 친구로 추가할 수 없습니다.",
@@ -41,7 +41,6 @@ const ManageFriends = ({ plan, friends, user }) => {
     [deleteFriends]
   );
 
-  console.log("erros", errors);
   if (!plan) return <p>해당 계획을 불러오기 실패했습니다.</p>;
   return (
     <div className={styles.container}>
