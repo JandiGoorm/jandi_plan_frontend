@@ -139,31 +139,40 @@ const PrefDestination = () => {
                     className={styles.destination}
                     onClick={() => handleSelectDestination(destination.name)}
                   >
-                    <div className={styles.dest_trans}>
-                      <ImageWithPlaceholder
-                        src={destination.imageUrl}
-                        alt={destination.name}
-                        className={`${styles.dest_img} ${
-                          isSelected ? styles.selected_img : ""
-                        }`}
-                      />
+                    <div className={styles.card_inner}>
+                      <div
+                        className={`${styles.card_face} ${styles.card_front}`}
+                      >
+                        <ImageWithPlaceholder
+                          src={destination.imageUrl}
+                          alt={destination.name}
+                          className={`${styles.dest_img} ${
+                            isSelected ? styles.selected_img : ""
+                          }`}
+                        />
+                        {isSelected && (
+                          <BiSolidPlaneAlt className={styles.check_box} />
+                        )}
+                      </div>
 
-                      {isSelected ? (
-                        <BiSolidPlaneAlt className={styles.check_box} />
-                      ) : null}
-
-                      <img
-                        src={destination.imageUrl}
-                        alt={destination.name}
-                        className={styles.dest_back_img}
-                      />
-                      {isSelected ? (
-                        <FaCheck className={styles.check_box_back} />
-                      ) : null}
-                      <div className={styles.dest_back_box}>
-                        <h1>{destination.description}</h1>
+                      <div
+                        className={`${styles.card_face} ${styles.card_back}`}
+                      >
+                        <img
+                          src={destination.imageUrl}
+                          alt={destination.name}
+                          className={styles.dest_back_img}
+                        />
+                        <div className={styles.overlay} />
+                        {isSelected && (
+                          <FaCheck className={styles.check_box_back} />
+                        )}
+                        <div className={styles.dest_back_box}>
+                          <h1>{destination.description}</h1>
+                        </div>
                       </div>
                     </div>
+
                     <div className={styles.destination_text}>
                       {destination.name}
                     </div>
