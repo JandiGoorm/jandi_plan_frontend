@@ -65,7 +65,14 @@ const PlanInfo = () => {
           <div className={styles.header_menu}>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">친구 관리</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  친구 관리
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <ManageFriends
@@ -77,7 +84,14 @@ const PlanInfo = () => {
             </Modal>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">수정</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  수정
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <ModifyPlan plan={tripDetail} />
@@ -85,7 +99,14 @@ const PlanInfo = () => {
             </Modal>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">삭제</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  삭제
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <DeletePlan />
