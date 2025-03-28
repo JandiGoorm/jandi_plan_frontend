@@ -15,7 +15,7 @@ export const createPlanScheme = z
     privatePlan: z.string().nonempty("공개 여부를 선택해주세요"),
     budget: z.coerce
       .number()
-      .positive("예산을 입력해주세요")
+      .min(0, { message: "예산을 입력해주세요" })
       .refine((value) => !isNaN(value), {
         message: "숫자만 입력해주세요",
       }),
@@ -60,18 +60,19 @@ export const modifyPlanScheme = z.object({
 });
 
 export const manageBannerScheme = z.object({
-  file: z
-  .instanceof(FileList)
-  .refine((files) => {
-    return files.length > 0; // 파일이 있을 때만 통과
-  }, {
-    message: "플랜 사진을 넣어주세요",
-  }),
-})
+  file: z.instanceof(FileList).refine(
+    (files) => {
+      return files.length > 0; // 파일이 있을 때만 통과
+    },
+    {
+      message: "플랜 사진을 넣어주세요",
+    }
+  ),
+});
 
 export const manageFriendsScheme = z.object({
   participantUserName: z.string().nonempty("친구 닉네임을 입력해주세요"),
-})
+});
 
 export const searchPlansScheme = z.object({
   keyword: z
