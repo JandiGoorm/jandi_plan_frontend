@@ -35,8 +35,7 @@
   padding: 1rem;
   background-position: center;
   background-size: cover;
-  background-color: rgba(255, 255, 255, 0.6);
-  background-blend-mode: lighten;
+
   cursor: pointer;
   box-shadow: var(--shadow-lg);
 }
@@ -47,4 +46,12 @@
 
 .hotel_box {
   background-image: url("/hotel.jpg");
+}
+
+.item_title {
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-bold);
 }

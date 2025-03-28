@@ -367,8 +367,9 @@
   --color-tooltip-bg: var(--color-gray-800);
   --color-tooltip-text: var(--color-white);
 
-  --color-notice-bg: var(--color-indigo-50);
-  --color-notice-border: var(--color-indigo-300);
+  --color-notice-bg: var(--color-zinc-50);
+  --color-notice-icon: var(--color-zinc-400);
+  --color-notice-border: var(--color-zinc-300);
 
   --color-board-bg: var(--color-indigo-50);
   --color-board-border: var(--color-gray-500);
@@ -405,6 +406,7 @@
   --color-tooltip-text: var(--color-gray-800);
 
   --color-notice-bg: var(--color-gray-600);
+  --color-notice-icon: var(--color-gray-300);
   --color-notice-border: var(--color-gray-500);
 
   --color-board-bg: var(--color-gray-600);

@@ -11,9 +11,24 @@
   overflow: hidden;
 }
 
-.search_container {
+.search_field {
   width: 100%;
   max-width: 30rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error_message {
+  font-size: var(--text-sm);
+  color: var(--color-red-500);
+  position: relative;
+  left: 1rem;
+}
+
+.search_container {
+  width: 100%;
 
   display: flex;
   flex-direction: column;

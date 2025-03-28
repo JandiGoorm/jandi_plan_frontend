@@ -16,31 +16,36 @@
   left: 0;
   right: 0;
   bottom: 0;
-
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
   opacity: 0.8;
+
   z-index: -1;
 }
 
-.img_container::before {
-  content: "";
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   height: 30%;
+  width: 100%;
+  pointer-events: none;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 1) 0%,
     rgba(0, 0, 0, 0.7) 30%,
     rgba(0, 0, 0, 0) 100%
   );
+  z-index: 1;
 }
 
-.plan_img {
-  height: 300px;
-  aspect-ratio: 1/1;
+.bg_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+
+  z-index: -1;
 }
 
 .content_container {
@@ -51,6 +56,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  position: relative;
+  z-index: 3;
 }
 
 .content_header {

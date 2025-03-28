@@ -1,7 +1,7 @@
 import styles from "./DestinationList.module.css";
 import { useState, useEffect, useCallback } from "react";
 import { BaseLayout } from "@/layouts";
-import { Button, CityCard } from "@/components";
+import { Button, CityCard, Loading } from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,21 @@ import { buildPath } from "@/utils";
 import { PageEndPoints } from "@/constants";
 
 const DestinationList = () => {
-  const { fetchData: getContinent, response: continents } = useAxios();
-  const { fetchData: getCountry, response: countries } = useAxios();
-  const { fetchData: getDestination, response: destinations } = useAxios();
+  const {
+    fetchData: getContinent,
+    response: continents,
+    loading: continentsLoading,
+  } = useAxios();
+  const {
+    fetchData: getCountry,
+    response: countries,
+    loading: countriesLoading,
+  } = useAxios();
+  const {
+    fetchData: getDestination,
+    response: destinations,
+    loading: destinationsLoading,
+  } = useAxios();
 
   const [selectedContinent, setSelectedContinent] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -73,6 +85,9 @@ const DestinationList = () => {
     });
   }, [getDestination, selectedContinent, selectedCountry]);
 
+  const isLoading =
+    continentsLoading || countriesLoading || destinationsLoading;
+
   return (
     <BaseLayout>
       <div className={styles.container}>
@@ -108,16 +123,26 @@ const DestinationList = () => {
           </div>
         </div>
 
-        <div className={styles.plan_container}>
-          {destinations?.map((item) => (
-            <div
-              key={item.cityId}
-              onClick={() => handleCityCardClick(item.name)}
-            >
-              <CityCard item={item} />
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <Loading
+            isSection
+            style={{
+              flex: 1,
+              minHeight: "30rem",
+            }}
+          />
+        ) : (
+          <div className={styles.plan_container}>
+            {destinations?.map((item) => (
+              <div
+                key={item.cityId}
+                onClick={() => handleCityCardClick(item.name)}
+              >
+                <CityCard item={item} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </BaseLayout>
   );

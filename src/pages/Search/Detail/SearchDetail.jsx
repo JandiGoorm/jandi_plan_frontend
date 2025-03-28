@@ -1,4 +1,4 @@
-import { Button, Loading, PlanCard } from "@/components";
+import { Button, EmptyItem, Loading, PlanCard } from "@/components";
 import { PageEndPoints } from "@/constants";
 import { useCommunity, usePlans } from "@/hooks";
 import BoardItem from "@/pages/Board/BoardItem";
@@ -31,21 +31,23 @@ const SearchDetail = ({ keyword }) => {
   }
   return (
     <div className={styles.container}>
-      <div>
+      <section className={styles.section}>
         <div className={styles.header_title}>
           <p className={styles.title}>여행 플랜 검색 결과 {count}건</p>
         </div>
-        {plans ? (
+
+        {plans && plans.items.length > 0 ? (
           <div className={styles.plan_container}>
             {plans.items.map((item) => (
               <PlanCard key={item.tripId} item={item} />
             ))}
           </div>
         ) : (
-          <p>검색 결과가 없습니다</p>
+          <EmptyItem parentClassName={styles.empty} />
         )}
-        <div className={styles.botton_box}>
-          {count > 10 && (
+
+        {count > 10 && (
+          <div className={styles.button_box}>
             <Button
               variant={"ghost"}
               size="lg"
@@ -59,49 +61,45 @@ const SearchDetail = ({ keyword }) => {
             >
               더보기
             </Button>
-          )}
-        </div>
-      </div>
+          </div>
+        )}
+      </section>
 
-      <div>
+      <section className={styles.section}>
         <div className={styles.header_title}>
           <p className={styles.title}>게시판 검색 결과 {communityCount}건</p>
         </div>
-        {communityCount > 0 && (
-          <div className={styles.content}>
-            <div className={styles.content_header}>
-              <div className={styles.index}>번호</div>
-              <div className={styles.community_title}>제목</div>
-              <div className={styles.writer}>작성자</div>
-              <div className={styles.date}>작성일</div>
-              <div className={styles.recommend}>추천</div>
-            </div>
 
+        {communityCount > 0 ? (
+          <div className={styles.content}>
             <ul className={styles.content_list}>
               {communities?.items.map((item) => {
                 return <BoardItem item={item} key={item.postId} />;
               })}
             </ul>
           </div>
+        ) : (
+          <EmptyItem parentClassName={styles.empty} />
         )}
-        <div className={styles.botton_box}>
-          {communityCount > 10 && (
+
+        {communityCount > 10 && (
+          <div className={styles.button_box}>
             <Button
               variant={"ghost"}
               size="lg"
               onClick={() =>
                 navigate(
-                  `${PageEndPoints.BOARD}?page=1&keyword=${encodeURIComponent(
-                    keyword
-                  )}`
+                  `${
+                    PageEndPoints.PLAN_LIST
+                  }?page=1&keyword=${encodeURIComponent(keyword)}`
                 )
               }
             >
               더보기
             </Button>
-          )}
-        </div>
-      </div>
+          </div>
+        )}
+      </section>
     </div>
   );
 };

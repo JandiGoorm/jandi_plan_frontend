@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import styles from "./Pagination.module.css";
 import { Button } from "..";
 
@@ -39,6 +39,10 @@ const Pagination = ({ callback, currentPage, totalPage }) => {
     }
     return range;
   }, [safetyCurrentPage, totalPage]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   return (
     <div className={styles.container}>

@@ -1,5 +1,5 @@
-.container{
-    position: relative;
+.container {
+  position: relative;
 }
 
 .prev_btn,
@@ -19,57 +19,60 @@
 
 .prev_btn {
   left: 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .next_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   right: 0px;
 }
 
-/* .prev_btn:hover,
-.next_btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-} */
+.arrow_icon {
+  font-size: var(--text-3xl);
+}
 
 .sm_container {
-    border-top: 1px solid var(--color-gray-200);
-    padding: 1rem 0;
-    height: 18rem;
-    box-sizing: border-box;
+  border-top: 1px solid var(--color-gray-200);
+  padding: 1rem 0;
+  height: 18rem;
+  box-sizing: border-box;
 }
 
-.sm_place_box{
-    width: 10rem;
-    height: 16rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-xl);
-    position: relative;
-    box-sizing: border-box;
-    padding: 0.5rem;
-} 
+.sm_place_box {
+  width: 10rem;
+  height: 16rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
 
 .md_container {
-    border-top: 1px solid var(--color-gray-200);
-    padding: 1rem 0;
-    height: 24rem;
-    box-sizing: border-box;
+  border-top: 1px solid var(--color-gray-200);
+  padding: 1rem 0;
+  height: 24rem;
+  box-sizing: border-box;
 }
 
-.md_place_box{
-    width: 10rem;
-    height: 22rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-xl);
-    position: relative;
-    box-sizing: border-box;
-    padding: 0.5rem;
-}
-
-.no_item_box{
-  height: 5rem;
+.md_place_box {
+  width: 10rem;
+  height: 22rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.5rem;
 }

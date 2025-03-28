@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from "react";
-import { useAxios } from "@/hooks";
-import { buildPath, handleApiCall } from "@/utils";
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
+import { useAxios } from "@/hooks";
+import { buildPath, handleApiCall } from "@/utils";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 // id에 해당하는 여행의 상세 정보를 다룹니다.
@@ -56,17 +56,20 @@ const usePlan = (id) => {
     [createToast, fetchTripDetail, id, updateApi]
   );
 
-  const deletePlan = useCallback(async () => {
-    const url = buildPath(APIEndPoints.TRIP_MY_DETAIL, { id });
+  const deletePlan = useCallback(
+    async (successCallback, planId = id) => {
+      const url = buildPath(APIEndPoints.TRIP_MY_DETAIL, { id: planId });
 
-    await handleApiCall(
-      () => deleteApi({ url, method: "DELETE" }),
-      "계획이 삭제되었습니다.",
-      "계획 삭제에 실패했습니다.",
-      createToast,
-      () => navigate(PageEndPoints.PLAN_LIST)
-    );
-  }, [createToast, deleteApi, id, navigate]);
+      await handleApiCall(
+        () => deleteApi({ url, method: "DELETE" }),
+        "계획이 삭제되었습니다.",
+        "계획 삭제에 실패했습니다.",
+        createToast,
+        successCallback
+      );
+    },
+    [createToast, deleteApi, id]
+  );
 
   const updatePlanImg = useCallback(
     async (data) => {
@@ -74,9 +77,14 @@ const usePlan = (id) => {
       const formData = new FormData();
       formData.append("file", data.file?.[0]);
       formData.append("targetId", id);
-      
+
       await handleApiCall(
-        () => updateImgApi({ url: APIEndPoints.TRIP_IMG, method: "POST", data: formData }),
+        () =>
+          updateImgApi({
+            url: APIEndPoints.TRIP_IMG,
+            method: "POST",
+            data: formData,
+          }),
         "계획이 수정되었습니다.",
         "계획 수정에 실패했습니다.",
         createToast,
@@ -86,11 +94,8 @@ const usePlan = (id) => {
     [createToast, fetchTripDetail, id, updateImgApi]
   );
 
-  useEffect(() => {
-    fetchTripDetail();
-  }, [fetchTripDetail]);
-
   return {
+    fetchTripDetail,
     tripDetail,
     addPlan,
     updatePlan,

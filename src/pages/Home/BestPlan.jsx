@@ -1,20 +1,24 @@
 import { Loading, PlanCard, Slider } from "@/components";
 import { APIEndPoints, PageEndPoints } from "@/constants";
-import { useAxios } from "@/hooks";
-import { buildPath } from "@/utils";
+import { useAxios, usePreventDragClick } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { FaCrown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import styles from "./BestPlan.module.css";
+import { useNavigate } from "react-router-dom";
+import { buildPath } from "@/utils";
 
 const BestPlan = () => {
-  const { response, fetchData, loading } = useAxios();
   const navigate = useNavigate();
+  const { response, fetchData, loading } = useAxios();
 
-  const handleNavigate = useCallback(
-    (id) => {
-      const url = buildPath(PageEndPoints.PLAN_DETAIL, { id });
-      navigate(url);
+  const { handleMouseDown, handleMouseUp } = usePreventDragClick();
+
+  const callback = useCallback(
+    (item) => {
+      const path = buildPath(PageEndPoints.PLAN_DETAIL, {
+        id: item.tripId,
+      });
+      navigate(path);
     },
     [navigate]
   );
@@ -36,7 +40,10 @@ const BestPlan = () => {
 
       <Slider items={response ?? []} size="md">
         {(item) => (
-          <div onClick={() => handleNavigate(item.tripId)}>
+          <div
+            onMouseDown={handleMouseDown}
+            onMouseUp={(e) => handleMouseUp(e, () => callback(item))}
+          >
             <PlanCard item={item} />
           </div>
         )}

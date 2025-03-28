@@ -29,7 +29,11 @@
 }
 
 .icon {
-  color: var(--color-notice-border);
+  color: var(--color-notice-icon);
+}
+
+.arrow_icon {
+  color: var(--color-notice-icon);
 }
 
 .container:not(:last-child) {
