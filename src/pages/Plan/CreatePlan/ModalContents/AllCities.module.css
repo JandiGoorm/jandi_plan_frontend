@@ -35,28 +35,10 @@
 
 .grid_container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
   gap: 1rem;
 }
 
 .wrapper_city_card {
   cursor: pointer;
-}
-
-@media screen and (max-width: 1296px) {
-  .grid_container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .grid_container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .grid_container {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
