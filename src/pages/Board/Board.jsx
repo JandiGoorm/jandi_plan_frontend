@@ -81,6 +81,9 @@ const BoardPage = () => {
               variant="solid"
               onClick={() => navigate(PageEndPoints.BOARD_WRITE)}
               size="sm"
+              style={{
+                whiteSpace: "nowrap",
+              }}
             >
               게시글 작성하기
             </Button>
