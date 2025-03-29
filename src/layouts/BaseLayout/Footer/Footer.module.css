@@ -20,6 +20,7 @@
 
 .policy {
   cursor: pointer;
+  font-weight: var(--font-weight-bold);
 }
 
 .policy_container {
@@ -36,10 +37,6 @@
   display: block;
 
   image-rendering: crisp-edges;
-}
-
-.title {
-  font-weight: var(--font-weight-bold);
 }
 
 @media screen and (max-width: 768px) {
