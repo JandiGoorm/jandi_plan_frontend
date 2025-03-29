@@ -62,7 +62,7 @@ const PlanInfo = () => {
       <div className={styles.header_box}>
         <p className={styles.title}>{tripDetail.title}</p>
         {isMine ? (
-          <div className={styles.header_menu}>
+          <div className={styles.header_buttons}>
             <Modal>
               <ModalTrigger>
                 <Button

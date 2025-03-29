@@ -17,6 +17,12 @@
   font-size: var(--text-2xl);
 }
 
+.header_buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .header_menu {
   display: flex;
   align-items: center;
