@@ -14,10 +14,12 @@ const BannerOverlay = ({
   allBanners,
   emblaApi,
   setCurrentIndex,
+  autoplay,
 }) => {
   const { onPrevButtonClick, onNextButtonClick } = useCarouselHandler(
     emblaApi,
-    setCurrentIndex
+    setCurrentIndex,
+    autoplay
   );
 
   if (currentIndex === null) return null;
