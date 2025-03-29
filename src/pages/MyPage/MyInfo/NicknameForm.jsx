@@ -6,11 +6,12 @@ import { changeNicknameScheme } from "../constants";
 import { useCallback } from "react";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
-import { useToast } from "@/contexts";
+import { useAuth, useToast } from "@/contexts";
 
-const NicknameForm = ({onProfileChange, setNickname}) => {
+const NicknameForm = ({ setNickname }) => {
   const { fetchData } = useAxios();
   const { createToast } = useToast();
+  const { refetchUserInfo } = useAuth();
 
   const {
     register,
@@ -23,20 +24,19 @@ const NicknameForm = ({onProfileChange, setNickname}) => {
   const onSubmit = useCallback(
     async (data) => {
       await fetchData({
-        url: APIEndPoints.USER_CHANGE_PASSWORD,
+        url: APIEndPoints.USER_CHANGE_NICKNAME,
         method: "PATCH",
         data: {
           newUserName: data.nickname,
         },
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           createToast({
             text: "닉네임이 변경되었습니다.",
             type: "success",
           });
+          refetchUserInfo();
           setNickname(data.nickname);
-          onProfileChange();
         })
         .catch((error) => {
           const message = error.data.error;
@@ -46,7 +46,7 @@ const NicknameForm = ({onProfileChange, setNickname}) => {
           });
         });
     },
-    [createToast, fetchData]
+    [createToast, fetchData, refetchUserInfo, setNickname]
   );
 
   return (
@@ -63,9 +63,7 @@ const NicknameForm = ({onProfileChange, setNickname}) => {
             name="nickname"
           />
           {errors.nickname && (
-            <p className={styles.error_message}>
-              {errors.nickname.message}
-            </p>
+            <p className={styles.error_message}>{errors.nickname.message}</p>
           )}
         </div>
       </div>

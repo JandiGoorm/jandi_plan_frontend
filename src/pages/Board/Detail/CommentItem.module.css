@@ -10,10 +10,14 @@
   align-items: center;
 }
 
-.comment_user_img {
+.user_img_box {
+  position: relative;
+
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .flex_column {
@@ -27,7 +31,7 @@
   gap: 1.5rem;
 }
 
-.comment_user_name{
+.comment_user_name {
   font-size: var(--text-sm);
 }
 
@@ -39,11 +43,10 @@
   color: var(--color-gray-400);
 }
 
-.comment_text{
+.comment_text {
   font-size: var(--text-sm);
   color: var(--color-text-primary);
 }
-
 
 .report {
   cursor: pointer;
@@ -80,10 +83,10 @@
   color: var(--color-blue-600);
 }
 
-.recomment{
+.recomment {
   cursor: pointer;
 }
 
-.thumbs{
+.thumbs {
   cursor: pointer;
 }

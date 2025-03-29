@@ -4,6 +4,7 @@ export const AuthContext = createContext({
   user: null,
   signIn: async () => {},
   signOut: () => {},
+  refetchUserInfo: async () => {},
 });
 
 export const useAuth = () => {

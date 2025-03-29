@@ -1,4 +1,11 @@
-import { Button, Input, Modal, ModalContent, ModalTrigger } from "@/components";
+import {
+  Button,
+  ImageWithPlaceholder,
+  Input,
+  Modal,
+  ModalContent,
+  ModalTrigger,
+} from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
@@ -64,10 +71,13 @@ const CommentItem = ({
   return (
     <div className={styles.comment_item}>
       <div className={styles.comment}>
-        <img
-          src={comment.user.profileImageUrl}
-          className={styles.comment_user_img}
-        />
+        <div className={styles.user_img_box}>
+          <ImageWithPlaceholder
+            src={comment.user.profileImageUrl}
+            alt="user profile"
+          />
+        </div>
+
         <div className={styles.flex_column}>
           <div className={styles.comment_info}>
             <p className={styles.comment_user_name}>{comment.user.userName}</p>
@@ -128,10 +138,13 @@ const CommentItem = ({
             addReply();
           }}
         >
-          <img
-            src={user?.profileImageUrl}
-            className={styles.current_user_img}
-          />
+          <div className={styles.user_img_box}>
+            <ImageWithPlaceholder
+              src={user?.profileImageUrl}
+              alt="user profile"
+              className={styles.user_img}
+            />
+          </div>
           <Input
             size="sm"
             placeholder="답글을 입력해주세요."

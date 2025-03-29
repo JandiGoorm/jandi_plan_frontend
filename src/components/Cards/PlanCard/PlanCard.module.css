@@ -83,10 +83,14 @@
   gap: 0.3rem;
 }
 
-.user_img {
+.user_img_box {
+  position: relative;
+
   width: 4rem;
   height: 4rem;
   border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .user_name {

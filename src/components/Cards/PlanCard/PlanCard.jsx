@@ -11,16 +11,23 @@ const PlanCard = ({ item }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.img_container}>
+        <ImageWithPlaceholder
+          src={item.tripImageUrl || item.cityImageUrl}
+          alt="여행지 이미지"
+          className={styles.bg_img}
+        />
+        <div className={styles.overlay} />
+      </div>
+
       <div className={styles.content_container}>
         <div className={styles.content_header}>
           <div className={styles.header_title}>
-            <div className={styles.img_container}>
+            <div className={styles.user_img_box}>
               <ImageWithPlaceholder
-                src={item.tripImageUrl || item.cityImageUrl}
-                alt="여행지 이미지"
-                className={styles.bg_img}
+                src={item.user.profileImageUrl ?? "/none-user.webp"}
+                alt="유저 프로필 이미지"
               />
-              <div className={styles.overlay} />
             </div>
 
             <div className={styles.user_info}>

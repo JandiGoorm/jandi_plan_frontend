@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
   const { login, refreshAccessToken, getUserInfo } = AuthService;
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,6 +34,14 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("refresh-token");
     setUser(null);
     window.location.reload();
+  };
+
+  const refetchUserInfo = async () => {
+    const accessToken = localStorage.getItem("access-token");
+    if (!accessToken) return;
+
+    const userInfo = await getUserInfo(accessToken);
+    setUser(userInfo);
   };
 
   useEffect(() => {
@@ -74,10 +83,11 @@ const AuthProvider = ({ children }) => {
     };
 
     refreshTokenRequest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, user, refetchUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

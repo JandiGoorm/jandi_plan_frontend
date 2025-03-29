@@ -19,17 +19,11 @@ import { buildPath } from "@/utils";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
-  const [refreshTrigger, setRefreshTrigger] = useState(false);
-
   const { user } = useAuth();
   const { fetchData, response, loading } = useAxios();
   const [nickname, setNickname] = useState(user.username);
 
   const navigate = useNavigate();
-
-  const handleRefreshPlans = () => {
-    setRefreshTrigger((prev) => !prev);
-  };
 
   const handleCityCardClick = useCallback(
     (id) => {
@@ -63,7 +57,6 @@ const MyPage = () => {
             <ModalContent>
               <MyInfo
                 user={user}
-                onProfileChange={handleRefreshPlans}
                 setNickname={setNickname}
                 nickname={nickname}
               />
@@ -75,7 +68,6 @@ const MyPage = () => {
           title="여행 계획"
           fetchUrl={APIEndPoints.TRIP_MY}
           goUrl={PageEndPoints.PLAN_MY_LIST}
-          refreshTrigger={refreshTrigger}
         />
 
         <div className={styles.interest_container}>
@@ -115,7 +107,6 @@ const MyPage = () => {
           title="좋아요 한 플랜"
           fetchUrl={APIEndPoints.TRIP_LIKED}
           goUrl={PageEndPoints.PLAN_LIKE_LIST}
-          refreshTrigger={refreshTrigger}
         />
       </div>
     </BaseLayout>
