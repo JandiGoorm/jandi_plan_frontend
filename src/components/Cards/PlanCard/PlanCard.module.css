@@ -134,7 +134,7 @@
 .plan_title {
   padding: 1rem;
   border-radius: var(--radius-lg);
-  width: 10rem;
+  width: 15rem;
   background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: column;
