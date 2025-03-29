@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MyPlan.module.css";
 import { buildPath } from "@/utils";
 import { PageEndPoints } from "@/constants";
+import { useAuth } from "@/contexts";
 
-const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
+const MyPlan = ({ title, fetchUrl, goUrl }) => {
   const { fetchData, response, loading } = useAxios();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const { handleMouseDown, handleMouseUp } = usePreventDragClick();
@@ -32,7 +34,7 @@ const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
 
   useEffect(() => {
     fetchPlans();
-  }, [fetchPlans, title, fetchUrl, goUrl, refreshTrigger]);
+  }, [fetchPlans, title, fetchUrl, goUrl, user]);
 
   const handleMoreClick = () => {
     navigate(goUrl);

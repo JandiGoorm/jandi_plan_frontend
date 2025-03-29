@@ -5,14 +5,15 @@ import PasswordForm from "./PasswordForm";
 import { useCallback, useState } from "react";
 import { useAxios } from "@/hooks";
 import { APIEndPoints } from "@/constants";
-import { useToast } from "@/contexts";
+import { useAuth, useToast } from "@/contexts";
 import { handleApiCall } from "@/utils";
 import NicknameForm from "./NicknameForm";
 
-const MyInfo = ({ user, onProfileChange,setNickname, nickname }) => {
+const MyInfo = ({ user, setNickname, nickname }) => {
   const [profile, setProfile] = useState(user.profileImageUrl);
   const { fetchData } = useAxios();
   const { createToast } = useToast();
+  const { refetchUserInfo } = useAuth();
 
   const formatted = formatDate(user.updatedAt, "yyyy-MM-dd");
 
@@ -39,11 +40,11 @@ const MyInfo = ({ user, onProfileChange,setNickname, nickname }) => {
         createToast,
         (res) => {
           setProfile(res.data.imageUrl);
-          onProfileChange();
+          refetchUserInfo();
         }
       );
     };
-  }, [createToast, fetchData, onProfileChange]);
+  }, [createToast, fetchData, refetchUserInfo]);
 
   return (
     <div className={styles.container}>
@@ -52,7 +53,7 @@ const MyInfo = ({ user, onProfileChange,setNickname, nickname }) => {
         <div className={styles.info_box}>
           <div className={styles.user_photo_box}>
             <img
-              src={profile ?? "/user1.png"}
+              src={profile ?? "/none-user.webp"}
               alt="profile_img"
               className={styles.user_photo}
             />
@@ -90,7 +91,7 @@ const MyInfo = ({ user, onProfileChange,setNickname, nickname }) => {
         </div>
       </div>
 
-      <NicknameForm onProfileChange={onProfileChange} setNickname={setNickname}/>
+      <NicknameForm setNickname={setNickname} />
 
       <PasswordForm />
     </div>

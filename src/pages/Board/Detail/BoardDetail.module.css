@@ -67,10 +67,14 @@
   gap: 1rem;
 }
 
-.user_img {
-  width: 2rem;
-  height: 2rem;
+.user_img_box {
+  position: relative;
+
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .user_name {
