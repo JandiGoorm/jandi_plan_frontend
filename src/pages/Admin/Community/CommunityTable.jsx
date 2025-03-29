@@ -8,7 +8,12 @@ import {
   ModalTrigger,
 } from "@/components";
 
-const CoummunityTable = ({ communities, handleViewClick, deleteCommunity }) => {
+const CoummunityTable = ({
+  communities,
+  handleViewClick,
+  deleteCommunity,
+  refetch,
+}) => {
   return (
     <div className={styles.table_wrapper}>
       <table className={styles.table}>
@@ -57,7 +62,11 @@ const CoummunityTable = ({ communities, handleViewClick, deleteCommunity }) => {
                       </ModalTrigger>
                       <ModalContent>
                         <DeleteModal
-                          callback={() => deleteCommunity(community.postId)}
+                          callback={() =>
+                            deleteCommunity(community.postId).then(() =>
+                              refetch()
+                            )
+                          }
                         />
                       </ModalContent>
                     </Modal>

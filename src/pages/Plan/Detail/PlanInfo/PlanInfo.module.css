@@ -7,6 +7,9 @@
 .header_box {
   display: flex;
   justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .title {
@@ -14,9 +17,28 @@
   font-size: var(--text-2xl);
 }
 
-.header_menu {
+.header_buttons {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.header_menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+}
+
+.heart_icon {
+  position: relative;
+  top: 4px;
+  color: var(--color-red-500);
+  cursor: pointer;
 }
 
 .info {

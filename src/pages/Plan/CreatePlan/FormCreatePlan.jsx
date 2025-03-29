@@ -50,7 +50,12 @@ const FormCreatePlan = ({
       </div>
 
       <div className={styles.plan_columns}>
-        <Field label="플랜 제목" helperText="ex)오사카 가족여행" isRequire>
+        <Field
+          label="플랜 제목"
+          helperText="ex)오사카 가족여행"
+          isRequire
+          error={errors.title}
+        >
           <Input
             type="text"
             style={{
@@ -61,14 +66,11 @@ const FormCreatePlan = ({
             register={register}
             name="title"
           />
-          {errors.title && (
-            <p className={styles.error}>{errors.title.message}</p>
-          )}
         </Field>
       </div>
 
       <div className={styles.plan_columns}>
-        <Field label="출발일" isRequire>
+        <Field label="출발일" isRequire error={errors.startDate}>
           <Input
             type="date"
             style={{ width: "100%" }}
@@ -76,14 +78,11 @@ const FormCreatePlan = ({
             register={register}
             name="startDate"
           />
-          {errors.startData && (
-            <p className={styles.error}>{errors.startData.message}</p>
-          )}
         </Field>
       </div>
 
       <div className={styles.plan_columns}>
-        <Field label="도착일" isRequire>
+        <Field label="도착일" isRequire error={errors.endDate}>
           <Input
             type="date"
             style={{ width: "100%" }}
@@ -91,14 +90,11 @@ const FormCreatePlan = ({
             register={register}
             name="endDate"
           />
-          {errors.endDate && (
-            <p className={styles.error}>{errors.endDate.message}</p>
-          )}
         </Field>
       </div>
 
       <div className={styles.plan_columns}>
-        <Field label="예산안" isRequire>
+        <Field label="예산안" isRequire error={errors.budget}>
           <Input
             type="number"
             size="sm"
@@ -106,9 +102,6 @@ const FormCreatePlan = ({
             register={register}
             name="budget"
           />
-          {errors.budget && (
-            <p className={styles.error}>{errors.budget.message}</p>
-          )}
         </Field>
       </div>
 
@@ -129,7 +122,7 @@ const FormCreatePlan = ({
             <div className={styles.radio_box}>
               <Input
                 type="radio"
-                name="private"
+                name="privatePlan"
                 value="yes"
                 register={register}
               />
@@ -138,30 +131,6 @@ const FormCreatePlan = ({
           </div>
         </Field>
       </div>
-
-      {/* <div className={styles.plan_columns}>
-        <Field label="친구 추가">
-          <div className={styles.place}>
-            <Input
-              type="text"
-              style={{ flex: 1 }}
-              size="sm"
-              value={withUser || ""}
-              readOnly
-            />
-            <Modal>
-              <ModalTrigger>
-                <Button size="md" type="button">
-                  추가
-                </Button>
-              </ModalTrigger>
-              <ModalContent>
-                <AddUser onConfirm={handleConfirmUsers} />
-              </ModalContent>
-            </Modal>
-          </div>
-        </Field>
-      </div> */}
 
       <div className={styles.button_container}>
         <Button size="lg" variant="ghost" type="submit">

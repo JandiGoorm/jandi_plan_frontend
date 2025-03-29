@@ -6,6 +6,8 @@ html {
 
   color: var(--color-text-dynamic);
   background-color: var(--color-bg-primary);
+
+  overflow-y: scroll;
 }
 
 /* breakpoint-xl */

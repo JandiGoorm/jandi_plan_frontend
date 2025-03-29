@@ -27,7 +27,7 @@ export const boardWriteScheme = z.object({
     .array(
       z
         .string()
-        .max(12, { message: "해시태그는 12자 이하여야 합니다." })
+        .max(13, { message: "해시태그는 12자 이하여야 합니다." })
         .refine((val) => !/\s/.test(val), {
           message: "해시태그에는 띄어쓰기를 포함할 수 없습니다.",
         })

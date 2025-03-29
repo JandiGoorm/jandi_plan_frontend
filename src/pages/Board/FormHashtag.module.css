@@ -6,8 +6,8 @@
 
 .tags_container {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .dropdown_container {
@@ -23,7 +23,7 @@
 }
 
 .dropdown_list {
-  width: 20rem;
+  width: 25rem;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -46,6 +46,7 @@
 
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 

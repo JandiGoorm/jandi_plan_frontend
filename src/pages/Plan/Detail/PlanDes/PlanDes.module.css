@@ -55,3 +55,11 @@
 :root[theme="dark"] .focus {
   background-color: var(--color-gray-500);
 }
+
+@media screen and (max-width: 400px) {
+  .header {
+    flex-direction: column;
+    justify-content: inherit;
+    gap: 1rem;
+  }
+}

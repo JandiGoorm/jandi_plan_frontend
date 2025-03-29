@@ -1,5 +1,6 @@
 import styles from "./Contact.module.css";
 import ContactIconBox from "./ContactIconBox";
+import { FaGithub } from "react-icons/fa";
 
 const Contact = () => {
   return (
@@ -7,7 +8,18 @@ const Contact = () => {
       <h3 className={styles.heading}>Contact</h3>
       <div className={styles.content}>
         <div className={styles.section}>
-          <h4 className={styles.subHeading}>Frontend</h4>
+          <div className={styles.subHeading}>
+            <p className={styles.subHeading_text}>Frontend</p>
+            <a
+              href={"https://github.com/JandiGoorm/jandi_plan_frontend"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconLink}
+            >
+              <FaGithub className={styles.icon} />
+            </a>
+          </div>
+
           <div className={styles.iconBoxContainer}>
             <ContactIconBox
               github="https://github.com/Jun-min-geun"
@@ -23,7 +35,17 @@ const Contact = () => {
         </div>
 
         <div className={styles.section}>
-          <h4 className={styles.subHeading}>Backend</h4>
+          <div className={styles.subHeading}>
+            <p className={styles.subHeading_text}>Backend</p>
+            <a
+              href={"https://github.com/JandiGoorm/jandi_plan_backend"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconLink}
+            >
+              <FaGithub className={styles.icon} />
+            </a>
+          </div>
           <div className={styles.iconBoxContainer}>
             <ContactIconBox
               github="https://github.com/kyj0503"
