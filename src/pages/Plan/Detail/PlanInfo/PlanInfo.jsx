@@ -114,19 +114,23 @@ const PlanInfo = () => {
             </Modal>
           </div>
         ) : (
-          <div className={styles.header_menu}>
-            {liked ? (
-              <FaHeart
-                size={24}
-                onClick={() => likedTrip("DELETE", tripDetail.tripId)}
-              />
-            ) : (
-              <FaRegHeart
-                size={24}
-                onClick={() => likedTrip("POST", tripDetail.tripId)}
-              />
-            )}
-          </div>
+          <Tooltip text={liked ? "좋아요 취소" : "좋아요"}>
+            <div className={styles.header_menu}>
+              {liked ? (
+                <FaHeart
+                  size={24}
+                  onClick={() => likedTrip("DELETE", tripDetail.tripId)}
+                  className={styles.heart_icon}
+                />
+              ) : (
+                <FaRegHeart
+                  size={24}
+                  onClick={() => likedTrip("POST", tripDetail.tripId)}
+                  className={styles.heart_icon}
+                />
+              )}
+            </div>
+          </Tooltip>
         )}
       </div>
 
