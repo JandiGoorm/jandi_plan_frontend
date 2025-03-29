@@ -49,7 +49,7 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .grid_container {
     grid-template-columns: repeat(1, 1fr);
   }

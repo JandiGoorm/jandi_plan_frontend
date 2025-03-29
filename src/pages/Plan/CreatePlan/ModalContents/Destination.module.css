@@ -18,12 +18,12 @@
 
 @media screen and (max-width: 1294px) {
   .container {
-    width: 30rem;
+    width: 40rem;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .container {
-    width: 20rem;
+    width: 25rem;
   }
 }
