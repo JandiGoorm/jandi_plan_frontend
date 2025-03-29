@@ -25,7 +25,7 @@ const Header = ({ forceDark = false }) => {
 
   const tooltips = useMemo(
     () => [
-      {
+      user && {
         text: "마이페이지",
         icon: (
           <LuUserRound
@@ -110,17 +110,20 @@ const Header = ({ forceDark = false }) => {
         ))}
 
         <div className={styles.icon_container}>
-          {tooltips.map((tooltip, index) => (
-            <Tooltip key={index} text={tooltip.text}>
-              <Button
-                variant="none"
-                size="sm"
-                style={{ color: "var(--color-text-primary)" }}
-              >
-                {tooltip.icon}
-              </Button>
-            </Tooltip>
-          ))}
+          {tooltips.map((tooltip, index) => {
+            if (!tooltip) return;
+            return (
+              <Tooltip key={index} text={tooltip.text}>
+                <Button
+                  variant="none"
+                  size="sm"
+                  style={{ color: "var(--color-text-primary)" }}
+                >
+                  {tooltip.icon}
+                </Button>
+              </Tooltip>
+            );
+          })}
         </div>
       </nav>
 
@@ -143,13 +146,16 @@ const Header = ({ forceDark = false }) => {
               ))}
 
               <div className={styles.sidebar_icons_box}>
-                {tooltips.map((tooltip, index) => (
-                  <Tooltip key={index} text={tooltip.text}>
-                    <Button variant="solid" size="sm">
-                      {tooltip.icon}
-                    </Button>
-                  </Tooltip>
-                ))}
+                {tooltips.map((tooltip, index) => {
+                  if (!tooltip) return;
+                  return (
+                    <Tooltip key={index} text={tooltip.text}>
+                      <Button variant="solid" size="sm">
+                        {tooltip.icon}
+                      </Button>
+                    </Tooltip>
+                  );
+                })}
               </div>
             </div>
           </DrawerContent>
