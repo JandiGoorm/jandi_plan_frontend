@@ -1,7 +1,7 @@
 .container {
   box-sizing: border-box;
   height: 40rem;
-  width: 50rem;
+  width: 60rem;
 
   overflow-y: auto;
   display: flex;
@@ -18,11 +18,11 @@
 
 @media screen and (max-width: 1294px) {
   .container {
-    width: 40rem;
+    width: 50rem;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 630px) {
   .container {
     width: 25rem;
   }
