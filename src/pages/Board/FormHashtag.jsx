@@ -105,7 +105,7 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
                 name="tag"
                 placeholder="태그를 추가해보세요"
                 style={{
-                  width: "20rem",
+                  width: "25rem",
                 }}
                 onFocus={() => onClick()}
                 onBlur={() => close()}
@@ -134,39 +134,41 @@ const FormHashTag = ({ defaultValue = [], callback }) => {
           </DropDownContent>
         </DropDown>
 
-        <div className={styles.selected_tags_container}>
-          {selectedTag.map((tag) => {
-            return (
-              <div key={tag} className={styles.tag}>
-                <p>{tag}</p>
+        {errors.tag && (
+          <span className={styles.error_message}>{errors.tag.message}</span>
+        )}
 
-                <Button
-                  onClick={() => handleRemoveTag(tag)}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 0,
-                  }}
-                  size="sm"
-                  variant="none"
-                >
-                  <TiDelete
-                    size={24}
+        {selectedTag.length > 0 && (
+          <div className={styles.selected_tags_container}>
+            {selectedTag.map((tag) => {
+              return (
+                <div key={tag} className={styles.tag}>
+                  <p>{tag}</p>
+
+                  <Button
+                    onClick={() => handleRemoveTag(tag)}
                     style={{
-                      color: "var(--color-tag-text)",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: 0,
                     }}
-                  />
-                </Button>
-              </div>
-            );
-          })}
-        </div>
+                    size="sm"
+                    variant="none"
+                  >
+                    <TiDelete
+                      size={24}
+                      style={{
+                        color: "var(--color-tag-text)",
+                      }}
+                    />
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
-
-      {errors.tag && (
-        <span className={styles.error_message}>{errors.tag.message}</span>
-      )}
     </div>
   );
 };

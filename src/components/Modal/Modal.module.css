@@ -19,6 +19,8 @@
   background: var(--color-white);
   color: var(--color-black);
   min-width: 20vw;
+  max-width: 95vw;
+  max-height: 95vh;
   border-radius: var(--radius-modal);
   z-index: 1000;
 }

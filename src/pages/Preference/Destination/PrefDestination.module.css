@@ -30,7 +30,7 @@
 
 .destination_items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 
   gap: 1rem;
 }
@@ -43,55 +43,50 @@
 }
 
 .destination {
+  perspective: 1000px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
 
   cursor: pointer;
-  border-radius: var(--radius-2xl);
   position: relative;
 }
 
-.check_box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: var(--text-5xl);
-  z-index: 500;
-  backface-visibility: hidden;
-}
-
-.check_box_back {
-  position: absolute;
-  top: 0;
-  left: -4px;
-  font-size: var(--text-2xl);
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-}
-
-.dest_trans {
+.card_inner {
   width: 100%;
   aspect-ratio: 1;
-
-  transition: transform 1s ease;
-  transform-style: preserve-3d;
   position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
 }
 
-.dest_trans:hover {
+.destination:hover .card_inner {
   transform: rotateY(180deg);
+}
+
+.card_face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  border-radius: var(--radius-2xl);
+  backface-visibility: hidden;
+}
+
+.card_front {
+  z-index: 2;
+}
+
+.card_back {
+  transform: rotateY(180deg);
+  z-index: 1;
 }
 
 .dest_img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-  backface-visibility: hidden;
   border-radius: var(--radius-2xl);
 }
 
@@ -100,38 +95,67 @@
 }
 
 .dest_back_img {
-  position: absolute;
-  top: 0%;
-  left: 0%;
   width: 100%;
   height: 100%;
-  opacity: 0.2;
-  aspect-ratio: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
   object-fit: cover;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
+  z-index: 1;
+  border-radius: var(--radius-2xl);
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
   border-radius: var(--radius-2xl);
 }
 
 .dest_back_box {
   box-sizing: border-box;
   position: absolute;
-  padding: 0.5rem;
-  top: 5%;
-  left: 5%;
-  width: 90%;
-  height: 90%;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-  border-radius: var(--radius-2xl);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  z-index: 3;
+  color: white;
   text-align: justify;
-
   font-size: var(--text-lg);
   line-height: 1.2;
   font-weight: var(--font-weight-semibold);
 }
 
+.check_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--text-5xl);
+  z-index: 3;
+}
+
+.check_box_back {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  font-size: var(--text-2xl);
+  z-index: 4;
+
+  color: var(--color-gray-300);
+}
+
 .destination_text {
+  box-sizing: border-box;
+
   color: black;
   font-size: var(--text-lg);
   margin-top: 0.25rem;
@@ -150,4 +174,22 @@
   color: var(--color-text-dynamic);
   font-size: var(--text-xl);
   font-weight: var(--font-weight-semibold);
+}
+
+@media screen and (max-width: 968px) {
+  .destination_items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .destination_items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .destination_items {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

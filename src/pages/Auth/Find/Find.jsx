@@ -34,6 +34,11 @@ const FindPWPage = () => {
         type: "success",
         text: "이메일을 보냈습니다. 이메일을 확인해 주세요.",
       });
+    }).catch((err) => {
+      createToast({
+        type: "error",
+        text: err.data.message,
+      });
     });
   };
 

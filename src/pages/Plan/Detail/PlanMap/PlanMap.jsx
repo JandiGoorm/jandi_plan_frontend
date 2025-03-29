@@ -122,7 +122,7 @@ const PlanMap = () => {
           );
         })}
 
-        <Polyline path={flightPlanCoordinates} />
+        {focusDay && <Polyline path={flightPlanCoordinates} />}
 
         {selectedMarker && selectedSchedule && (
           <CustomInfoWindow

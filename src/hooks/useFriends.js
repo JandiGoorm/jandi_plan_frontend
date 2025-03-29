@@ -25,13 +25,20 @@ const useFriends = (id) => {
       const formData = new FormData();
       formData.append("participantUserName", data.participantUserName);
 
-      await handleApiCall(
-        () => postApi({ url, method: "POST", data: formData }),
-        "친구가 추가되었습니다.",
-        "친구 등록에 실패했습니다.",
-        createToast,
-        fetchFriends,
-      );
+      return await postApi({
+        url, method: "POST", data: formData
+      }).then(()=>{
+        fetchFriends();
+        createToast({
+          type: "success",
+          text: "친구가 추가되었습니다.",
+        });
+      }).catch((err)=>{
+        createToast({
+          type: "error",
+          text: err.data.message,
+        });
+      })
     },
     [createToast, navigate, postApi, fetchFriends]
   );

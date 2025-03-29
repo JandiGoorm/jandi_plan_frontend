@@ -3,17 +3,21 @@ import { APIEndPoints } from "@/constants";
 import { useAxios } from "@/hooks";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Banner.module.css";
 import BannerOverlay from "./BannerOverlay";
 
 const Banner = () => {
-  const [currentIndex, setCurrentIndex] = useState(null);
-  const { fetchData, response, loading } = useAxios();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+  const autoplay = useRef(
     Autoplay({
       delay: 6000,
-    }),
+    })
+  ).current;
+
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const { fetchData, response, loading } = useAxios();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 50 }, [
+    autoplay,
   ]);
 
   useEffect(() => {
@@ -45,6 +49,7 @@ const Banner = () => {
         allBanners={response?.items}
         emblaApi={emblaApi}
         setCurrentIndex={setCurrentIndex}
+        autoplay={autoplay}
       />
     </section>
   );

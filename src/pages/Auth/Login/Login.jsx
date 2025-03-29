@@ -25,7 +25,6 @@ const LoginPage = () => {
 
   const { handleSubmit } = formController;
 
-
   const onSubmit = useCallback(
     async (data) => {
       handleApiCall(
@@ -41,16 +40,18 @@ const LoginPage = () => {
   );
 
   const handleNaver = () => {
-       fetchLogin({
-        method: "GET",
-        url: APIEndPoints.NAVER_LOGIN_URL,
-      }).then((res) => {
+    fetchLogin({
+      method: "GET",
+      url: APIEndPoints.NAVER_LOGIN_URL,
+    })
+      .then((res) => {
         console.log(res.data);
         window.location.href = res.data;
-      }).catch((err)=>{
-        console.error("소셜 로그인 오류:");
       })
-    }
+      .catch((err) => {
+        console.error("소셜 로그인 오류:");
+      });
+  };
   useEffect(() => {
     if (!user) return;
 
@@ -82,20 +83,33 @@ const LoginPage = () => {
         <div className={styles.divider} />
 
         <div className={styles.social_login_btns}>
-          <img src="/naver_icon.png" className={styles.social_btn} 
-             onClick={handleNaver}
+          <img
+            src="/naver_icon.png"
+            className={styles.social_btn}
+            onClick={handleNaver}
           />
-          <img src="/kakao_icon.png" className={styles.social_btn} 
-            onClick={
-              async () => {window.location.href =
-                `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_REST_API_KEY}&redirect_uri=http://localhost:5173${PageEndPoints.KAKAO_JOIN}&response_type=code`
-                }
-            }
+          <img
+            src="/kakao_icon.png"
+            className={styles.social_btn}
+            onClick={async () => {
+              window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${
+                import.meta.env.VITE_KAKAO_REST_API_KEY
+              }&redirect_uri=https://justplanit.site${
+                PageEndPoints.KAKAO_JOIN
+              }&response_type=code`;
+            }}
           />
-          <img src="/google_icon.png" className={styles.social_btn} 
-            onClick={async () => {window.location.href =
-              `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:5173${PageEndPoints.GOOGLE_JOIN}&response_type=code&scope=openid%20email%20profile`
-              }}/>
+          <img
+            src="/google_icon.png"
+            className={styles.social_btn}
+            onClick={async () => {
+              window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
+                import.meta.env.VITE_GOOGLE_CLIENT_ID
+              }&redirect_uri=https://justplanit.site${
+                PageEndPoints.GOOGLE_JOIN
+              }&response_type=code&scope=openid%20email%20profile`;
+            }}
+          />
         </div>
       </div>
 

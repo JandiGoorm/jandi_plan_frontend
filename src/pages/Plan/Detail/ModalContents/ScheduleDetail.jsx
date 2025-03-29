@@ -31,7 +31,7 @@ const ScheduleDetail = ({
           />
         </Field>
 
-        <Field label="시간" isRequire error={errors.time}>
+        <Field label="시간" isRequire error={errors.startTime}>
           <Input
             type="time"
             style={{ width: "100%" }}
@@ -49,7 +49,7 @@ const ScheduleDetail = ({
           />
         </Field>
 
-        <Field label="장소" isRequire error={errors.place}>
+        <Field label="장소" isRequire error={errors.placeId}>
           <div className={styles.place}>
             <Input
               type="text"

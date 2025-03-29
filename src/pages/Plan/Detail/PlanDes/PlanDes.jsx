@@ -63,7 +63,14 @@ const PlanDes = () => {
           <div className={styles.buttons}>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">예약추가</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  예약추가
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <CreateReservation />
@@ -72,7 +79,14 @@ const PlanDes = () => {
 
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">일정추가</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  일정추가
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <CreateSchedule />

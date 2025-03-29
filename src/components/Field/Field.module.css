@@ -33,4 +33,6 @@
 
 .error {
   color: var(--color-red-500);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
 }

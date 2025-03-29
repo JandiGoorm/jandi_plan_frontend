@@ -12,6 +12,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 1rem;
 }
 
 .header_title {
@@ -21,6 +23,8 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+
+  flex-wrap: wrap;
 }
 
 .content {
@@ -124,4 +128,20 @@
 
 .empty {
   min-height: 30rem;
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .search_input {
+    width: 100%;
+  }
+
+  .header_title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }

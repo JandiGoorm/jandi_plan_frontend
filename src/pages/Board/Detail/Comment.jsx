@@ -22,11 +22,16 @@ const Comment = ({ id }) => {
   const { createToast } = useToast();
 
   const fetchComments = useCallback(async () => {
+    const navigatePage = Math.max(
+      1,
+      currentPage > totalPage ? totalPage : currentPage
+    );
+
     await fetchData({
       url: buildPath(APIEndPoints.COMMUNITY_COMMENTS, { id }),
       method: "GET",
       params: {
-        page: currentPage - 1,
+        page: navigatePage - 1,
       },
     }).then((res) => {
       setTotalPage(res.data.pageInfo.totalPages);
@@ -37,7 +42,7 @@ const Comment = ({ id }) => {
 
       setItems(itemsWithMine);
     });
-  }, [currentPage, fetchData, id, setTotalPage, user?.userId]);
+  }, [currentPage, fetchData, id, setTotalPage, totalPage, user?.userId]);
 
   const addComment = useCallback(() => {
     const text = ref.current.value;
@@ -97,11 +102,11 @@ const Comment = ({ id }) => {
 
   const handleLike = useCallback(
     (id, liked) => {
-      let method="";
-      if(liked){
-        method="DELETE";
-      }else{
-        method="POST";
+      let method = "";
+      if (liked) {
+        method = "DELETE";
+      } else {
+        method = "POST";
       }
       fetchApi({
         method: method,

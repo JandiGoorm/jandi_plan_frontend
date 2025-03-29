@@ -62,10 +62,17 @@ const PlanInfo = () => {
       <div className={styles.header_box}>
         <p className={styles.title}>{tripDetail.title}</p>
         {isMine ? (
-          <div className={styles.header_menu}>
+          <div className={styles.header_buttons}>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">친구 관리</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  친구 관리
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <ManageFriends
@@ -77,7 +84,14 @@ const PlanInfo = () => {
             </Modal>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">수정</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  수정
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <ModifyPlan plan={tripDetail} />
@@ -85,7 +99,14 @@ const PlanInfo = () => {
             </Modal>
             <Modal>
               <ModalTrigger>
-                <Button variant="ghost">삭제</Button>
+                <Button
+                  variant="ghost"
+                  style={{
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  삭제
+                </Button>
               </ModalTrigger>
               <ModalContent>
                 <DeletePlan />
@@ -93,19 +114,23 @@ const PlanInfo = () => {
             </Modal>
           </div>
         ) : (
-          <div className={styles.header_menu}>
-            {liked ? (
-              <FaHeart
-                size={24}
-                onClick={() => likedTrip("DELETE", tripDetail.tripId)}
-              />
-            ) : (
-              <FaRegHeart
-                size={24}
-                onClick={() => likedTrip("POST", tripDetail.tripId)}
-              />
-            )}
-          </div>
+          <Tooltip text={liked ? "좋아요 취소" : "좋아요"}>
+            <div className={styles.header_menu}>
+              {liked ? (
+                <FaHeart
+                  size={24}
+                  onClick={() => likedTrip("DELETE", tripDetail.tripId)}
+                  className={styles.heart_icon}
+                />
+              ) : (
+                <FaRegHeart
+                  size={24}
+                  onClick={() => likedTrip("POST", tripDetail.tripId)}
+                  className={styles.heart_icon}
+                />
+              )}
+            </div>
+          </Tooltip>
         )}
       </div>
 

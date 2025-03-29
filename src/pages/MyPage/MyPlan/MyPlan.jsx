@@ -1,12 +1,26 @@
 import { Button, Loading, PlanCard, Slider } from "@/components";
-import { useAxios } from "@/hooks";
+import { useAxios, usePreventDragClick } from "@/hooks";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MyPlan.module.css";
+import { buildPath } from "@/utils";
+import { PageEndPoints } from "@/constants";
 
 const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
   const { fetchData, response, loading } = useAxios();
   const navigate = useNavigate();
+
+  const { handleMouseDown, handleMouseUp } = usePreventDragClick();
+
+  const callback = useCallback(
+    (item) => {
+      const path = buildPath(PageEndPoints.PLAN_DETAIL, {
+        id: item.tripId,
+      });
+      navigate(path);
+    },
+    [navigate]
+  );
 
   const fetchPlans = useCallback(async () => {
     await fetchData({
@@ -42,7 +56,14 @@ const MyPlan = ({ title, fetchUrl, goUrl, refreshTrigger }) => {
         />
       ) : (
         <Slider items={response?.items ?? []} size="md">
-          {(item) => <PlanCard key={item.tripId} item={item} />}
+          {(item) => (
+            <div
+              onMouseDown={handleMouseDown}
+              onMouseUp={(e) => handleMouseUp(e, () => callback(item))}
+            >
+              <PlanCard key={item.tripId} item={item} />
+            </div>
+          )}
         </Slider>
       )}
     </div>

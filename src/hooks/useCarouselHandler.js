@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const useCarouselHandler = (emblaApi, setCurrent) => {
+const useCarouselHandler = (emblaApi, setCurrent, autoplay) => {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -13,12 +13,20 @@ const useCarouselHandler = (emblaApi, setCurrent) => {
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
-  }, [emblaApi]);
+
+    if (autoplay) {
+      autoplay.reset();
+    }
+  }, [autoplay, emblaApi]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
-  }, [emblaApi]);
+
+    if (autoplay) {
+      autoplay.reset();
+    }
+  }, [autoplay, emblaApi]);
 
   const onSelect = useCallback(
     (emblaApi) => {
