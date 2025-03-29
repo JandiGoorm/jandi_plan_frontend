@@ -27,7 +27,7 @@ const JoinPage = () => {
     resolver: zodResolver(joinScheme),
   });
 
-  const { setError } = joinUseForm;
+  const { setError, clearErrors } = joinUseForm;
 
   const handleDuplicateCheck = useCallback(() => {
     if (!duplicateCheck.email) {
@@ -96,6 +96,7 @@ const JoinPage = () => {
             ...prev,
             email: true,
           }));
+          clearErrors("email");
           createToast({
             type: "success",
             text: "사용가능한 이메일입니다.",
@@ -108,7 +109,7 @@ const JoinPage = () => {
           });
         });
     },
-    [createToast, fetchDuplicateEmail, setError]
+    [clearErrors, createToast, fetchDuplicateEmail, setError]
   );
 
   const handleDuplicateNickname = useCallback(
@@ -125,6 +126,7 @@ const JoinPage = () => {
             ...prev,
             nickname: true,
           }));
+          clearErrors("nickname");
           createToast({
             type: "success",
             text: "사용가능한 닉네임입니다.",
@@ -141,7 +143,7 @@ const JoinPage = () => {
           });
         });
     },
-    [createToast, fetchDuplicateNickname, setError]
+    [clearErrors, createToast, fetchDuplicateNickname, setError]
   );
 
   return (
