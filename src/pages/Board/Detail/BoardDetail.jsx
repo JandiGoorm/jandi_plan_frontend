@@ -9,7 +9,6 @@ import {
 import { APIEndPoints, PageEndPoints } from "@/constants";
 import { useAxios, useCommunity } from "@/hooks";
 import { BaseLayout } from "@/layouts";
-import { formatDistanceToNow } from "date-fns";
 import { useCallback, useEffect } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,7 +17,7 @@ import Comment from "./Comment";
 
 import DeleteModal from "@/components/Modal/ModalContents/DeleteModal";
 import { useAuth, useToast } from "@/contexts";
-import { buildPath, handleApiCall } from "@/utils";
+import { buildPath, formatISO, handleApiCall } from "@/utils";
 import ReportModal from "./components/ReportModal";
 
 const likeActionMap = {
@@ -101,7 +100,7 @@ const BoardDetail = () => {
           </div>
 
           <div className={styles.header_right_box}>
-            <p className={styles.date}>{formatDistanceToNow(item.createdAt)}</p>
+            <p className={styles.date}>{formatISO(item.createdAt)}</p>
             {item.user.userId == user.userId ? (
               <div className={styles.flex_row}>
                 <Button

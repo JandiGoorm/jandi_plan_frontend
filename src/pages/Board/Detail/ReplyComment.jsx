@@ -1,15 +1,14 @@
-import { useAxios } from "@/hooks";
-import { useEffect, useMemo, useState,useCallback } from "react";
-import styles from "./ReplyComment.module.css";
-import { formatDistanceToNow } from "date-fns";
-import { buildPath } from "@/utils";
+import { Modal, ModalContent, ModalTrigger } from "@/components";
 import { APIEndPoints } from "@/constants";
-import { useAuth, useToast} from "@/contexts";
+import { useToast } from "@/contexts";
+import { useAxios } from "@/hooks";
+import { buildPath, formatISO } from "@/utils";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import ReportModal from "./components/ReportModal";
-import { Modal, ModalContent, ModalTrigger } from "@/components";
+import styles from "./ReplyComment.module.css";
 
-const ReplyComment = ({ commentId, user,fetchComments }) => {
+const ReplyComment = ({ commentId, user, fetchComments }) => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
@@ -20,11 +19,10 @@ const ReplyComment = ({ commentId, user,fetchComments }) => {
 
   const isNextPage = useMemo(() => {
     if (!response) return false;
-    return totalPage > page+1 ;
-  }, [response]);
+    return totalPage > page + 1;
+  }, [page, response, totalPage]);
 
   const fetchReplys = useCallback(async () => {
-    console.log(commentId);
     await fetchData({
       url: buildPath(APIEndPoints.COMMENTS_REPLIES, { id: commentId }),
       method: "GET",
@@ -32,39 +30,41 @@ const ReplyComment = ({ commentId, user,fetchComments }) => {
         page,
       },
     }).then((res) => {
-      console.log(res)
       setPage(res.data.pageInfo.currentPage);
       setTotalPage(res.data.pageInfo.totalPages);
       setData(res.data.items);
-    })
-  },[fetchData, commentId, user?.userId, page])
+    });
+  }, [fetchData, commentId, page]);
 
   const deleteReply = useCallback(
     (id) => {
       deleteApi({
-      method: "DELETE",
-      url: buildPath(APIEndPoints.COMMUNITY_COMMENTS, {id}),
-    }).then((res) => {
-      createToast({ type: "success", text: "댓글이 삭제되었습니다." });
-      setPage(0); 
-      fetchReplys();
-      fetchComments();
-    }).catch((err) => {
-      createToast({
-        type: "error",
-        text: "댓글 삭제에 실패하였습니다",
-      });
-    })
-  },
-  [deleteApi, createToast, fetchReplys]);
+        method: "DELETE",
+        url: buildPath(APIEndPoints.COMMUNITY_COMMENTS, { id }),
+      })
+        .then(() => {
+          createToast({ type: "success", text: "댓글이 삭제되었습니다." });
+          setPage(0);
+          fetchReplys();
+          fetchComments();
+        })
+        .catch(() => {
+          createToast({
+            type: "error",
+            text: "댓글 삭제에 실패하였습니다",
+          });
+        });
+    },
+    [createToast, deleteApi, fetchComments, fetchReplys]
+  );
 
   const handleLike = useCallback(
     (id, liked) => {
-      let method="";
-      if(liked){
-        method="DELETE";
-      }else{
-        method="POST";
+      let method = "";
+      if (liked) {
+        method = "DELETE";
+      } else {
+        method = "POST";
       }
       fetchApi({
         method: method,
@@ -90,32 +90,57 @@ const ReplyComment = ({ commentId, user,fetchComments }) => {
   return (
     <div className={styles.container}>
       {data.map((comment) => {
-        const formatDate = formatDistanceToNow(new Date(comment.createdAt));
+        const formatDate = formatISO(comment.createdAt);
 
         return (
           <div className={styles.comment} key={comment.commentId}>
-            <img src={comment.user.profileImageUrl} className={styles.comment_user_img} />
+            <img
+              src={comment.user.profileImageUrl}
+              className={styles.comment_user_img}
+            />
             <div className={styles.flex_column}>
               <div className={styles.comment_info}>
-                <p className={styles.comment_user_name}>{comment.user.userName}</p>
+                <p className={styles.comment_user_name}>
+                  {comment.user.userName}
+                </p>
                 <p className={styles.comment_date}>{formatDate}</p>
-                {user.userId===comment.user.userId ? 
+                {user.userId === comment.user.userId ? (
                   <>
-                    <p className={styles.report} onClick={()=>deleteReply(comment.commentId)}>삭제</p> 
+                    <p
+                      className={styles.report}
+                      onClick={() => deleteReply(comment.commentId)}
+                    >
+                      삭제
+                    </p>
                   </>
-                : 
+                ) : (
                   <>
-                  <Modal>
-                    <ModalTrigger>
-                      <p className={styles.report}>신고</p>
-                    </ModalTrigger>
-                    <ModalContent>
-                      <ReportModal id={comment.commentId} getUrl="commentReport"/>
-                    </ModalContent>
-                  </Modal>
-                    <FaThumbsUp size={12} className={styles.thumbs}color={comment.liked? "var(--color-amber-400)": "var( --color-gray-300)"} onClick={()=>{handleLike(comment.commentId,comment.liked)}} />
+                    <Modal>
+                      <ModalTrigger>
+                        <p className={styles.report}>신고</p>
+                      </ModalTrigger>
+                      <ModalContent>
+                        <ReportModal
+                          id={comment.commentId}
+                          getUrl="commentReport"
+                        />
+                      </ModalContent>
+                    </Modal>
+                    <FaThumbsUp
+                      size={12}
+                      className={styles.thumbs}
+                      color={
+                        comment.liked
+                          ? "var(--color-amber-400)"
+                          : "var( --color-gray-300)"
+                      }
+                      onClick={() => {
+                        handleLike(comment.commentId, comment.liked);
+                      }}
+                    />
                     <p className={styles.likeCount}> {comment.likeCount}</p>
-                  </>}
+                  </>
+                )}
               </div>
               <p className={styles.comment_text}>{comment.contents}</p>
             </div>

@@ -22,7 +22,10 @@ const Comment = ({ id }) => {
   const { createToast } = useToast();
 
   const fetchComments = useCallback(async () => {
-    const navigatePage = currentPage > totalPage ? totalPage : currentPage;
+    const navigatePage = Math.max(
+      1,
+      currentPage > totalPage ? totalPage : currentPage
+    );
 
     await fetchData({
       url: buildPath(APIEndPoints.COMMUNITY_COMMENTS, { id }),
