@@ -29,7 +29,12 @@ const AllCities = ({
       <div className={styles.sub_title}>
         <p>전체 여행지</p>
 
-        <Button variant="ghost" isInModal onClick={handleChangeView}>
+        <Button
+          variant="ghost"
+          isInModal
+          onClick={handleChangeView}
+          type="button"
+        >
           선호 여행지
         </Button>
       </div>
@@ -45,6 +50,7 @@ const AllCities = ({
                 whiteSpace: "nowrap",
               }}
               isInModal
+              type="button"
             >
               {continent}
             </Button>
