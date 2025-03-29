@@ -85,7 +85,7 @@ const BoardDetail = () => {
       <div className={styles.container}>
         <div className={styles.tags_container}>
           {item.hashtag.map((tag) => (
-            <div className={styles.tag} key={tag.tagId}>
+            <div className={styles.tag} key={tag}>
               {tag}
             </div>
           ))}
