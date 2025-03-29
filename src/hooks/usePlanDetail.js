@@ -10,7 +10,11 @@ const usePlan = (id) => {
   const navigate = useNavigate();
   const { createToast } = useToast();
 
-  const { response: tripDetail, fetchData: getApi } = useAxios();
+  const {
+    response: tripDetail,
+    fetchData: getApi,
+    loading: tripDetailLoading,
+  } = useAxios();
   const { fetchData: postApi } = useAxios();
   const { fetchData: updateApi } = useAxios();
   const { fetchData: deleteApi } = useAxios();
@@ -73,7 +77,6 @@ const usePlan = (id) => {
 
   const updatePlanImg = useCallback(
     async (data) => {
-      console.log(data.file?.[0]);
       const formData = new FormData();
       formData.append("file", data.file?.[0]);
       formData.append("targetId", id);
@@ -97,6 +100,7 @@ const usePlan = (id) => {
   return {
     fetchTripDetail,
     tripDetail,
+    tripDetailLoading,
     addPlan,
     updatePlan,
     deletePlan,

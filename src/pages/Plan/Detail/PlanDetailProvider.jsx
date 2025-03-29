@@ -26,6 +26,7 @@ const PlanDetailProvider = ({ children }) => {
     planImg,
     updatePlanImg,
     fetchTripDetail,
+    tripDetailLoading,
   } = usePlan(id);
 
   const { friends, addFriends, deleteFriends } = useFriends(id);
@@ -68,6 +69,7 @@ const PlanDetailProvider = ({ children }) => {
         setFocusDay,
 
         tripDetail,
+        tripDetailLoading,
         itineraries,
         reservations,
         planImg,

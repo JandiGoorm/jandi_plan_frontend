@@ -7,13 +7,14 @@ export const PlanDetailContext = createContext({
   reservations: null, // 여행 계획의 예약 정보
   friends: null, //여행 동반자 목록
   planImg: null, //플랜 이미지
+  tripDetailLoading: true, // 여행 계획의 기본 정보 로딩 상태
 
   setFocusDay: () => {}, // 현재 보고 있는 일자를 변경하는 함수
 
   updatePlan: () => {}, // 여행 계획의 기본 정보를 수정하는 함수
   deletePlan: () => {}, // 여행 계획을 삭제하는 함수
 
-  updatePlanImg: ()=>{}, //플랜 이미지 변경 함수
+  updatePlanImg: () => {}, //플랜 이미지 변경 함수
 
   addReservation: () => {}, // 예약 정보를 추가하는 함수
   updateReservation: () => {}, // 예약 정보를 수정하는 함수
