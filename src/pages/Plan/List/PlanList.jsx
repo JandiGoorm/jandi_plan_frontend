@@ -1,4 +1,11 @@
-import { Button, Input, Loading, Pagination, PlanCard } from "@/components";
+import {
+  Button,
+  EmptyItem,
+  Input,
+  Loading,
+  Pagination,
+  PlanCard,
+} from "@/components";
 import { PageEndPoints } from "@/constants";
 import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
@@ -42,19 +49,27 @@ const PlanList = () => {
 
   const onSubmit = (data) => {
     const searchKeyword = data.keyword;
+
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("page", "1");
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
+
+    fetchPlans({
+      page: currentPage - 1,
+      keyword: searchKeyword,
+      category,
+    }).then((res) => setTotalPage(res.data.pageInfo.totalPages || 0));
   };
 
   useEffect(() => {
     clearErrors();
-
     fetchPlans({ page: currentPage - 1, keyword, category }).then((res) =>
       setTotalPage(res.data.pageInfo.totalPages || 0)
     );
-  }, [category, clearErrors, currentPage, fetchPlans, keyword, setTotalPage]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (getLoadings) return <Loading />;
   return (
@@ -84,11 +99,13 @@ const PlanList = () => {
                   newSearchParams.set("category", e.target.value);
                   setSearchParams(newSearchParams);
                 }}
+                defaultValue={category}
               >
                 <option value="BOTH">전체</option>
                 <option value="TITLE">제목</option>
                 <option value="CITY">도시</option>
               </select>
+
               <Input
                 size="md"
                 style={{
@@ -113,21 +130,30 @@ const PlanList = () => {
           </div>
         </div>
 
-        <div className={styles.plan_container}>
-          {plans?.items.map((item) => (
-            <div key={item.tripId} onClick={() => handleNavigate(item.tripId)}>
-              <PlanCard item={item} />
+        {plans && plans.items.length > 0 ? (
+          <>
+            <div className={styles.plan_container}>
+              {plans.items.map((item) => (
+                <div
+                  key={item.tripId}
+                  onClick={() => handleNavigate(item.tripId)}
+                >
+                  <PlanCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className={styles.footer}>
-          <Pagination
-            currentPage={currentPage}
-            totalPage={totalPage}
-            callback={handlePageChange}
-          />
-        </div>
+            <div className={styles.footer}>
+              <Pagination
+                currentPage={currentPage}
+                totalPage={totalPage}
+                callback={handlePageChange}
+              />
+            </div>
+          </>
+        ) : (
+          <EmptyItem parentClassName={styles.empty} />
+        )}
       </div>
     </BaseLayout>
   );

@@ -89,6 +89,10 @@
   align-self: center;
 }
 
+.empty {
+  height: 30rem;
+}
+
 @media screen and (max-width: 768px) {
   .plan_container {
     grid-template-columns: 1fr;

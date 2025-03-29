@@ -50,9 +50,11 @@ const BoardPage = () => {
     newSearchParams.set("keyword", searchKeyword);
     setSearchParams(newSearchParams);
 
-    fetchCommunities({ page: currentPage - 1, keyword, category }).then((res) =>
-      setTotalPage(res.data.pageInfo.totalPages || 0)
-    );
+    fetchCommunities({
+      page: currentPage - 1,
+      keyword: searchKeyword,
+      category,
+    }).then((res) => setTotalPage(res.data.pageInfo.totalPages || 0));
   };
 
   useEffect(() => {
@@ -62,7 +64,7 @@ const BoardPage = () => {
     );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearErrors, currentPage, fetchCommunities, keyword, setTotalPage]);
+  }, []);
 
   useEffect(() => {
     reset({ keyword });
