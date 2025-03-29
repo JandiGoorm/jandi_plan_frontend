@@ -27,43 +27,32 @@ const Header = ({ forceDark = false }) => {
     () => [
       user && {
         text: "마이페이지",
-        icon: (
-          <LuUserRound
-            size={20}
-            onClick={() => navigate(PageEndPoints.MYPAGE)}
-          />
-        ),
+        icon: <LuUserRound size={20} />,
+        onClick: () => navigate(PageEndPoints.MYPAGE),
       },
       user
         ? {
             text: "로그아웃",
-            icon: <LuLogOut size={20} onClick={signOut} />,
+            icon: <LuLogOut size={20} />,
+            onClick: () => signOut(),
           }
         : {
             text: "로그인",
-            icon: (
-              <LuLogIn
-                size={20}
-                onClick={() =>
-                  navigate(PageEndPoints.LOGIN, {
-                    state: { from: location.pathname },
-                  })
-                }
-              />
-            ),
+            icon: <LuLogIn size={20} />,
+            onClick: () =>
+              navigate(PageEndPoints.LOGIN, {
+                state: { from: location.pathname },
+              }),
           },
       {
         text: isDarkMode ? "밝게" : "어둡게",
-        icon: <LuMoonStar size={20} onClick={toggleDarkMode} />,
+        icon: <LuMoonStar size={20} />,
+        onClick: toggleDarkMode,
       },
       {
         text: "검색",
-        icon: (
-          <RiSearchLine
-            size={20}
-            onClick={() => navigate(PageEndPoints.SEARCH)}
-          />
-        ),
+        icon: <RiSearchLine size={20} />,
+        onClick: () => navigate(PageEndPoints.SEARCH),
       },
     ],
     [isDarkMode, location.pathname, navigate, signOut, toggleDarkMode, user]
@@ -118,6 +107,7 @@ const Header = ({ forceDark = false }) => {
                   variant="none"
                   size="sm"
                   style={{ color: "var(--color-text-primary)" }}
+                  onClick={tooltip.onClick}
                 >
                   {tooltip.icon}
                 </Button>
