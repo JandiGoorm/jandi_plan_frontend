@@ -53,7 +53,7 @@ const MyInfo = ({ user, setNickname, nickname }) => {
         <div className={styles.info_box}>
           <div className={styles.user_photo_box}>
             <img
-              src={profile ?? "/user1.png"}
+              src={profile ?? "/none-user.webp"}
               alt="profile_img"
               className={styles.user_photo}
             />
