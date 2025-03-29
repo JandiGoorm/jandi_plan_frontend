@@ -1,4 +1,9 @@
-import { Modal, ModalContent, ModalTrigger } from "@/components";
+import {
+  ImageWithPlaceholder,
+  Modal,
+  ModalContent,
+  ModalTrigger,
+} from "@/components";
 import { APIEndPoints } from "@/constants";
 import { useToast } from "@/contexts";
 import { useAxios } from "@/hooks";
@@ -94,10 +99,13 @@ const ReplyComment = ({ commentId, user, fetchComments }) => {
 
         return (
           <div className={styles.comment} key={comment.commentId}>
-            <img
-              src={comment.user.profileImageUrl}
-              className={styles.comment_user_img}
-            />
+            <div className={styles.user_img_box}>
+              <ImageWithPlaceholder
+                src={comment.user.profileImageUrl}
+                alt="user profile"
+              />
+            </div>
+
             <div className={styles.flex_column}>
               <div className={styles.comment_info}>
                 <p className={styles.comment_user_name}>

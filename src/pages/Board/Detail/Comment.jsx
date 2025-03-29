@@ -1,4 +1,10 @@
-import { Button, Input, Loading, Pagination } from "@/components";
+import {
+  Button,
+  ImageWithPlaceholder,
+  Input,
+  Loading,
+  Pagination,
+} from "@/components";
 import styles from "./Comment.module.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAxios, usePagination } from "@/hooks";
@@ -144,10 +150,13 @@ const Comment = ({ id }) => {
             addComment();
           }}
         >
-          <img
-            src={user?.profileImageUrl}
-            className={styles.current_user_img}
-          />
+          <div className={styles.user_img_box}>
+            <ImageWithPlaceholder
+              src={user?.profileImageUrl}
+              alt="user profile"
+            />
+          </div>
+
           <Input
             placeholder="댓글을 입력해주세요."
             ref={ref}
@@ -157,7 +166,14 @@ const Comment = ({ id }) => {
               flex: 1,
             }}
           />
-          <Button variant="ghost" size="lg" type="submit">
+          <Button
+            variant="ghost"
+            size="md"
+            type="submit"
+            style={{
+              whiteSpace: "nowrap",
+            }}
+          >
             등록하기
           </Button>
         </form>

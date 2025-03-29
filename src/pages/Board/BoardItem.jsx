@@ -4,6 +4,7 @@ import { PageEndPoints } from "@/constants";
 import { buildPath } from "@/utils";
 import { useCallback } from "react";
 import { formatDate } from "date-fns";
+import { ImageWithPlaceholder } from "@/components";
 
 const BoardItem = ({ item }) => {
   const navigate = useNavigate();
@@ -29,11 +30,12 @@ const BoardItem = ({ item }) => {
         )}
 
         <div className={styles.header_info}>
-          <img
-            className={styles.user_image}
-            src={item.user.profileImageUrl}
-            alt="user_image"
-          />
+          <div className={styles.user_img_box}>
+            <ImageWithPlaceholder
+              src={item.user.profileImageUrl}
+              alt="user profile"
+            />
+          </div>
 
           <div className={styles.header_info_text}>
             <p className={styles.header_title}>{item.title}</p>

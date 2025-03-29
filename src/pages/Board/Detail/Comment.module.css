@@ -21,10 +21,14 @@
   gap: 1rem;
 }
 
-.current_user_img {
+.user_img_box {
+  position: relative;
+
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .comment_container {
