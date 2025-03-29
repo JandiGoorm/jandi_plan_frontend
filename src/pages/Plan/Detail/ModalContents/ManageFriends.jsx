@@ -21,7 +21,7 @@ const ManageFriends = ({ plan, friends, user }) => {
 
   const onSubmit = useCallback(
     (data) => {
-      if (data.participantUserName === user.user.username) {
+      if (data.participantUserName === user.username) {
         createToast({
           type: "error",
           text: "자신을 친구로 추가할 수 없습니다.",
@@ -41,7 +41,6 @@ const ManageFriends = ({ plan, friends, user }) => {
     [deleteFriends]
   );
 
-  console.log("erros", errors);
   if (!plan) return <p>해당 계획을 불러오기 실패했습니다.</p>;
   return (
     <div className={styles.container}>
@@ -49,31 +48,33 @@ const ManageFriends = ({ plan, friends, user }) => {
 
       <form className={styles.form_container} onSubmit={handleSubmit(onSubmit)}>
         <Field label="친구 닉네임" isRequire error={errors.participantUserName}>
-          <Input
-            type="text"
-            style={{
-              boxSizing: "border-box",
-              width: "100%",
-            }}
-            size="sm"
-            register={register}
-            placeholder="친구 닉네임을 입력하세요"
-            name="participantUserName"
-          />
+          <div className={styles.name_div}>
+            <Input
+              type="text"
+              style={{
+                boxSizing: "border-box",
+                width: "100%",
+              }}
+              size="sm"
+              register={register}
+              placeholder="친구 닉네임을 입력하세요"
+              name="participantUserName"
+            />
+
+            <Button
+              variant="solid"
+              style={{
+                width: "5.5rem",
+              }}
+              type="submit"
+              isInModal
+            >
+              추가
+            </Button>
+          </div>
         </Field>
 
-        <Button
-          variant="solid"
-          style={{
-            alignSelf: "end",
-            width: "4rem",
-            whiteSpace: "nowrap",
-          }}
-          type="submit"
-          isInModal
-        >
-          추가
-        </Button>
+        
       </form>
 
       <div className={styles.friend_container}>
