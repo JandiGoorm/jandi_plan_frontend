@@ -143,6 +143,7 @@ const Comment = ({ id }) => {
         <p className={styles.comment_count}>
           댓글 {response?.pageInfo?.totalSize} 개
         </p>
+
         <form
           className={styles.form_box}
           onSubmit={(e) => {
@@ -166,6 +167,7 @@ const Comment = ({ id }) => {
               flex: 1,
             }}
           />
+
           <Button
             variant="ghost"
             size="md"
@@ -174,7 +176,7 @@ const Comment = ({ id }) => {
               whiteSpace: "nowrap",
             }}
           >
-            등록하기
+            등록
           </Button>
         </form>
       </div>

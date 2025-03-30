@@ -173,7 +173,7 @@ const CommentItem = ({
               whiteSpace: "nowrap",
             }}
           >
-            등록하기
+            등록
           </Button>
         </form>
       )}

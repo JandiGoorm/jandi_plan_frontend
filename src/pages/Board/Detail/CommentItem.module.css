@@ -77,7 +77,7 @@
   gap: 1rem;
 
   box-sizing: border-box;
-  padding-left: 3.5rem;
+  padding-left: 2rem;
 }
 
 .current_user_img {
@@ -88,7 +88,7 @@
 
 .recomment_container {
   box-sizing: border-box;
-  padding-left: 3.5rem;
+  padding-left: 2rem;
 
   display: flex;
   flex-direction: column;
