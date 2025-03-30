@@ -5,6 +5,7 @@ import hljs from "highlight.js";
 import "quill/dist/quill.core.css";
 import "highlight.js/styles/github.css";
 import { uploadCommunityImage } from "@/apis/image";
+import { useToast } from "@/contexts";
 
 const Uploader = Quill.import("modules/uploader");
 
@@ -16,6 +17,7 @@ Quill.register("modules/uploader", CustomUploader, true);
 Quill.register("modules/blotFormmater", BlotFormatter);
 
 const Editor = ({ defaultValue, onLoaded, tempPostId, category }) => {
+  const { createToast } = useToast();
   const tempPostIdRef = useRef(tempPostId);
   tempPostIdRef.current = tempPostId;
 
@@ -43,19 +45,38 @@ const Editor = ({ defaultValue, onLoaded, tempPostId, category }) => {
             if (!file) return;
 
             const range = quill.getSelection();
-            const res = await uploadCommunityImage(
-              file,
-              tempPostIdRef.current,
-              category
-            );
+            const insertIndex = range?.index ?? 0;
 
-            quill.insertEmbed(
-              range?.index ?? 0,
-              "image",
-              res.data.imageUrl,
-              "user"
-            );
-            quill.setSelection((range?.index ?? 0) + 1);
+            const loadingImageUrl = "/Loading_icon.gif";
+            quill.insertEmbed(insertIndex, "image", loadingImageUrl, "user");
+
+            try {
+              const res = await uploadCommunityImage(
+                file,
+                tempPostIdRef.current,
+                category
+              );
+
+              const imageUrl = res.data.imageUrl;
+
+              createToast({
+                type: "success",
+                text: "이미지가 성공적으로 업로드되었습니다.",
+              });
+
+              quill.deleteText(insertIndex, 1, "user");
+              quill.insertEmbed(insertIndex, "image", imageUrl, "user");
+              quill.setSelection(insertIndex + 1);
+
+              // eslint-disable-next-line no-unused-vars
+            } catch (error) {
+              createToast({
+                type: "error",
+                text: "이미지 업로드에 실패했습니다.",
+              });
+
+              quill.deleteText(insertIndex, 1, "user");
+            }
           };
         },
       },
