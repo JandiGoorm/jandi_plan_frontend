@@ -1,7 +1,6 @@
 import { PageEndPoints } from "@/constants";
 import {
   Home,
-  Test,
   AuthLayout,
   PlanCreate,
   PlanList,
@@ -24,11 +23,6 @@ export const routes = [
   {
     path: PageEndPoints.HOME,
     element: <Home />,
-    requireAuth: false,
-  },
-  {
-    path: PageEndPoints.TEST,
-    element: <Test />,
     requireAuth: false,
   },
   {
