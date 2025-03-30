@@ -64,6 +64,9 @@ const ModifyPlan = ({ plan }) => {
                 name="privatePlan"
                 value="no"
                 register={register}
+                style={{
+                  width: "fit-content",
+                }}
               />
               <div className={styles.radio_label}>공개</div>
             </div>
@@ -74,6 +77,9 @@ const ModifyPlan = ({ plan }) => {
                 name="privatePlan"
                 value="yes"
                 register={register}
+                style={{
+                  width: "fit-content",
+                }}
               />
               <div className={styles.radio_label}>비공개</div>
             </div>

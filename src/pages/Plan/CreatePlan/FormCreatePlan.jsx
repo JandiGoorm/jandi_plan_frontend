@@ -115,6 +115,9 @@ const FormCreatePlan = ({
                 value="no"
                 register={register}
                 defaultChecked
+                style={{
+                  width: "fit-content",
+                }}
               />
               <div className={styles.radio_label}>공개</div>
             </div>
@@ -125,6 +128,9 @@ const FormCreatePlan = ({
                 name="privatePlan"
                 value="yes"
                 register={register}
+                style={{
+                  width: "fit-content",
+                }}
               />
               <div className={styles.radio_label}>비공개</div>
             </div>
