@@ -20,6 +20,14 @@
   border-radius: var(--radius-full);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+
+  flex-shrink: 0;
+}
+
+.up_icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .flex_column {
@@ -30,6 +38,17 @@
 
 .comment_info {
   display: flex;
+  column-gap: 1.5rem;
+  row-gap: 0.5rem;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.comment_box {
+  display: flex;
+  align-items: center;
   gap: 1.5rem;
 }
 

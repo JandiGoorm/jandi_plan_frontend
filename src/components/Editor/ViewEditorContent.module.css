@@ -14,9 +14,30 @@
   border-left: 4px solid var(--color-editor-blockquote-border);
 }
 
-:global(.ql-editor pre) {
-  background-color: var(--color-gray-100) !important;
+.content blockquote {
+  background-color: var(--color-editor-blockquote-bg) !important;
+  border-left: 4px solid var(--color-editor-blockquote-border) !important;
+  padding: 1rem !important;
+}
+
+.content pre {
+  background-color: var(--color-editor-pre-bg) !important;
   padding: 1rem !important;
   border-radius: var(--radius-lg);
   overflow: hidden;
+}
+
+.content h1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.content h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.content h3 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
 }

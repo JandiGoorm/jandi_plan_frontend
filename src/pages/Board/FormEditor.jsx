@@ -31,6 +31,7 @@ const FormEditor = ({
         name="title"
         isDarkMode={isDarkMode}
       />
+      {errors.title && <p className={styles.error}>{errors.title.message}</p>}
 
       <div className={styles.editor}>
         <Editor
@@ -42,10 +43,7 @@ const FormEditor = ({
       </div>
 
       <div className={styles.submit}>
-        {(errors.content || errors.title) && (
-          <p style={{ color: "red" }}>제목 또는 내용을 입력해주세요.</p>
-        )}
-
+        {errors.content && <p className={styles.error}>내용을 입력해주세요.</p>}
         {children}
       </div>
     </form>

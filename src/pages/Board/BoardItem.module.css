@@ -19,6 +19,8 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+
+  flex-wrap: wrap;
 }
 
 .tag {
@@ -27,6 +29,7 @@
   background-color: var(--color-tag-bg);
   color: var(--color-tag-text);
   font-weight: var(--font-weight-bold);
+  white-space: nowrap;
 }
 
 .header_info {
