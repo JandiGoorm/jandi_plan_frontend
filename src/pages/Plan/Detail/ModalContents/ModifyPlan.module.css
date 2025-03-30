@@ -39,4 +39,6 @@
 .radio_label {
   position: relative;
   top: 2px;
+  white-space: nowrap;
+  min-width: 2rem;
 }
