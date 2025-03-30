@@ -69,7 +69,7 @@ const PlanList = () => {
     );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchPlans, currentPage, keyword, category]);
+  }, [fetchPlans, currentPage, keyword]);
 
   if (getLoadings) return <Loading />;
   return (
