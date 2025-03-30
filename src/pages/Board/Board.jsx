@@ -64,7 +64,7 @@ const BoardPage = () => {
     );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchCommunities, currentPage, keyword, category]);
 
   useEffect(() => {
     reset({ keyword });
