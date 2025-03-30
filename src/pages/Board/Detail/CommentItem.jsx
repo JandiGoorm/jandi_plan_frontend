@@ -80,51 +80,60 @@ const CommentItem = ({
 
         <div className={styles.flex_column}>
           <div className={styles.comment_info}>
-            <p className={styles.comment_user_name}>{comment.user.userName}</p>
-            <p className={styles.comment_date}>{formmatDate}</p>
-            <p
-              className={styles.recomment}
-              onClick={() => setIsReplying(!isReplying)}
-            >
-              답글
-            </p>
-            {comment.mine ? (
-              <>
-                <p
-                  className={styles.report}
-                  onClick={() => deleteComment(comment.commentId)}
-                >
-                  삭제
-                </p>
-              </>
-            ) : (
-              <>
-                <Modal>
-                  <ModalTrigger>
-                    <p className={styles.report}>신고</p>
-                  </ModalTrigger>
-                  <ModalContent>
-                    <ReportModal
-                      id={comment.commentId}
-                      getUrl="commentReport"
+            <div className={styles.comment_box}>
+              <p className={styles.comment_user_name}>
+                {comment.user.userName}
+              </p>
+              <p className={styles.comment_date}>{formmatDate}</p>
+            </div>
+
+            <div className={styles.comment_box}>
+              <p
+                className={styles.recomment}
+                onClick={() => setIsReplying(!isReplying)}
+              >
+                답글
+              </p>
+              {comment.mine ? (
+                <>
+                  <p
+                    className={styles.report}
+                    onClick={() => deleteComment(comment.commentId)}
+                  >
+                    삭제
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Modal>
+                    <ModalTrigger>
+                      <p className={styles.report}>신고</p>
+                    </ModalTrigger>
+                    <ModalContent>
+                      <ReportModal
+                        id={comment.commentId}
+                        getUrl="commentReport"
+                      />
+                    </ModalContent>
+                  </Modal>
+                  <div className={styles.up_icon}>
+                    <FaThumbsUp
+                      size={12}
+                      className={styles.thumbs}
+                      color={
+                        comment.liked
+                          ? "var(--color-amber-400)"
+                          : "var( --color-gray-300)"
+                      }
+                      onClick={() => {
+                        handleLike(comment.commentId, comment.liked);
+                      }}
                     />
-                  </ModalContent>
-                </Modal>
-                <FaThumbsUp
-                  size={12}
-                  className={styles.thumbs}
-                  color={
-                    comment.liked
-                      ? "var(--color-amber-400)"
-                      : "var( --color-gray-300)"
-                  }
-                  onClick={() => {
-                    handleLike(comment.commentId, comment.liked);
-                  }}
-                />
-                <p className={styles.likeCount}> {comment.likeCount}</p>
-              </>
-            )}
+                    <p className={styles.likeCount}> {comment.likeCount}</p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
           <p className={styles.comment_text}>{comment.contents}</p>
         </div>
@@ -145,6 +154,7 @@ const CommentItem = ({
               className={styles.user_img}
             />
           </div>
+
           <Input
             size="sm"
             placeholder="답글을 입력해주세요."
@@ -155,7 +165,14 @@ const CommentItem = ({
               flex: 1,
             }}
           />
-          <Button variant="ghost" size="md" type="submit">
+          <Button
+            variant="ghost"
+            size="md"
+            type="submit"
+            style={{
+              whiteSpace: "nowrap",
+            }}
+          >
             등록하기
           </Button>
         </form>

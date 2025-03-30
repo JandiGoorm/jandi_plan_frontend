@@ -376,6 +376,7 @@
 
   --color-editor-blockquote-bg: var(--color-gray-100);
   --color-editor-blockquote-border: var(--color-gray-300);
+  --color-editor-pre-bg: var(--color-gray-100);
 
   --color-admin-bg: var(--color-white);
 
@@ -414,6 +415,7 @@
 
   --color-editor-blockquote-bg: var(--color-gray-600);
   --color-editor-blockquote-border: var(--color-gray-400);
+  --color-editor-pre-bg: var(--color-gray-600);
 
   --color-admin-bg: var(--color-zinc-950);
 

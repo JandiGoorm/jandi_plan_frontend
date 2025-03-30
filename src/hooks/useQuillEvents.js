@@ -17,23 +17,33 @@ const useQuillEvents = (quill, setValue, targetId, category) => {
 
     const handleImage = async (file) => {
       const range = quill.getSelection();
+      const insertIndex = range?.index ?? 0;
 
-      await uploadCommunityImage(file, targetId, category)
-        .then((res) => {
-          createToast({
-            type: "success",
-            text: "이미지가 성공적으로 업로드되었습니다.",
-          });
-          const imageUrl = res.data.imageUrl;
-          quill.insertEmbed(range?.index ?? 0, "image", imageUrl, "user");
-          quill.setSelection((range?.index ?? 0) + 1);
-        })
-        .catch(() =>
-          createToast({
-            type: "error",
-            text: "이미지 업로드에 실패했습니다.",
-          })
-        );
+      const loadingImageUrl = "/Loading_icon.gif";
+      quill.insertEmbed(insertIndex, "image", loadingImageUrl, "user");
+
+      try {
+        const res = await uploadCommunityImage(file, targetId, category);
+        const imageUrl = res.data.imageUrl;
+
+        createToast({
+          type: "success",
+          text: "이미지가 성공적으로 업로드되었습니다.",
+        });
+
+        quill.deleteText(insertIndex, 1, "user");
+        quill.insertEmbed(insertIndex, "image", imageUrl, "user");
+        quill.setSelection(insertIndex + 1);
+
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        createToast({
+          type: "error",
+          text: "이미지 업로드에 실패했습니다.",
+        });
+
+        quill.deleteText(insertIndex, 1, "user");
+      }
     };
 
     const handlePaste = (e) => {

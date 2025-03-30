@@ -21,3 +21,34 @@
   font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
 }
+
+.input {
+  width: 30rem;
+  margin-top: 0.5rem;
+
+  border: 1px solid var(--color-gray-300);
+  outline: none;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-family: "42dot Sans", serif;
+}
+
+.input::placeholder {
+  color: var(--color-gray-400);
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    width: 30rem;
+  }
+
+  .input {
+    width: 20rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    width: 25rem;
+  }
+}

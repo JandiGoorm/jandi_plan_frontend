@@ -108,47 +108,53 @@ const ReplyComment = ({ commentId, user, fetchComments }) => {
 
             <div className={styles.flex_column}>
               <div className={styles.comment_info}>
-                <p className={styles.comment_user_name}>
-                  {comment.user.userName}
-                </p>
-                <p className={styles.comment_date}>{formatDate}</p>
-                {user.userId === comment.user.userId ? (
-                  <>
-                    <p
-                      className={styles.report}
-                      onClick={() => deleteReply(comment.commentId)}
-                    >
-                      삭제
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <Modal>
-                      <ModalTrigger>
-                        <p className={styles.report}>신고</p>
-                      </ModalTrigger>
-                      <ModalContent>
-                        <ReportModal
-                          id={comment.commentId}
-                          getUrl="commentReport"
+                <div className={styles.comment_box}>
+                  <p className={styles.comment_user_name}>
+                    {comment.user.userName}
+                  </p>
+                  <p className={styles.comment_date}>{formatDate}</p>
+                </div>
+                <div className={styles.comment_box}>
+                  {user.userId === comment.user.userId ? (
+                    <>
+                      <p
+                        className={styles.report}
+                        onClick={() => deleteReply(comment.commentId)}
+                      >
+                        삭제
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <Modal>
+                        <ModalTrigger>
+                          <p className={styles.report}>신고</p>
+                        </ModalTrigger>
+                        <ModalContent>
+                          <ReportModal
+                            id={comment.commentId}
+                            getUrl="commentReport"
+                          />
+                        </ModalContent>
+                      </Modal>
+                      <div className={styles.up_icon}>
+                        <FaThumbsUp
+                          size={12}
+                          className={styles.thumbs}
+                          color={
+                            comment.liked
+                              ? "var(--color-amber-400)"
+                              : "var( --color-gray-300)"
+                          }
+                          onClick={() => {
+                            handleLike(comment.commentId, comment.liked);
+                          }}
                         />
-                      </ModalContent>
-                    </Modal>
-                    <FaThumbsUp
-                      size={12}
-                      className={styles.thumbs}
-                      color={
-                        comment.liked
-                          ? "var(--color-amber-400)"
-                          : "var( --color-gray-300)"
-                      }
-                      onClick={() => {
-                        handleLike(comment.commentId, comment.liked);
-                      }}
-                    />
-                    <p className={styles.likeCount}> {comment.likeCount}</p>
-                  </>
-                )}
+                        <p className={styles.likeCount}> {comment.likeCount}</p>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
               <p className={styles.comment_text}>{comment.contents}</p>
             </div>

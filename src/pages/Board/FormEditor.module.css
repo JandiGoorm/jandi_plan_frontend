@@ -19,6 +19,12 @@
   justify-content: space-between;
 }
 
+.error {
+  font-size: var(--text-sm);
+  color: var(--color-red-500);
+  font-weight: var(--font-weight-bold);
+}
+
 :global(.ql-container) {
   height: 100%;
   flex: 1;

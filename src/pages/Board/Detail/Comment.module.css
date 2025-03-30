@@ -29,6 +29,8 @@
   border-radius: var(--radius-full);
   overflow: hidden;
   box-shadow: var(--shadow-md);
+
+  flex-shrink: 0;
 }
 
 .comment_container {

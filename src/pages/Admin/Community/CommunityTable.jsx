@@ -63,7 +63,7 @@ const CoummunityTable = ({
                       <ModalContent>
                         <DeleteModal
                           callback={() =>
-                            deleteCommunity(community.postId).then(() =>
+                            deleteCommunity(community.postId, true).then(() =>
                               refetch()
                             )
                           }

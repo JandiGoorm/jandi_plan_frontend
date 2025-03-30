@@ -54,10 +54,7 @@ const PlaceAutocomplete = ({ onPlaceSelect }) => {
   return (
     <Input
       ref={inputRef}
-      style={{
-        width: "30rem",
-        marginTop: "0.5rem",
-      }}
+      className={styles.input}
       placeholder="주소 또는 장소명을 입력하세요."
     />
   );

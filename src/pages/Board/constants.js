@@ -11,7 +11,10 @@ export const tagScheme = z.object({
 });
 
 export const boardWriteScheme = z.object({
-  title: z.string().nonempty({ message: "제목을 입력하세요." }),
+  title: z
+    .string()
+    .nonempty({ message: "제목을 입력하세요." })
+    .max(20, { message: "제목은 20자 이내로 입력해주세요." }),
   content: z.preprocess((content) => {
     if (typeof content === "object" && content !== null) {
       return JSON.stringify(content);

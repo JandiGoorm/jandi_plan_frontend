@@ -140,7 +140,11 @@ const Header = ({ forceDark = false }) => {
                   if (!tooltip) return;
                   return (
                     <Tooltip key={index} text={tooltip.text}>
-                      <Button variant="solid" size="sm">
+                      <Button
+                        variant="solid"
+                        size="sm"
+                        onClick={tooltip.onClick}
+                      >
                         {tooltip.icon}
                       </Button>
                     </Tooltip>
