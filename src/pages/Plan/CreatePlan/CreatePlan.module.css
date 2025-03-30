@@ -1,10 +1,11 @@
 .container {
+  width: 100%;
+
   flex: 1;
   box-sizing: border-box;
-  max-height: 70vh;
-  width: 100%;
   display: flex;
   align-items: stretch;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -21,8 +22,8 @@
   width: 50%;
 }
 
-.plan_photo_box.no_image {
-  width: 25%;
+.no_image {
+  width: 0;
 }
 
 .plan_photo {
@@ -57,11 +58,7 @@
 
 @media (max-width: 1000px) {
   .plan_photo_box.has_image {
-    width: 5%;
-  }
-
-  .plan_photo_box.no_image {
-    width: 5%;
+    width: 0;
   }
 
   .plan_photo {
