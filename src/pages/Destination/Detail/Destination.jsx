@@ -43,6 +43,14 @@ const Destination = () => {
     [getRestaurants]
   );
 
+  const handleNavigate = useCallback(
+    (id) => {
+      const path = buildPath(PageEndPoints.PLAN_DETAIL, { id });
+      navigate(path);
+    },
+    [navigate]
+  );
+
   // 도시 정보 가져오기
   const fetchDestination = useCallback(async () => {
     return await getDestination({
@@ -109,7 +117,14 @@ const Destination = () => {
           </div>
 
           <Slider items={plans?.items || []} size="md">
-            {(item) => <PlanCard key={item.tripId} item={item} />}
+            {(item) => 
+              <div
+              key={item.tripId}
+              onClick={() => handleNavigate(item.tripId)}
+              >
+                <PlanCard item={item} />
+              </div>
+            }
           </Slider>
         </div>
       </div>

@@ -2,9 +2,10 @@ import { Button, Input, Loading, Pagination, PlanCard } from "@/components";
 import { PageEndPoints,APIEndPoints } from "@/constants";
 import { usePagination, usePlans } from "@/hooks";
 import { BaseLayout } from "@/layouts";
-import { useEffect,useMemo, useState } from "react";
+import { useEffect,useMemo, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./MyPlanList.module.css";
+import { buildPath } from "@/utils";
 
 const PlanList = () => {
   const { currentPage, totalPage, setTotalPage, handlePageChange } = usePagination();
@@ -26,6 +27,14 @@ const PlanList = () => {
 
     return secondSegment === "my" ? APIEndPoints.TRIP_MY : secondSegment === "like" ? APIEndPoints.TRIP_LIKED : APIEndPoints.TRIP_SEARCH;
   }, [location.pathname]);
+
+  const handleNavigate = useCallback(
+    (id) => {
+      const path = buildPath(PageEndPoints.PLAN_DETAIL, { id });
+      navigate(path);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     if (!fetchUrl) return;
@@ -61,7 +70,12 @@ const PlanList = () => {
 
         <div className={styles.plan_container}>
           {userPlans?.items.map((item) => (
-            <PlanCard key={item.tripId} item={item} />
+            <div
+            key={item.tripId}
+            onClick={() => handleNavigate(item.tripId)}
+           >
+              <PlanCard item={item} />
+            </div>
           ))}
         </div>
 
