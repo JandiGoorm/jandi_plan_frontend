@@ -42,7 +42,12 @@ const CreatePlanPage = () => {
           ) : null}
         </div>
 
-        <div className={styles.plan_container}>
+        <div
+          className={styles.plan_container}
+          style={{
+            marginRight: selectedCity ? "0px" : "1rem",
+          }}
+        >
           <p className={styles.title}>어디로 놀러가시나요?</p>
 
           <FormCreatePlan
