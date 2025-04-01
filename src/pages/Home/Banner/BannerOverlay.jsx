@@ -32,6 +32,7 @@ const BannerOverlay = ({
   return (
     <div className={styles.embla_overlay}>
       <div className={styles.centered}>
+        {/** web용 overlay */}
         <div className={styles.banner_info}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
@@ -78,6 +79,58 @@ const BannerOverlay = ({
 
             <button className={styles.button} onClick={onNextButtonClick}>
               <MdKeyboardArrowRight size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/** mobile용 overlay */}
+        <div className={styles.banner_mobile_info}>
+          <div className={styles.banner_mobile_overay} />
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={banner.title}
+              variants={titleVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, transition: { duration: 0 } }}
+              className={styles.title_container}
+            >
+              {title.split("\\n").map((line, index) => (
+                <motion.div key={index} variants={lineVariants}>
+                  <h1>{line}</h1>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              key={desc}
+              variants={descContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, transition: { duration: 0 } }}
+              className={styles.desc_container}
+            >
+              {desc?.split("\\n").map((line, index) => (
+                <motion.div key={index} variants={lineVariants}>
+                  <p>{line}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+
+          <div className={styles.pagination}>
+            <button className={styles.button} onClick={onPrevButtonClick}>
+              <MdKeyboardArrowLeft size={20} />
+            </button>
+
+            <div className={styles.pagination_text}>
+              <p>{currentIndex + 1}</p>
+              <p className={styles.slash}>/</p>
+              <p className={styles.banners_length}>{bannersLength}</p>
+            </div>
+
+            <button className={styles.button} onClick={onNextButtonClick}>
+              <MdKeyboardArrowRight size={20} />
             </button>
           </div>
         </div>
