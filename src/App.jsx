@@ -3,6 +3,7 @@ import { DarkModeProvider, ToastProvider, AuthProvider } from "@/contexts";
 import { ToastList } from "./components";
 import { PrivateRoute, ScrollToTop } from "@/routes";
 import { routes } from "./routes/routes";
+import RouteChangeTracker from "./RouteChangeTracker";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <ToastList />
         <BrowserRouter>
           <ScrollToTop />
+          <RouteChangeTracker />
           <AuthProvider>
             <Routes>
               {routes.map((route) => {
