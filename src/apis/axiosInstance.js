@@ -109,6 +109,31 @@ const protectedEndpoints = new Set([
   `POST:${APIEndPoints.MAP_RESTAURANT}`,
 ]);
 
+function sendJenniferEvent(type, config, response, error) {
+  if (!window.jenniferFront) return;
+
+  const page = window.location.pathname + window.location.search;
+  const event = {
+    type,
+    method: config.method && config.method.toUpperCase(),
+    url: config.url,
+    page,
+    timestamp: new Date().toISOString(),
+  };
+
+  if (response) {
+    event.status = response.status;
+    event.data = response.data;
+  }
+
+  if (error) {
+    event.status = error.response?.status || "NETWORK_ERROR";
+    event.message = error.message;
+  }
+
+  window.jenniferFront(event);
+}
+
 axiosInstance.interceptors.request.use((config) => {
   const requestKey = `${config.method.toUpperCase()}:${config.url}`;
 
@@ -120,14 +145,19 @@ axiosInstance.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem("access-token")??"";
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  sendJenniferEvent("ajaxRequest", config);
+
   return config;
 });
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    sendJenniferEvent("ajaxResponse", response.config, response);
     return response;
   },
   async (error) => {
+    sendJenniferEvent("ajaxError", error.config, null, error);
     if (
       error.response.status === 401 &&
       error.config.url !== APIEndPoints.REFRESH
