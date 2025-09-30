@@ -6,9 +6,9 @@ export default function RouteChangeTracker() {
   const prevPath = useRef("");
 
   useEffect(() => {
+    const currentPath = location.pathname + location.search;
+    const referrer = prevPath.current || document.referrer;
     if (window.jenniferFront) {
-      const currentPath = location.pathname + location.search;
-      const referrer = prevPath.current || document.referrer;
 
       window.jenniferFront({
         type: "pageview",          // 페이지뷰 이벤트 타입
@@ -17,8 +17,6 @@ export default function RouteChangeTracker() {
         referrer: referrer,        // 이전 페이지
         timestamp: new Date().toISOString(),
       });
-
-      console.log("Jennifer Front page tracked:", currentPath, "ref:", referrer);
 
       prevPath.current = currentPath;
     }
