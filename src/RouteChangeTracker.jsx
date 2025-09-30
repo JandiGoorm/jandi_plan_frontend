@@ -5,23 +5,31 @@ export default function RouteChangeTracker() {
   const location = useLocation();
   const prevPath = useRef("");
 
-  console.log(location);
-
   useEffect(() => {
     const currentPath = location.pathname + location.search;
     const referrer = prevPath.current || document.referrer;
-    if (window.jenniferFront) {
 
-      window.jenniferFront({
-        type: "pageview",          // 페이지뷰 이벤트 타입
-        page: currentPath,         // 현재 페이지 경로
-        title: document.title,     // 페이지 타이틀
-        referrer: referrer,        // 이전 페이지
-        timestamp: new Date().toISOString(),
-      });
+    const eventData = {
+      type: "pageview",
+      page: currentPath,
+      title: document.title,
+      referrer,
+      timestamp: new Date().toISOString(),
+    };
 
-      prevPath.current = currentPath;
+    // 안전하게 Jennifer Front 이벤트 전송
+    function sendJennifer() {
+      if (window.jenniferFront && typeof window.jenniferFront === "function") {
+        window.jenniferFront(eventData);
+        console.log("[Jennifer] pageview sent:", currentPath);
+      } else {
+        setTimeout(sendJennifer, 100); // 0.1초 후 재시도
+      }
     }
+
+    sendJennifer();
+
+    prevPath.current = currentPath;
   }, [location]);
 
   return null;
