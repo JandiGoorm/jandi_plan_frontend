@@ -5,6 +5,8 @@ export default function RouteChangeTracker() {
   const location = useLocation();
   const prevPath = useRef("");
 
+  console.log(location);
+
   useEffect(() => {
     const currentPath = location.pathname + location.search;
     const referrer = prevPath.current || document.referrer;
